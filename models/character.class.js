@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     height = 200;
     x = 100;
-    y = -70;
+    y = 230;
     //y default = 230;
     speed = 9;
     
@@ -40,7 +40,8 @@ class Character extends MovableObject {
         'img/2_character_pepe/3_jump/J-39.png'
     ];
 
-    footstep_sound = new Audio('audio/footstep-dirt.mp3')
+    footstep_sound = new Audio('audio/footstep-dirt.mp3');
+
 
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
@@ -57,14 +58,18 @@ class Character extends MovableObject {
                 this.otherDirection = false;
                 this.footstep_sound.play();
             }
-
-            this.world.camera_x = -this.x + 100 
         
             if(this.world.keyboard.LEFT && this.x > this.world.level.level_start_x){
                 this.x -= this.speed;
                 this.otherDirection = true;
                 this.footstep_sound.play();
-            }    
+            }
+            
+            if(this.world.keyboard.UP && !this.isAboveGround()){
+                this.jump();
+            }
+            
+            this.world.camera_x = -this.x + 100 
         }, 1000 / 60);
        
         setInterval(() => {
@@ -75,16 +80,8 @@ class Character extends MovableObject {
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
                 this.playAnimation(this.IMAGES_WALKING);
                 }
-            }
-
-
-            
+            }            
         },1000 / 15);
-    }
-    
-
-    
-    jump(){
-       
-    }
+    }    
+   
 }
