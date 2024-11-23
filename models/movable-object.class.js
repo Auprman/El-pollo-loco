@@ -32,4 +32,11 @@ class MovableObject {
     moveRight() {
        
     }
+
+    playAnimation(images) {
+        let i = this.currenImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currenImage ++;
+    }
 }
