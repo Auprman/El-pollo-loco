@@ -18,17 +18,45 @@ class MovableObject {
 
     loadImages(arr) {
 
-        arr.forEach(path => {
+    arr.forEach(path => {
         let img = new Image();
         img.src = path;
         this.imageCache[path] = img;
      });
     }
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height); 
+    }
+
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'green';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
+
+    moveRight() {
+        this.x += this.speed;
+    }
+
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
+    }
+
+    mirrorImage(ctx) {
+            ctx.save();
+            ctx.translate(this.width, 0)
+            ctx.scale(-1, 1);
+            this.x = this.x * -1;
+    }
+
+    restoreImage(ctx) {
+        ctx.restore();
+        this.x = this.x * - 1;
     }
 
     playAnimation(images) {
@@ -37,8 +65,6 @@ class MovableObject {
         this.img = this.imageCache[path];
         this.currenImage ++;
     }
-
-    
 
     applyGravity() {
         setInterval(() => {
