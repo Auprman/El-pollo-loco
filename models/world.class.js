@@ -6,7 +6,8 @@ class World {
     canvas;
     ctx;
     keyboard;
-    camera_x = 0; 
+    camera_x = 0;
+    throwableObject = []; 
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -14,35 +15,48 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
 }
+    run() {
+        setInterval(() => {
+            this.checkThrowObjects();
+            this.checkCollisions();
+        }, 200);
+    }
+
     setWorld() {
         this.character.world = this;
     }
 
+    checkThrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100 );
+            this.throwableObject.push(bottle);
+        }
+    }
+
     checkCollisions() {
-        setInterval(() => {
             this.level.enemies.forEach((enemy)=> {
                 if (this.character.isColliding(enemy)) {
-                    // console.log('Collision with character ', this.character);
                     this.character.hit();
                     this.character.isDead();
+                    this.statusBar.setPercentage(this.character.energy)
                  }
             })
-        },200);
-    }
+        }
 
     draw() {
         //This function clears the drawn image 
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        this.ctx.translate(this.camera_x, 0);
-
+        this.ctx.translate(this.camera_x, 0); 
         this.addObjectToMap(this.level.backgroundObjects);
+        this.ctx.translate(-this.camera_x, 0); //Camera back
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0); //Camera forwards 
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.enemies);
+        this.addObjectToMap(this.throwableObject);
         this.addToMap(this.character);
-        this.addToMap(this.statusBar);
         
         
         this.ctx.translate( -this.camera_x, 0);
