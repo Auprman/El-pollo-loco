@@ -1,7 +1,9 @@
 class World {
 
     character = new Character();
-    statusBar = new StatusBar();
+    statusBarHealth = new StatusBar(0, 10);
+    statusBarCoins = new StatusBar(0, 40);
+    statusBarBottles = new StatusBar(0, 70);
     level = level1;
     canvas;
     ctx;
@@ -16,7 +18,14 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.setStatusBarImgPath()
 }
+    
+    setStatusBarImgPath() {
+        this.statusBarCoins.IMAGES_STATUS_BAR_HEALTH = this.statusBarCoins.IMAGES_STATUS_BAR_COINS
+        this.statusBarBottles.IMAGES_STATUS_BAR_HEALTH = this.statusBarCoins.IMAGES_STATUS_BAR_BOTTLES
+    }
+
     run() {
         setInterval(() => {
             this.checkThrowObjects();
@@ -40,7 +49,7 @@ class World {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
                     this.character.isDead();
-                    this.statusBar.setPercentage(this.character.energy)
+                    this.statusBarHealth.setPercentage(this.character.energy, this.statusBarHealth.IMAGES_STATUS_BAR_HEALTH)
                  }
             })
         }
@@ -51,7 +60,9 @@ class World {
         this.ctx.translate(this.camera_x, 0); 
         this.addObjectToMap(this.level.backgroundObjects);
         this.ctx.translate(-this.camera_x, 0); //Camera back
-        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarHealth);
+        this.addToMap(this.statusBarBottles);
+        this.addToMap(this.statusBarCoins);
         this.ctx.translate(this.camera_x, 0); //Camera forwards 
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.enemies);
