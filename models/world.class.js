@@ -18,13 +18,8 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.setStatusBarImgPath()
 }
     
-    setStatusBarImgPath() {
-        this.statusBarCoins.IMAGES_STATUS_BAR_HEALTH = this.statusBarCoins.IMAGES_STATUS_BAR_COINS
-        this.statusBarBottles.IMAGES_STATUS_BAR_HEALTH = this.statusBarCoins.IMAGES_STATUS_BAR_BOTTLES
-    }
 
     run() {
         setInterval(() => {
