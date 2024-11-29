@@ -1,9 +1,9 @@
 class World {
 
     character = new Character();
-    statusBarHealth = new StatusBar(0, 10);
-    statusBarCoins = new StatusBar(0, 40);
-    statusBarBottles = new StatusBar(0, 70);
+    statusBarHealth = new StatusBar(0, 10, 'health');
+    statusBarCoins = new StatusBar(0, 50, 'coins');
+    statusBarBottles = new StatusBar(0, 90, 'bottles');
     level = level1;
     canvas;
     ctx;
@@ -12,14 +12,21 @@ class World {
     throwableObject = []; 
 
     constructor(canvas, keyboard) {
+        
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
         this.run();
+        this.setStatusBarImages()        
 }
-    
+
+setStatusBarImages() {        
+        this.statusBarHealth.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_HEALTH[0])
+        this.statusBarCoins.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_COINS[0])
+        this.statusBarBottles.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_BOTTLES[0])      
+}
 
     run() {
         setInterval(() => {
@@ -30,6 +37,9 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.statusBarBottles.world = this;
+        this.statusBarCoins.world = this;
+        this.statusBarBottles.world = this;
     }
 
     checkThrowObjects() {
@@ -61,6 +71,7 @@ class World {
         this.ctx.translate(this.camera_x, 0); //Camera forwards 
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.enemies);
+        this.addObjectToMap(this.level.coins);
         this.addObjectToMap(this.throwableObject);
         this.addToMap(this.character);
         
