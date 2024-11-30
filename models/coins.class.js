@@ -1,7 +1,7 @@
 class Coin extends MovableObject{
 
     x = 200;
-    y = 335;
+    y = 330;
     width = 150;
     height = 150;
     direction = -1;
@@ -9,13 +9,19 @@ class Coin extends MovableObject{
         'img/8_coin/coin_1.png',
         'img/8_coin/coin_2.png'
     ]
- constructor () {
+ constructor (x, y) {
     super();
     this.loadImages(this.IMAGES_COINS)
     this.loadImage(this.IMAGES_COINS[0]);
-    this.animateCoin()
+    this.randomCoinPositionX();
+    this.animateCoin();
  }   
 
+ collect_coin_sound = new Audio('audio/collect-coin.mp3');
+/**
+ * This function animates the coin by increasing and decreasing the width and height from 160 - 140 px
+ * 
+ */
  animateCoin() {
     setInterval(() => {
         if (this.width <= 140 || this.width >= 160) {
@@ -29,9 +35,14 @@ class Coin extends MovableObject{
 
         const widthDiff = (oldWidth - this.width) / 2;
         const heightDiff = (oldHeight - this.height) / 2;
-        
+
         this.x += widthDiff;
         this.y += heightDiff;
     }, 50);
 }
+randomCoinPositionX() {
+    this.x = Math.random() * 1900
+}
+
+
 }

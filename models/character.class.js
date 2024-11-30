@@ -58,6 +58,7 @@ class Character extends MovableObject {
     ];
 
     footstep_sound = new Audio('audio/footstep-dirt.mp3');
+    jump_sound = new Audio('audio/jump1.mp3')
 
 
     constructor() {
@@ -74,18 +75,19 @@ class Character extends MovableObject {
         setInterval(() => {
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
                 this.moveRight() ;              
-                this.footstep_sound.play();
+                !this.isAboveGround() ? this.footstep_sound.play() : null;
                 this.otherDirection = false;
             }
         
             if(this.world.keyboard.LEFT && this.x > this.world.level.level_start_x){
                 this.moveLeft();
-                this.footstep_sound.play();
+                !this.isAboveGround() ? this.footstep_sound.play() : null;
                 this.otherDirection = true;
             }
             
             if(this.world.keyboard.SPACE && !this.isAboveGround()){
                 this.jump();
+                this.jump_sound.play();
             }
             
             this.world.camera_x = -this.x + 100 

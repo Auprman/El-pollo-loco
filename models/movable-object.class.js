@@ -64,11 +64,17 @@ class MovableObject extends DrawableObject {
     }
 
     // Bessere Formel zur Kollisionsberechnung unter dem Video 10 Collision detection
-    isColliding (mo) {
-        return  this.x + this.width > mo.x &&
-                this.y + this. height > mo.y &&
-                this.x < mo.x &&
-                this.y < mo.y + mo.height
+    isColliding (mo, offsetXmo, offsetYmo) {
+        let offsetX = 0;
+        let offsetY = 0;
+        if (offsetXmo && offsetYmo) {
+            offsetX = offsetXmo;
+            offsetY = offsetYmo;
+        }
+        return  this.x + this.width > mo.x + offsetX &&
+                this.y + this. height > mo.y + offsetY &&
+                this.x < mo.x + mo.width - offsetX &&
+                this.y < mo.y + mo.height - offsetY
     }
 
 

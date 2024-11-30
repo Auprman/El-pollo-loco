@@ -9,7 +9,11 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    throwableObject = []; 
+    coinAmount = 0;
+    bottleAmount = 0;
+    throwableObject = [];
+    maxCoins = this.level.coins.length;
+    
 
     constructor(canvas, keyboard) {
         
@@ -19,7 +23,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.setStatusBarImages()        
+        this.setStatusBarImages();           
 }
 
 setStatusBarImages() {        
@@ -32,8 +36,10 @@ setStatusBarImages() {
         setInterval(() => {
             this.checkThrowObjects();
             this.checkCollisions();
+            this.checkCoinCollision();
         }, 200);
     }
+
 
     setWorld() {
         this.character.world = this;
@@ -42,12 +48,14 @@ setStatusBarImages() {
         this.statusBarBottles.world = this;
     }
 
+
     checkThrowObjects() {
         if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100 );
             this.throwableObject.push(bottle);
         }
     }
+
 
     checkCollisions() {
             this.level.enemies.forEach((enemy)=> {
@@ -58,6 +66,28 @@ setStatusBarImages() {
                  }
             })
         }
+
+
+    checkCoinCollision() {
+        let coinOffsetX = 50;
+        let coinOffsetY = 50;
+        this.level.coins.forEach((coin, index)=> {
+            if (this.character.isColliding(coin, coinOffsetX, coinOffsetY)) { 
+                this.level.coins.splice(index, 1)
+                this.coinAmount++;
+                coin.collect_coin_sound.play();
+                this.statusBarCoins.setPercentage(this.getPercentageOfCoins(), this.statusBarCoins.IMAGES_STATUS_BAR_COINS)
+                console.log(this.getPercentageOfCoins());
+                                
+            }
+        })
+     }
+
+
+    getPercentageOfCoins() {        
+        return this.coinAmount / this.maxCoins * 100;
+    }
+
 
     draw() {
         //This function clears the drawn image 
