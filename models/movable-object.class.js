@@ -14,7 +14,7 @@ class MovableObject extends DrawableObject {
 
 
     moveLeft() {
-        this.x -= this.speed;
+           this.x -= this.speed;  
     }
 
 
@@ -98,4 +98,5 @@ class MovableObject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
+
 }

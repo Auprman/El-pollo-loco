@@ -27,7 +27,7 @@ class World {
 }
 
 setStatusBarImages() {        
-        this.statusBarHealth.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_HEALTH[0])
+        this.statusBarHealth.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_HEALTH[5])
         this.statusBarCoins.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_COINS[0])
         this.statusBarBottles.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_BOTTLES[0])      
 }
@@ -37,7 +37,7 @@ setStatusBarImages() {
             this.checkThrowObjects();
             this.checkCollisions();
             this.checkCoinCollision();
-        }, 200);
+        }, 150);
     }
 
 
@@ -59,13 +59,21 @@ setStatusBarImages() {
 
     checkCollisions() {
             this.level.enemies.forEach((enemy)=> {
-                if (this.character.isColliding(enemy)) {
+                if (this.character.isColliding(enemy) && !enemy.isDead) {
                     this.character.hit();
+                    this.jumpOnTop(enemy)
                     this.character.isDead();
-                    this.statusBarHealth.setPercentage(this.character.energy, this.statusBarHealth.IMAGES_STATUS_BAR_HEALTH)
+                    this.statusBarHealth.setPercentage(this.character.energy, this.statusBarHealth.IMAGES_STATUS_BAR_HEALTH);
                  }
             })
         }
+
+    jumpOnTop(enemy) {
+        if(this.character.y <= 180 && this.character.isHurt()) {
+            enemy.dead();
+        }
+        
+    }
 
 
     checkCoinCollision() {
@@ -76,9 +84,7 @@ setStatusBarImages() {
                 this.level.coins.splice(index, 1)
                 this.coinAmount++;
                 coin.collect_coin_sound.play();
-                this.statusBarCoins.setPercentage(this.getPercentageOfCoins(), this.statusBarCoins.IMAGES_STATUS_BAR_COINS)
-                console.log(this.getPercentageOfCoins());
-                                
+                this.statusBarCoins.setPercentage(this.getPercentageOfCoins(), this.statusBarCoins.IMAGES_STATUS_BAR_COINS);
             }
         })
      }

@@ -40,6 +40,7 @@ class Coin extends MovableObject{
         this.y += heightDiff;
     }, 50);
 }
+
 randomCoinPositionX() {
     this.x = Math.random() * 1900
 }

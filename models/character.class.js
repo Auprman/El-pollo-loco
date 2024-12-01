@@ -6,6 +6,7 @@ class Character extends MovableObject {
     //y default = 230;
     speed = 9;
     world;
+    deadAnimationPlayed = false;
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -94,8 +95,9 @@ class Character extends MovableObject {
         }, 1000 / 60);
        
         setInterval(() => {
-            if(this.isDead()){
+            if(this.isDead() && !this.deadAnimationPlayed){
              this.playAnimation(this.IMAGES_DEAD);
+             this.deadAnimationPlayed = true;  // Hier weiter mit der Sterbeanimation... Animation wird nicht komplett gezeigt....
             }else if(this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT)
             }else if(this.isAboveGround()){
