@@ -88,6 +88,7 @@ setStatusBarImages() {
 
     jumpOnTop(enemy) {
         if(this.character.y <= 180 && this.character.isHurt()) {
+            this.character.speedY = 7;
             enemy.dead();
         }
         
