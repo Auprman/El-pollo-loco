@@ -46,20 +46,28 @@ class Endboss extends MovableObject {
         this.animate();
      }
      
-     animate() {
-       setInterval(() => {
-        this.playAnimation(this.IMAGES_ALERT);
-       }, 180);
+     animate() {      
+         setInterval(() => {
+            if (this.isHurt()) {
+               console.log(this.isHurt());
+               
+               this.playAnimation(this.IMAGES_HURT);
+            }else if(!this.isHurt() && this.isDead == true){
+               this.playAnimation(this.IMAGES_DIE); 
+               this.y += 30;
+               //Hier könnte man bei y= 800 das Ende einleiten...          
+            }else {
+               this.playAnimation(this.IMAGES_ALERT);
+            }               
+       }, 150)
     }
     
     
     dead() {
-      if(this.hits >= 3){
+         if(this.hits >= 3){
          this.isDead = true;
-         this.playAnimation(this.IMAGES_DIE);
       }else {
          this.hits++;
       }
-      
    }
 }

@@ -73,12 +73,14 @@ setStatusBarImages() {
     checkBottleCollision() {
         this.throwableObject.forEach((bottle) => {
            this.level.enemies.forEach((enemy) => {
-           if(bottle.isColliding(enemy) && !enemy.isDead){
+           if(bottle.isColliding(enemy) && !enemy.isDead && bottle.bottleUnbroken == true){
+            bottle.bottleUnbroken = false;         
             bottle.splashBottle();
             bottle.speedY = 3;           
             enemy.dead();
             bottle.bottle_break.play();
-            bottle.bottleUnbroken = false;         
+            enemy.hit();
+            enemy.isHurt();
            }
            })
         })

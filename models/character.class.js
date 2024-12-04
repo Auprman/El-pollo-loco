@@ -100,7 +100,6 @@ class Character extends MovableObject {
             }else if(this.isAboveGround()){
                 this.playAnimation(this.IMAGES_JUMPING);
             }else{
-                // Walk animation
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
                 this.playAnimation(this.IMAGES_WALKING);
                 }
