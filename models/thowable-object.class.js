@@ -2,6 +2,8 @@ class ThrowableObject extends MovableObject{
 
     speedX = 20;
     speedY = 30;
+    bottle_break = new Audio('audio/bottle_hit.mp3')
+    bottleUnbroken = true;
 
     BOTTLE_IMAGES_ROTATE = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -28,10 +30,29 @@ class ThrowableObject extends MovableObject{
     }
     throwBottle() {
         this.speedY = 10;
-        this.applyGravity();
+        this.applyGravity();        
+        this.rotateBottle();
         setInterval(() => {
-            this.x += 12 ;
+            if(this.bottleUnbroken){
+                this.x += 12 ;
+            }else{
+                this.x += 1;
+            }
         },25)
     }
+
+    rotateBottle() {
+        setInterval(() => {
+            this.playAnimation(this.BOTTLE_IMAGES_ROTATE);
+        }, 60);
+    }
+
+    splashBottle() {
+        setInterval(() => {
+            this.playAnimation(this.BOTTLE_IMAGES_SPLASH);
+        }, 25);
+    }
+
+
 
 }

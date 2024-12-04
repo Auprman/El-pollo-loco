@@ -37,6 +37,7 @@ setStatusBarImages() {
             this.checkThrowObjects();
             this.checkCollisions();
             this.checkCoinCollision();
+            this.checkBottleCollision()
         }, 150);
     }
 
@@ -52,7 +53,7 @@ setStatusBarImages() {
     checkThrowObjects() {
         if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100 );
-            this.throwableObject.push(bottle);
+            this.throwableObject.push(bottle);           
         }
     }
 
@@ -67,6 +68,21 @@ setStatusBarImages() {
                  }
             })
         }
+
+
+    checkBottleCollision() {
+        this.throwableObject.forEach((bottle) => {
+           this.level.enemies.forEach((enemy) => {
+           if(bottle.isColliding(enemy) && !enemy.isDead){
+            bottle.splashBottle();
+            bottle.speedY = 3;           
+            enemy.dead();
+            bottle.bottle_break.play();
+            bottle.bottleUnbroken = false;         
+           }
+           })
+        })
+    }
 
     jumpOnTop(enemy) {
         if(this.character.y <= 180 && this.character.isHurt()) {

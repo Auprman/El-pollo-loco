@@ -10,7 +10,8 @@ class DrawableObject {
     constructor() {
     }
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin ) {
+        if (this instanceof Character 
+            || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof ThrowableObject) {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'green';
@@ -33,7 +34,6 @@ class DrawableObject {
         } catch (error){
             console.log('Error loading image', error);
             console.log('Could not load image', this.img);
-            
         }
         
     }
