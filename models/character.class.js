@@ -21,6 +21,19 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-10.png'
     ];
 
+    IMAGES_LONGIDLE = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png',
+    ];
+
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -68,8 +81,11 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONGIDLE);
         this.animate();
         this.applyGravity();
+        this.checkIfIdle()
     }
     
     animate() {
@@ -105,6 +121,27 @@ class Character extends MovableObject {
                 }
             }            
         },1000 / 15);
-    }    
-   
+    }
+    
+   checkIfIdle() {
+    let lastX = this.x;
+    let lastY = this.y;
+    let idleTime = 0;
+    setInterval(() => {  
+        if (this.x === lastX && this.y === lastY) {
+            idleTime += 200; 
+            if (idleTime >= 6000 && idleTime <= 10000) {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
+            if(idleTime >= 10000){
+                this.playAnimation(this.IMAGES_LONGIDLE);
+            }
+        } else {
+            idleTime = 0; 
+        }
+        lastX = this.x;
+        lastY = this.y;
+    }, 200); 
+}
+
 }

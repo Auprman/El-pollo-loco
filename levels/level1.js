@@ -50,11 +50,11 @@ const level1 = new Level(
             
         ],
         [ 
-        new ThrowableObject(10, 200),
-        new ThrowableObject(10, 200),
-        new ThrowableObject(444, 200),
-        new ThrowableObject(204, 200),
-        new ThrowableObject(204, 200)
+        new ThrowableObject(10, 400, false),
+        new ThrowableObject(200, 400, false),
+        new ThrowableObject(444, 400, false),
+        new ThrowableObject(204, 400, false),
+        new ThrowableObject(204, 400, false)
         ]
-        
+    
     );

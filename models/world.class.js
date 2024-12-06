@@ -23,7 +23,15 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.setStatusBarImages();           
+        this.setStatusBarImages(); 
+        this.addBottlesToThrowableObjects();          
+}
+
+addBottlesToThrowableObjects() {
+    this.level.bottles.forEach((bottle) => {
+        this.throwableObject.push(bottle);
+    })
+    
 }
 
 setStatusBarImages() {        
@@ -52,7 +60,7 @@ setStatusBarImages() {
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100 );
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, true );            
             this.throwableObject.push(bottle);           
         }
     }
@@ -127,7 +135,6 @@ setStatusBarImages() {
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.enemies);
         this.addObjectToMap(this.level.coins);
-        // this.addObjectToMap(this.level.bottles);
         this.addObjectToMap(this.throwableObject);
         this.addToMap(this.character);
         

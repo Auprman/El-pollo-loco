@@ -4,6 +4,8 @@ class ThrowableObject extends MovableObject{
     speedY = 30;
     bottle_break = new Audio('audio/bottle_hit.mp3')
     bottleUnbroken = true;
+    throwableBottle = false;
+    bottleSplashed = false;
 
     BOTTLE_IMAGES_ROTATE = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -13,20 +15,24 @@ class ThrowableObject extends MovableObject{
     ]
 
     BOTTLE_IMAGES_SPLASH = [
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
-        'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
+        'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ]
 
-    constructor(x, y) {
-        super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
+    constructor(x, y, throwableBottle) {
+        super().loadImage('img/6_salsa_bottle/salsa_bottle.png'); // TODO: continue here with displaying the different bottles 
         this.loadImages(this.BOTTLE_IMAGES_SPLASH);
-        this.loadImages(this.BOTTLE_IMAGES_ROTATE);
+        this.loadImages(this.BOTTLE_IMAGES_ROTATE);        
+        this.throwableBottle = throwableBottle;
         this.x = x -60;
         this.y = y - 10;
         this.width = 60;
         this.height = 70;
-        this.throwBottle();
+        this.throwBottle();        
     }
 
     randomizeBottlePosition() {
@@ -35,29 +41,40 @@ class ThrowableObject extends MovableObject{
     }
 
     throwBottle() {
-        this.speedY = 10;
-        this.applyGravity();        
-        this.rotateBottle();
-        setInterval(() => {
-            if(this.bottleUnbroken){
-                this.x += 12 ;
-            }else{
-                this.x += 1;
-            }
+        if(this.throwableBottle){
+            this.speedY = 10;
+            this.applyGravity();        
+            this.rotateBottle();
+            setInterval(() => {
+                if(this.bottleUnbroken){
+                    this.x += 12 ;
+                }else{
+                    this.x += 1;
+                }
         },25)
+        }
     }
 
+    
     rotateBottle() {
-        setInterval(() => {
-            this.playAnimation(this.BOTTLE_IMAGES_ROTATE);
+            setInterval(() => {
+                if (this.bottleUnbroken) {
+                this.playAnimation(this.BOTTLE_IMAGES_ROTATE);
+            }
+            
         }, 60);
+        
     }
+
 
     splashBottle() {
         setInterval(() => {
-            this.playAnimation(this.BOTTLE_IMAGES_SPLASH);
-        }, 25);
-    }
+            if (true) {
+                this.playAnimation(this.BOTTLE_IMAGES_SPLASH);        
+            }     
+    },50);
+    // this.bottleSplashed = true;
+}
 
 
 
