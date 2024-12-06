@@ -7,6 +7,9 @@ class Character extends MovableObject {
     speed = 9;
     world;
     deadAnimationPlayed = false;
+    lastX = this.x;
+    lastY = this.y;
+    idleTime = 0;
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -124,24 +127,20 @@ class Character extends MovableObject {
     }
     
    checkIfIdle() {
-    let lastX = this.x;
-    let lastY = this.y;
-    let idleTime = 0;
     setInterval(() => {  
-        if (this.x === lastX && this.y === lastY) {
-            idleTime += 200; 
-            if (idleTime >= 6000 && idleTime <= 10000) {
+        if (this.x === this.lastX && this.y === this.lastY) {
+            this.idleTime += 200; 
+            if (this.idleTime >= 6000 && this.idleTime <= 10000) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
-            if(idleTime >= 10000){
+            if(this.idleTime >= 10000){
                 this.playAnimation(this.IMAGES_LONGIDLE);
             }
         } else {
-            idleTime = 0; 
+            this.idleTime = 0; 
         }
-        lastX = this.x;
-        lastY = this.y;
+        this.lastX = this.x;
+        this.lastY = this.y;
     }, 200); 
 }
-
 }
