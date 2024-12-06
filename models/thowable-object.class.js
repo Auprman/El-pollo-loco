@@ -26,8 +26,14 @@ class ThrowableObject extends MovableObject{
         this.y = y - 10;
         this.width = 60;
         this.height = 70;
-        this.throwBottle()
+        this.throwBottle();
     }
+
+    randomizeBottlePosition() {
+        this.y = 120;
+        this.x = Math.random() * 2000;
+    }
+
     throwBottle() {
         this.speedY = 10;
         this.applyGravity();        

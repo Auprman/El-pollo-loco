@@ -127,6 +127,7 @@ setStatusBarImages() {
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.enemies);
         this.addObjectToMap(this.level.coins);
+        // this.addObjectToMap(this.level.bottles);
         this.addObjectToMap(this.throwableObject);
         this.addToMap(this.character);
         

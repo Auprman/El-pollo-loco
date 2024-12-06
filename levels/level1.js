@@ -48,5 +48,13 @@ const level1 = new Level(
             new Coin(),
             new Coin(),
             
+        ],
+        [ 
+        new ThrowableObject(10, 200),
+        new ThrowableObject(10, 200),
+        new ThrowableObject(444, 200),
+        new ThrowableObject(204, 200),
+        new ThrowableObject(204, 200)
         ]
+        
     );
