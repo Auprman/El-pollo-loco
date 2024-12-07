@@ -88,7 +88,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_LONGIDLE);
         this.animate();
         this.applyGravity();
-        this.checkIfIdle()
+        this.checkIfCharacterIsIdle();
     }
     
     animate() {
@@ -126,7 +126,8 @@ class Character extends MovableObject {
         },1000 / 15);
     }
     
-   checkIfIdle() {
+    
+   checkIfCharacterIsIdle() {
     setInterval(() => {  
         if (this.x === this.lastX && this.y === this.lastY) {
             this.idleTime += 200; 

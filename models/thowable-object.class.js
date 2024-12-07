@@ -45,9 +45,14 @@ class ThrowableObject extends MovableObject{
             this.speedY = 10;
             this.applyGravity();        
             this.rotateBottle();
+            let throwToOtherDirection = false;
+            world.character.otherDirection ? throwToOtherDirection = true : null;            
             setInterval(() => {
-                if(this.bottleUnbroken){
-                    this.x += 12 ;
+                if(this.bottleUnbroken && !throwToOtherDirection){
+                    this.x += 12 ;                                        
+                }
+                else if(this.bottleUnbroken && throwToOtherDirection){                    
+                    this.x -= 12 ;
                 }else{
                     this.x += 1;
                 }
