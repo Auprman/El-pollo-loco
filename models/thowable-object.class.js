@@ -2,10 +2,12 @@ class ThrowableObject extends MovableObject{
 
     speedX = 20;
     speedY = 30;
-    bottle_break = new Audio('audio/bottle_hit.mp3')
+    bottle_break = new Audio('audio/bottle_hit.mp3');
+    bottle_collect = new Audio('audio/collect-bottle.mp3');
     bottleUnbroken = true;
     throwableBottle = false;
     bottleSplashed = false;
+    bottleLandedAfterThrow = false;
 
     BOTTLE_IMAGES_ROTATE = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -23,11 +25,22 @@ class ThrowableObject extends MovableObject{
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ]
 
+    BOTTLE_RIGHT_DIRECTION = [
+        'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'
+    ];
+
+    BOTTLE_LEFT_DIRECTION = [
+        'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'
+    ];
+
     constructor(x, y, throwableBottle) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png'); // TODO: continue here with displaying the different bottles 
         this.loadImages(this.BOTTLE_IMAGES_SPLASH);
-        this.loadImages(this.BOTTLE_IMAGES_ROTATE);        
+        this.loadImages(this.BOTTLE_IMAGES_ROTATE);
+        this.loadImages(this.BOTTLE_RIGHT_DIRECTION);         
+        this.loadImages(this.BOTTLE_LEFT_DIRECTION);         
         this.throwableBottle = throwableBottle;
+        this.collectableBottle()
         this.x = x -60;
         this.y = y - 10;
         this.width = 60;
@@ -47,40 +60,65 @@ class ThrowableObject extends MovableObject{
             this.rotateBottle();
             let throwToOtherDirection = false;
             world.character.otherDirection ? throwToOtherDirection = true : null;            
-            setInterval(() => {
+            let moveBottleX = setInterval(() => {
+                this.bottleTouchGround(moveBottleX);
                 if(this.bottleUnbroken && !throwToOtherDirection){
                     this.x += 12 ;                                        
                 }
                 else if(this.bottleUnbroken && throwToOtherDirection){                    
                     this.x -= 12 ;
                 }else{
-                    this.x += 1;
+                    this.x += 0;
                 }
         },25)
         }
     }
 
+
+    bottleTouchGround(interval) {        
+        if(this.y > 350){
+            clearInterval(interval);
+            if (world.character.otherDirection) {
+                this.loadImage(this.BOTTLE_LEFT_DIRECTION[0]);
+                this.bottleUnbroken = false;               
+            }
+            else{
+                this.loadImage(this.BOTTLE_RIGHT_DIRECTION[0]);
+                this.bottleUnbroken = false;
+            }
+        }
+    }
     
+
     rotateBottle() {
-            setInterval(() => {
+            let rotateBottle = setInterval(() => {
+                this.bottleTouchGround(rotateBottle)
                 if (this.bottleUnbroken) {
                 this.playAnimation(this.BOTTLE_IMAGES_ROTATE);
-            }
-            
+            } 
         }, 60);
         
     }
 
 
     splashBottle() {
-        setInterval(() => {
-            if (true) {
-                this.playAnimation(this.BOTTLE_IMAGES_SPLASH);        
-            }     
-    },50);
-    // this.bottleSplashed = true;
-}
+        let splashBottle =setInterval(() => {
+            this.playAnimation(this.BOTTLE_IMAGES_SPLASH);               
+        },1000/ 35);
+        setTimeout(() => {
+            clearInterval(splashBottle);
+            this.y = 2000;
+        }, 350);
+    }
 
+    isAboveGround() {      
+        return this.y < 350;
+    }
 
+    collectableBottle() {        
+        if(!this.throwableBottle){
+            this.bottleUnbroken = false;
+        }
+    }
 
 }

@@ -33,6 +33,15 @@ class StatusBar extends DrawableObject {
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png'
     ];
 
+    IMAGES_STATUS_BAR_ENDBOSS = [
+        'img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange20.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange40.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange60.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange80.png',
+        'img/7_statusbars/2_statusbar_endboss/orange/orange100.png'
+    ];
+
     
 
     constructor (x, y, statusBarType) {
@@ -40,6 +49,7 @@ class StatusBar extends DrawableObject {
         this.loadImages(this.IMAGES_STATUS_BAR_HEALTH);
         this.loadImages(this.IMAGES_STATUS_BAR_COINS);
         this.loadImages(this.IMAGES_STATUS_BAR_BOTTLES);
+        this.loadImages(this.IMAGES_STATUS_BAR_ENDBOSS);
         this.setPercentage(100, this.IMAGES_STATUS_BAR_HEALTH);
         this.positionStatusbars(x, y);
     }
@@ -66,7 +76,7 @@ class StatusBar extends DrawableObject {
             return 3
         }else if(this.percentage > 40){
             return 2
-        }else if(this.percentage > 20){
+        }else if(this.percentage >= 20){
             return 1
         }else if(this.percentage >= 0){
             return 0

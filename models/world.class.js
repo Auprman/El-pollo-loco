@@ -4,6 +4,7 @@ class World {
     statusBarHealth = new StatusBar(0, 10, 'health');
     statusBarCoins = new StatusBar(0, 50, 'coins');
     statusBarBottles = new StatusBar(0, 90, 'bottles');
+    statusBarEndboss = new StatusBar(510, -100);
     level = level1;
     canvas;
     ctx;
@@ -11,8 +12,10 @@ class World {
     camera_x = 0;
     coinAmount = 0;
     bottleAmount = 0;
+    hitsOnEndboss = 0;
     throwableObject = [];
     maxCoins = this.level.coins.length;
+    maxBottles = this.level.bottles.length
     
 
     constructor(canvas, keyboard) {
@@ -37,7 +40,15 @@ addBottlesToThrowableObjects() {
 setStatusBarImages() {        
         this.statusBarHealth.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_HEALTH[5])
         this.statusBarCoins.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_COINS[0])
-        this.statusBarBottles.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_BOTTLES[0])      
+        this.statusBarBottles.loadImage(this.statusBarBottles.IMAGES_STATUS_BAR_BOTTLES[0])    
+        this.statusBarEndboss.loadImage(this.statusBarEndboss.IMAGES_STATUS_BAR_ENDBOSS[0]);
+}
+
+setStatusBarEndboss() {
+    if(this.character.x >= 1500) {
+        this.statusBarEndboss.y = 15;
+    }
+    this.statusBarEndboss.setPercentage(this.getPercentageOfEndboss(), this.statusBarEndboss.IMAGES_STATUS_BAR_ENDBOSS);
 }
 
     run() {
@@ -45,7 +56,9 @@ setStatusBarImages() {
             this.checkThrowObjects();
             this.checkCollisions();
             this.checkCoinCollision();
-            this.checkBottleCollision()
+            this.checkBottleCollision();
+            this.checkBottleCollection();
+            this.setStatusBarEndboss();
         }, 150);
     }
 
@@ -55,16 +68,20 @@ setStatusBarImages() {
         this.statusBarBottles.world = this;
         this.statusBarCoins.world = this;
         this.statusBarBottles.world = this;
+        this.statusBarEndboss.world = this; 
     }
 
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.bottleAmount > 0) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, true );            
-            this.throwableObject.push(bottle);           
+            this.throwableObject.push(bottle);
+            this.bottleAmount--;       
+            this.setBottleStatusBar();
+            bottle.bottleLandedAfterThrow = true;
         }
     }
-
+ 
 
     checkCollisions() {
             this.level.enemies.forEach((enemy)=> {
@@ -81,7 +98,7 @@ setStatusBarImages() {
     checkBottleCollision() {
         this.throwableObject.forEach((bottle) => {
            this.level.enemies.forEach((enemy) => {
-           if(bottle.isColliding(enemy) && !enemy.isDead && bottle.bottleUnbroken == true){
+           if(bottle.isColliding(enemy) && !enemy.isDead && bottle.bottleUnbroken){
             bottle.bottleUnbroken = false;         
             bottle.splashBottle();
             bottle.speedY = 3;           
@@ -89,10 +106,12 @@ setStatusBarImages() {
             bottle.bottle_break.play();
             enemy.hit();
             enemy.isHurt();
+            this.hitsOnEndboss++
            }
            })
         })
     }
+
 
     jumpOnTop(enemy) {
         if(this.character.y <= 180 && this.character.isHurt()) {
@@ -100,6 +119,18 @@ setStatusBarImages() {
             enemy.dead();
         }
         
+    }
+
+
+    checkBottleCollection() {
+        this.throwableObject.forEach((bottle) => {
+            if(!bottle.bottleUnbroken && bottle.isColliding(this.character) && !bottle.bottleLandedAfterThrow){
+                this.bottleAmount++
+                bottle.y = 3500                
+                this.setBottleStatusBar();
+                bottle.bottle_collect.play();
+            }
+        })
     }
 
 
@@ -111,14 +142,35 @@ setStatusBarImages() {
                 this.level.coins.splice(index, 1)
                 this.coinAmount++;
                 coin.collect_coin_sound.play();
-                this.statusBarCoins.setPercentage(this.getPercentageOfCoins(), this.statusBarCoins.IMAGES_STATUS_BAR_COINS);
+                this.setCoinStatusBar();
             }
         })
      }
 
 
+     setCoinStatusBar() {
+        this.statusBarCoins.setPercentage(this.getPercentageOfCoins(), this.statusBarCoins.IMAGES_STATUS_BAR_COINS);
+     }
+
+
+     setBottleStatusBar() {
+        this.statusBarBottles.setPercentage(this.getPercentageOfBottles(), this.statusBarBottles.IMAGES_STATUS_BAR_BOTTLES); 
+     }
+
+
     getPercentageOfCoins() {        
         return this.coinAmount / this.maxCoins * 100;
+    }
+
+    getPercentageOfBottles() {
+        return this.bottleAmount / 5 * 100
+    }
+
+    getPercentageOfEndboss() {
+        let hits = world.level.enemies[world.level.enemies.length -1].hits;
+        console.log(100  - ( this.hitsOnEndboss / 4 * 100 ));
+        
+        return  100 - ( this.hitsOnEndboss / 4 * 100 );
     }
 
 
@@ -131,29 +183,29 @@ setStatusBarImages() {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarBottles);
         this.addToMap(this.statusBarCoins);
+        this.addToMap(this.statusBarEndboss);
         this.ctx.translate(this.camera_x, 0); //Camera forwards 
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.enemies);
         this.addObjectToMap(this.level.coins);
         this.addObjectToMap(this.throwableObject);
         this.addToMap(this.character);
-        
-        
+                
         this.ctx.translate( -this.camera_x, 0);
-        
-       
-        //Draw() is called a lot of times per second. 
+         
         let self = this;
         requestAnimationFrame(function (){
             self.draw();
         });
     }
     
+
     addObjectToMap(objects) {
         objects.forEach((ob) => {
             this.addToMap(ob);
         })
     }
+
 
     addToMap(mo){
         if(mo.otherDirection) {
@@ -167,6 +219,7 @@ setStatusBarImages() {
         }
     }
 
+
     mirrorImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0)
@@ -174,6 +227,7 @@ setStatusBarImages() {
         mo.x = mo.x * -1;
     }
     
+
     restoreImage(mo) {
         mo.x = mo.x * - 1;
         this.ctx.restore();
