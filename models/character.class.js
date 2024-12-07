@@ -10,6 +10,7 @@ class Character extends MovableObject {
     lastX = this.x;
     lastY = this.y;
     idleTime = 0;
+    jumped = false;
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -93,6 +94,7 @@ class Character extends MovableObject {
     
     animate() {
         setInterval(() => {
+            this.checkAfterJump();
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
                 this.moveRight() ;              
                 !this.isAboveGround() ? this.footstep_sound.play() : null;
@@ -104,6 +106,7 @@ class Character extends MovableObject {
                 this.otherDirection = true;
             }
             if(this.world.keyboard.SPACE && !this.isAboveGround()){
+                this.jumped = true;
                 this.jump();
                 this.jump_sound.play();
             }
@@ -118,7 +121,7 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT)
             }else if(this.isAboveGround()){
                 this.playAnimation(this.IMAGES_JUMPING);
-            }else{
+            }else{ 
                 if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
                 this.playAnimation(this.IMAGES_WALKING);
                 }
@@ -144,4 +147,11 @@ class Character extends MovableObject {
         this.lastY = this.y;
     }, 200); 
 }
+
+    checkAfterJump() {
+        if(!this.isAboveGround() && this.jumped){
+            this.loadImage(this.IMAGES_JUMPING[8])
+            this.jumped = false;
+        }
+    }
 }
