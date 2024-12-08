@@ -4,6 +4,7 @@ class Chicken extends MovableObject{
    y = 350;
    otherDirection  = false;
    test  = 0;
+   allIntervals = [];
 
    IMAGES_WALKING = [
       'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',

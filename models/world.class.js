@@ -17,6 +17,7 @@ class World {
     maxCoins = this.level.coins.length;
     maxBottles = this.level.bottles.length
     
+    
 
     constructor(canvas, keyboard) {
         

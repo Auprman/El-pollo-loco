@@ -43,6 +43,11 @@ class DrawableObject {
         this.img.src = path;
     }
 
-
+    saveInterval(animationName, interval) {
+        return  {
+                animationName : animationName,
+                intervalNumber : interval 
+                }
+    }
 }
 

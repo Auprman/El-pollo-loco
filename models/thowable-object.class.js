@@ -8,6 +8,7 @@ class ThrowableObject extends MovableObject{
     throwableBottle = false;
     bottleSplashed = false;
     bottleLandedAfterThrow = false;
+    allIntervals = [];
 
     BOTTLE_IMAGES_ROTATE = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -71,6 +72,7 @@ class ThrowableObject extends MovableObject{
                     this.x += 0;
                 }
         },25)
+        this.allIntervals.push(this.saveInterval('throwBottle', moveBottleX))
         }
     }
 
@@ -97,7 +99,7 @@ class ThrowableObject extends MovableObject{
                 this.playAnimation(this.BOTTLE_IMAGES_ROTATE);
             } 
         }, 60);
-        
+        this.allIntervals.push(this.saveInterval('rotatBottle', rotateBottle))
     }
 
 

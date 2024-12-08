@@ -3,7 +3,6 @@ class Character extends MovableObject {
     width = 100;
     x = 100;
     y = 230;
-    //y default = 230;
     speed = 9;
     world;
     deadAnimationPlayed = false;
@@ -11,6 +10,7 @@ class Character extends MovableObject {
     lastY = this.y;
     idleTime = 0;
     jumped = false;
+    allIntervals = [];
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -76,82 +76,126 @@ class Character extends MovableObject {
     ];
 
     footstep_sound = new Audio('audio/footstep-dirt.mp3');
-    jump_sound = new Audio('audio/jump1.mp3')
+    jump_sound = new Audio('audio/jump1.mp3');
 
 
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
+        this.loadCharacterImages();
+        this.animate();
+        this.applyGravity();
+        this.checkIfCharacterIsIdle();
+    }
+    
+
+    loadCharacterImages() {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONGIDLE);
-        this.animate();
-        this.applyGravity();
-        this.checkIfCharacterIsIdle();
     }
-    
+
+
     animate() {
-        setInterval(() => {
-            this.checkAfterJump();
-            if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
-                this.moveRight() ;              
-                !this.isAboveGround() ? this.footstep_sound.play() : null;
-                this.otherDirection = false;
-            }
-            if(this.world.keyboard.LEFT && this.x > this.world.level.level_start_x){
-                this.moveLeft();
-                !this.isAboveGround() ? this.footstep_sound.play() : null;
-                this.otherDirection = true;
-            }
-            if(this.world.keyboard.SPACE && !this.isAboveGround()){
-                this.jumped = true;
-                this.jump();
-                this.jump_sound.play();
-            }
+        let characterAnimations60FPS = setInterval(() => {
+            this.checkAfterJumpAnimation();
+            this.characterMoveRightAnimation();
+            this.characterMoveLeftAnimation();
+            this.characterJumpAnimation();
             this.world.camera_x = -this.x + 100 
         }, 1000 / 60);
-       
-        setInterval(() => {
-            if(this.isDead() && !this.deadAnimationPlayed){
-             this.playAnimation(this.IMAGES_DEAD);
-             this.deadAnimationPlayed = true;  // Hier weiter mit der Sterbeanimation... Animation wird nicht komplett gezeigt....
-            }else if(this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT)
-            }else if(this.isAboveGround()){
-                this.playAnimation(this.IMAGES_JUMPING);
-            }else{ 
-                if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
-                this.playAnimation(this.IMAGES_WALKING);
-                }
-            }            
+        this.allIntervals.push(this.saveInterval('characterAnimation60FPS', characterAnimations60FPS));
+
+        let characterAnimations15FPS = setInterval(() => {
+            this.deathAnimationCharacter();
+            this.hurtAnimationCharacter();
+            this.jumpingAnimationCharacter();
+            this.walkingAnimationCharacter()               
         },1000 / 15);
+        this.allIntervals.push(this.saveInterval('characterAnimation15FPS', characterAnimations15FPS));
     }
     
-    
    checkIfCharacterIsIdle() {
-    setInterval(() => {  
-        if (this.x === this.lastX && this.y === this.lastY) {
-            this.idleTime += 200; 
-            if (this.idleTime >= 6000 && this.idleTime <= 10000) {
-                this.playAnimation(this.IMAGES_IDLE);
+        let checkIfCharacterIsIdle = setInterval(() => {  
+            if (this.x === this.lastX && this.y === this.lastY) {
+                this.idleTime += 200; 
+                if (this.idleTime >= 6000 && this.idleTime <= 10000) {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
+                if(this.idleTime >= 10000){
+                    this.playAnimation(this.IMAGES_LONGIDLE);
+                }
+            } else {
+                this.idleTime = 0; 
             }
-            if(this.idleTime >= 10000){
-                this.playAnimation(this.IMAGES_LONGIDLE);
-            }
-        } else {
-            this.idleTime = 0; 
-        }
-        this.lastX = this.x;
-        this.lastY = this.y;
-    }, 200); 
+            this.lastX = this.x;
+            this.lastY = this.y;
+        }, 200); 
+        this.allIntervals.push(this.saveInterval('checkIfCharacterIsIdle', checkIfCharacterIsIdle));
 }
 
-    checkAfterJump() {
+    checkAfterJumpAnimation() {
         if(!this.isAboveGround() && this.jumped){
             this.loadImage(this.IMAGES_JUMPING[8])
             this.jumped = false;
         }
+    }
+
+
+    characterMoveLeftAnimation() {
+        if(this.world.keyboard.LEFT && this.x > this.world.level.level_start_x){
+            this.moveLeft();
+            !this.isAboveGround() ? this.footstep_sound.play() : null;
+            this.otherDirection = true;
+        }
+    }
+
+
+    characterMoveRightAnimation() {
+        if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
+            this.moveRight() ;              
+            !this.isAboveGround() ? this.footstep_sound.play() : null;
+            this.otherDirection = false;
+        }
+    }
+
+
+    characterJumpAnimation() {
+        if(this.world.keyboard.SPACE && !this.isAboveGround()){
+            this.jumped = true;
+            this.jump();
+            this.jump_sound.play();
+        }
+    }
+
+
+    deathAnimationCharacter() {
+        if(this.isDead() && !this.deadAnimationPlayed){
+            this.playAnimation(this.IMAGES_DEAD);
+            this.deadAnimationPlayed = true;  // Hier weiter mit der Sterbeanimation... Animation wird nicht komplett gezeigt....
+           }
+    }
+
+
+    hurtAnimationCharacter() {
+        if(this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT)
+        }
+    }
+
+
+    jumpingAnimationCharacter() {
+        if(this.isAboveGround()){
+            this.playAnimation(this.IMAGES_JUMPING);
+        }
+    }
+
+
+    walkingAnimationCharacter() {
+        if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+            this.playAnimation(this.IMAGES_WALKING);
+            }
     }
 }

@@ -3,7 +3,7 @@ const level1 = new Level(
         new Chicken(),
         new Chicken(),
         new Chicken(),
-        new Endboss() 
+        new Endboss()
         ],
 
         [
@@ -46,7 +46,7 @@ const level1 = new Level(
             new Coin(),
             new Coin(),
             new Coin(),
-            new Coin(),
+            new Coin()
             
         ],
         [ 

@@ -9,6 +9,8 @@ class Coin extends MovableObject{
         'img/8_coin/coin_1.png',
         'img/8_coin/coin_2.png'
     ]
+    allIntervals = [];
+
  constructor (x, y) {
     super();
     this.loadImages(this.IMAGES_COINS)
@@ -23,7 +25,7 @@ class Coin extends MovableObject{
  * 
  */
  animateCoin() {
-    setInterval(() => {
+    let animateCoin = setInterval(() => {
         if (this.width <= 140 || this.width >= 160) {
             this.direction *= -1;
         }
@@ -39,6 +41,8 @@ class Coin extends MovableObject{
         this.x += widthDiff;
         this.y += heightDiff;
     }, 50);
+    
+    this.allIntervals.push(this.saveInterval('animateCoin', animateCoin))  
 }
 
 randomCoinPositionX() {
