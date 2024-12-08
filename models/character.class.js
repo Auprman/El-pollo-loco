@@ -198,4 +198,11 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
             }
     }
+
+    stopAllIntervals() {
+        this.allIntervals.forEach((interval) => {
+           clearInterval(interval.intervalNumber);
+        })
+     }
+     
 }

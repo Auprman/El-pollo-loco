@@ -123,4 +123,12 @@ class ThrowableObject extends MovableObject{
         }
     }
 
+
+    stopAllIntervals() {
+        this.allIntervals.forEach((interval) => {
+           clearInterval(interval.intervalNumber);
+        })
+     }
+     
+
 }

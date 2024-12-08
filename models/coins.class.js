@@ -41,7 +41,7 @@ class Coin extends MovableObject{
         this.x += widthDiff;
         this.y += heightDiff;
     }, 50);
-    
+
     this.allIntervals.push(this.saveInterval('animateCoin', animateCoin))  
 }
 
@@ -49,5 +49,11 @@ randomCoinPositionX() {
     this.x = Math.random() * 1900
 }
 
+stopAllIntervals() {
+    this.allIntervals.forEach((interval) => {
+       clearInterval(interval.intervalNumber);
+    })
+ }
+ 
 
 }

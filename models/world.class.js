@@ -168,9 +168,7 @@ setStatusBarEndboss() {
     }
 
     getPercentageOfEndboss() {
-        let hits = world.level.enemies[world.level.enemies.length -1].hits;
-        console.log(100  - ( this.hitsOnEndboss / 4 * 100 ));
-        
+        let hits = world.level.enemies[world.level.enemies.length -1].hits;        
         return  100 - ( this.hitsOnEndboss / 4 * 100 );
     }
 

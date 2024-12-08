@@ -28,18 +28,8 @@ class Chicken extends MovableObject{
  }
  
  animate() {
-   setInterval(() => {
-      if (!this.isDead) {
-         this.moveLeft();
-      }
-      
-   }, 1000 / 60);
-
-   setInterval(() => {
-      if (!this.isDead) {
-         this.playAnimation(this.IMAGES_WALKING);   
-      }
-   }, 100);
+   this.chickenMoveLeftAnimation();
+   this.chickenWalkingAnimation();
 }
 
 
@@ -47,4 +37,32 @@ dead() {
    this.isDead = true;
    this.loadImage(this.IMAGES_DEAD[0])
 }
+
+
+chickenMoveLeftAnimation() {
+   let chickenMoveLeft = setInterval(() => {
+      if (!this.isDead) {
+         this.moveLeft();
+      }
+   }, 1000 / 60);
+   this.allIntervals.push(this.saveInterval('chickenMoveLeft', chickenMoveLeft))
+}
+
+
+chickenWalkingAnimation() {
+   let chickenWalkingAnimation = setInterval(() => {
+      if (!this.isDead) {
+         this.playAnimation(this.IMAGES_WALKING);   
+      }
+   }, 100);
+   this.allIntervals.push(this.saveInterval('chickenWalkingAnimation', chickenWalkingAnimation))
+}
+
+stopAllIntervals() {
+   this.allIntervals.forEach((interval) => {
+      clearInterval(interval.intervalNumber);
+   })
+}
+
+
 }

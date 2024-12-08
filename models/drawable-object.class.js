@@ -49,5 +49,13 @@ class DrawableObject {
                 intervalNumber : interval 
                 }
     }
+
+    stopAllIntervals() {
+        this.allIntervals.forEach((interval) => {
+           clearInterval(interval.intervalNumber);
+        })
+     }
+     
+
 }
 
