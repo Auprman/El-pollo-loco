@@ -78,7 +78,7 @@ class Character extends MovableObject {
     footstep_sound = new Audio('audio/footstep-dirt.mp3');
     jump_sound = new Audio('audio/jump1.mp3');
     hurt_sound = new Audio('audio/hurt.mp3');
-    die_sound = new Audio('audio/die.mp3')
+    die_sound = new Audio('audio/die2.mp3')
 
 
     constructor() {
@@ -201,8 +201,8 @@ class Character extends MovableObject {
         if(this.isHurt() && !this.isDead()) {
             this.playAnimation(this.IMAGES_HURT);
             this.hurt_sound.play();
-
         }
+        
     }
 
 
