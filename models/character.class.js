@@ -77,6 +77,8 @@ class Character extends MovableObject {
 
     footstep_sound = new Audio('audio/footstep-dirt.mp3');
     jump_sound = new Audio('audio/jump1.mp3');
+    hurt_sound = new Audio('audio/hurt.mp3');
+    die_sound = new Audio('audio/die.mp3')
 
 
     constructor() {
@@ -117,6 +119,7 @@ class Character extends MovableObject {
         this.allIntervals.push(this.saveInterval('characterAnimation15FPS', characterAnimations15FPS));
     }
     
+
    checkIfCharacterIsIdle() {
         let checkIfCharacterIsIdle = setInterval(() => {  
             if (this.x === this.lastX && this.y === this.lastY) {
@@ -136,8 +139,9 @@ class Character extends MovableObject {
         this.allIntervals.push(this.saveInterval('checkIfCharacterIsIdle', checkIfCharacterIsIdle));
 }
 
+
     checkAfterJumpAnimation() {
-        if(!this.isAboveGround() && this.jumped){
+        if(!this.isAboveGround() && this.jumped && !this.deadAnimationPlayed){
             this.loadImage(this.IMAGES_JUMPING[8])
             this.jumped = false;
         }
@@ -145,7 +149,7 @@ class Character extends MovableObject {
 
 
     characterMoveLeftAnimation() {
-        if(this.world.keyboard.LEFT && this.x > this.world.level.level_start_x){
+        if(this.world.keyboard.LEFT && this.x > this.world.level.level_start_x && !this.deadAnimationPlayed){
             this.moveLeft();
             !this.isAboveGround() ? this.footstep_sound.play() : null;
             this.otherDirection = true;
@@ -154,7 +158,7 @@ class Character extends MovableObject {
 
 
     characterMoveRightAnimation() {
-        if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
+        if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && !this.deadAnimationPlayed){
             this.moveRight() ;              
             !this.isAboveGround() ? this.footstep_sound.play() : null;
             this.otherDirection = false;
@@ -163,7 +167,7 @@ class Character extends MovableObject {
 
 
     characterJumpAnimation() {
-        if(this.world.keyboard.SPACE && !this.isAboveGround()){
+        if(this.world.keyboard.SPACE && !this.isAboveGround() && !this.deadAnimationPlayed){
             this.jumped = true;
             this.jump();
             this.jump_sound.play();
@@ -173,31 +177,49 @@ class Character extends MovableObject {
 
     deathAnimationCharacter() {
         if(this.isDead() && !this.deadAnimationPlayed){
+            this.die_sound.play();
+            this.speedY = 15;
+            this.deadAnimationPlayed = true; 
             this.playAnimation(this.IMAGES_DEAD);
-            this.deadAnimationPlayed = true;  // Hier weiter mit der Sterbeanimation... Animation wird nicht komplett gezeigt....
+            let deathAnimaion = setInterval(() => {
+            this.y += 7;
+            this.loadImage(this.IMAGES_DEAD[5])
+            if(this.y > 1000){
+                   this.y = 1000;
+                   clearInterval(deathAnimaion);                
+            }
+             
+            
+            }, 1000 / 60);
+             
+            // TODO: Hier weiter mit der Sterbeanimation... Animation wird nicht komplett gezeigt....
            }
     }
 
 
     hurtAnimationCharacter() {
-        if(this.isHurt()) {
-            this.playAnimation(this.IMAGES_HURT)
+        if(this.isHurt() && !this.isDead()) {
+            this.playAnimation(this.IMAGES_HURT);
+            this.hurt_sound.play();
+
         }
     }
 
 
     jumpingAnimationCharacter() {
-        if(this.isAboveGround()){
-            this.playAnimation(this.IMAGES_JUMPING);
+        if(this.isAboveGround() && !this.deadAnimationPlayed){
+            this.playAnimation(this.IMAGES_JUMPING); 
         }
     }
 
 
     walkingAnimationCharacter() {
-        if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+        if(this.world.keyboard.RIGHT && !this.isAboveGround() && !this.deadAnimationPlayed || 
+        this.world.keyboard.LEFT && !this.isAboveGround() && !this.deadAnimationPlayed){
             this.playAnimation(this.IMAGES_WALKING);
             }
     }
+
 
     stopAllIntervals() {
         this.allIntervals.forEach((interval) => {

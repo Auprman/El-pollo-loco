@@ -174,17 +174,16 @@ setStatusBarEndboss() {
 
 
     draw() {
-        //This function clears the drawn image 
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.ctx.translate(this.camera_x, 0); 
         this.addObjectToMap(this.level.backgroundObjects);
+        this.addObjectToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0); //Camera back
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarBottles);
         this.addToMap(this.statusBarCoins);
         this.addToMap(this.statusBarEndboss);
         this.ctx.translate(this.camera_x, 0); //Camera forwards 
-        this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.enemies);
         this.addObjectToMap(this.level.coins);
         this.addObjectToMap(this.throwableObject);
@@ -226,7 +225,7 @@ setStatusBarEndboss() {
         mo.x = mo.x * -1;
     }
     
-
+    
     restoreImage(mo) {
         mo.x = mo.x * - 1;
         this.ctx.restore();
