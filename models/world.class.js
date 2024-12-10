@@ -16,7 +16,7 @@ class World {
     throwableObject = [];
     maxCoins = this.level.coins.length;
     maxBottles = this.level.bottles.length
-    
+    startScreen = 'img/9_intro_outro_screens/start/startscreen_1.png' //TODO: Continue here... Startscreen should load here and should be removed at click
     
 
     constructor(canvas, keyboard) {
@@ -24,6 +24,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.loadImage(this.startScreen)
         this.draw();
         this.setWorld();
         this.run();
@@ -229,6 +230,10 @@ setStatusBarEndboss() {
     restoreImage(mo) {
         mo.x = mo.x * - 1;
         this.ctx.restore();
+    }
+
+    removeStartScreen() {
+
     }
 
 }

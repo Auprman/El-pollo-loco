@@ -26,3 +26,9 @@ window.addEventListener('keyup', (event) => {
     event.keyCode == 37 ? keyboard.LEFT = false : null; 
     event.keyCode == 68 ? keyboard.D = false : null; 
 })
+
+
+function startGame() {
+    
+    
+}

@@ -49,10 +49,12 @@ class ThrowableObject extends MovableObject{
         this.throwBottle();        
     }
 
+    
     randomizeBottlePosition() {
         this.y = 120;
         this.x = Math.random() * 2000;
     }
+
 
     throwBottle() {
         if(this.throwableBottle){

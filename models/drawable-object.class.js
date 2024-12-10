@@ -7,6 +7,8 @@ class DrawableObject {
     imageCache = {};
     currenImage = 0;
 
+    
+
     constructor() {
     }
     drawFrame(ctx) {
@@ -56,6 +58,8 @@ class DrawableObject {
         })
      }
      
+
+    
 
 }
 
