@@ -29,6 +29,5 @@ window.addEventListener('keyup', (event) => {
 
 
 function startGame() {
-    
-    
+    world.startScreen = false;
 }

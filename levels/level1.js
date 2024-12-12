@@ -55,6 +55,10 @@ const level1 = new Level(
         new ThrowableObject(444, 370, false),
         new ThrowableObject(1400, 370, false),
         new ThrowableObject(2000, 370, false)
+        ],
+
+        [
+            new Screen(0,0)
         ]
 
     

@@ -6,6 +6,7 @@ class World {
     statusBarBottles = new StatusBar(0, 90, 'bottles');
     statusBarEndboss = new StatusBar(510, -100);
     level = level1;
+    startScreen = this.level.startScreen[0].startScreenLoaded;
     canvas;
     ctx;
     keyboard;
@@ -16,7 +17,8 @@ class World {
     throwableObject = [];
     maxCoins = this.level.coins.length;
     maxBottles = this.level.bottles.length
-    startScreen = 'img/9_intro_outro_screens/start/startscreen_1.png' //TODO: Continue here... Startscreen should load here and should be removed at click
+    
+    
     
 
     constructor(canvas, keyboard) {
@@ -24,7 +26,6 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.loadImage(this.startScreen)
         this.draw();
         this.setWorld();
         this.run();
@@ -177,20 +178,24 @@ setStatusBarEndboss() {
     draw() {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.ctx.translate(this.camera_x, 0); 
-        this.addObjectToMap(this.level.backgroundObjects);
-        this.addObjectToMap(this.level.clouds);
-        this.ctx.translate(-this.camera_x, 0); //Camera back
-        this.addToMap(this.statusBarHealth);
-        this.addToMap(this.statusBarBottles);
-        this.addToMap(this.statusBarCoins);
-        this.addToMap(this.statusBarEndboss);
-        this.ctx.translate(this.camera_x, 0); //Camera forwards 
-        this.addObjectToMap(this.level.enemies);
-        this.addObjectToMap(this.level.coins);
-        this.addObjectToMap(this.throwableObject);
-        this.addToMap(this.character);
-                
-        this.ctx.translate( -this.camera_x, 0);
+        if(this.startScreen){
+            this.addObjectToMap(this.level.startScreen)
+        }
+        else{
+            this.addObjectToMap(this.level.backgroundObjects);
+            this.addObjectToMap(this.level.clouds);
+            this.ctx.translate(-this.camera_x, 0); //Camera back
+            this.addToMap(this.statusBarHealth);
+            this.addToMap(this.statusBarBottles);
+            this.addToMap(this.statusBarCoins);
+            this.addToMap(this.statusBarEndboss);
+            this.ctx.translate(this.camera_x, 0); //Camera forwards 
+            this.addObjectToMap(this.level.enemies);
+            this.addObjectToMap(this.level.coins);
+            this.addObjectToMap(this.throwableObject);
+            this.addToMap(this.character);
+            this.ctx.translate( -this.camera_x, 0);
+        }
          
         let self = this;
         requestAnimationFrame(function (){
