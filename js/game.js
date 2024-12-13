@@ -1,5 +1,6 @@
 let canvas;
 let world;
+let gameStarted = false;
 
 let keyboard = new Keyboard();
 
@@ -29,5 +30,12 @@ window.addEventListener('keyup', (event) => {
 
 
 function startGame() {
-    world.startScreen = false;
-}
+    if(!gameStarted){
+        world.startScreen = false;
+        world.character.animate();
+        world.level.enemies.forEach(enemie => {
+            enemie.animate();
+        });;
+    gameStarted = true;
+    }
+}  
