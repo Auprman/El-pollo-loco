@@ -1,6 +1,10 @@
 let canvas;
 let world;
 let gameStarted = false;
+const arrowLeft = document.getElementById('arrowLeft');
+const arrowRight = document.getElementById('arrowRight');
+const dKey = document.getElementById('dKey');
+const spaceKey = document.getElementById('spaceKey');
 
 let keyboard = new Keyboard();
 
@@ -16,6 +20,7 @@ window.addEventListener('keydown', (event) => {
     event.keyCode == 39 ? keyboard.RIGHT = true : null;
     event.keyCode == 37 ? keyboard.LEFT = true : null;
     event.keyCode == 68 ? keyboard.D = true : null;
+    changeColorOnKeyDown(event);
 
 })
 
@@ -25,7 +30,8 @@ window.addEventListener('keyup', (event) => {
     event.keyCode == 32 ? keyboard.SPACE = false : null;
     event.keyCode == 39 ? keyboard.RIGHT = false : null;
     event.keyCode == 37 ? keyboard.LEFT = false : null; 
-    event.keyCode == 68 ? keyboard.D = false : null; 
+    event.keyCode == 68 ? keyboard.D = false : null;
+    changeColorOnKeyUp(event);
 })
 
 
@@ -39,3 +45,19 @@ function startGame() {
     gameStarted = true;
     }
 }  
+
+
+function changeColorOnKeyDown(event) {
+    event.keyCode == 37 ? arrowLeft.classList.add('key-pressed'): null;
+    event.keyCode == 39 ? arrowRight.classList.add('key-pressed'): null;
+    event.keyCode == 68 ? dKey.classList.add('key-pressed'): null;
+    event.keyCode == 32 ? spaceKey.classList.add('key-pressed'): null;
+}
+
+
+function changeColorOnKeyUp(event) {
+    event.keyCode == 37 ? arrowLeft.classList.remove('key-pressed'): null;
+    event.keyCode == 39 ? arrowRight.classList.remove('key-pressed'): null;
+    event.keyCode == 68 ? dKey.classList.remove('key-pressed'): null;
+    event.keyCode == 32 ? spaceKey.classList.remove('key-pressed'): null;
+}
