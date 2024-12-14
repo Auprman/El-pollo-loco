@@ -61,3 +61,8 @@ function changeColorOnKeyUp(event) {
     event.keyCode == 68 ? dKey.classList.remove('key-pressed'): null;
     event.keyCode == 32 ? spaceKey.classList.remove('key-pressed'): null;
 }
+
+function muteSound() {
+    console.log('Muted');
+    
+}
