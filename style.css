@@ -8,6 +8,9 @@ body{
     background-position: center;
       
 }
+h1{
+    color: #DEE9EB;
+}
 .kenia-regular {
     font-family: "Kenia", sans-serif;
     font-size: 64px;
@@ -21,6 +24,16 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    width: 800px;
+    height: 640px;
+    background-image: url(img/icons/brown_cracked_wood_texture_background.jpg);
+    background-color: rgba(0, 0, 0, 0.138);
+    background-position: center;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 15px;
 }
 
 canvas{
@@ -31,14 +44,12 @@ canvas:hover{
 }
 .control-button-container{
     display: flex;
-    background-image: url(img/icons/brown_cracked_wood_texture_background.jpg);
-    background-size: cover;
-    border-radius: 0 0 15px 15px;
+    border-radius: 15px 15px 15px 15px;
     align-items: center;
     justify-content: center;
     gap: 24px;
-    height: 80px;
-    width: 720px;
+    height: 120px;
+    width: 800px;
     box-shadow: 0px 8px 7px rgba(0, 0, 0, 0.139);
 
     img{
@@ -52,7 +63,16 @@ canvas:hover{
         width: 100px;
     } 
 }
+}
 
+.single-key{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Kenia", sans-serif;
+    font-size: 24px;
+    color: white;
 }
 
 .key-pressed{
@@ -66,11 +86,34 @@ footer{
     margin-top: 32px;
     a{
         text-decoration: none;
-        color: #FC8A5D;
+        color: #FC8A5D;        
+    }
+    a:hover{
+        color: #fda785;
     }
 }
 
-#speaker{
-    position: relative;
+#speaker{   
     width: 40px;
+    height: 40px;
+    margin-left: 96px;
+}
+
+#speaker:hover{
+    filter: invert(83%) sepia(53%) saturate(2438%) hue-rotate(347deg) brightness(111%) contrast(107%);
+}
+
+.infoToast{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 3%;
+    right: 54%;
+    border: 2px solid white;
+    border-radius: 500px 500px 0px 500px;
+    width: 150px;
+    height: 150px;
+    font-family: "Kenia", sans-serif;
+    color: white;
 }

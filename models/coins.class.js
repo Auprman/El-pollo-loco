@@ -17,6 +17,7 @@ class Coin extends MovableObject{
     this.loadImage(this.IMAGES_COINS[0]);
     this.randomCoinPositionX();
     this.animateCoin();
+    this.pushAudioFilesToArray();
  }   
 
  collect_coin_sound = new Audio('audio/collect-coin.mp3');
@@ -45,9 +46,11 @@ class Coin extends MovableObject{
     this.allIntervals.push(this.saveInterval('animateCoin', animateCoin))  
 }
 
+
 randomCoinPositionX() {
     this.x = Math.random() * 1900
 }
+
 
 stopAllIntervals() {
     this.allIntervals.forEach((interval) => {
@@ -56,4 +59,7 @@ stopAllIntervals() {
  }
  
 
+ pushAudioFilesToArray() {
+    allAudioElements.push(this.collect_coin_sound);
+}
 }

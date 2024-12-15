@@ -4,12 +4,13 @@ class Screen extends DrawableObject {
     y = 0;
     width = 720;
     height = 480;
-    startScreen = 'img/9_intro_outro_screens/start/startscreen_1.png' //TODO: Continue here... Startscreen should load here and should be removed at click
+    startScreen = 'img/9_intro_outro_screens/start/startscreen_1.png' ;
+    gameOverScreen = 'img/9_intro_outro_screens/game_over/game over!.png';
+    youWinScreen = 'img/9_intro_outro_screens/win/win_2.png';
 
 
     constructor() {
-        super().loadImage(this.startScreen);
-        
+        super().loadImage(this.startScreen);        
     }
 
 }

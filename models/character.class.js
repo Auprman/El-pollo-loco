@@ -87,6 +87,8 @@ class Character extends MovableObject {
         this.loadCharacterImages();
         this.applyGravity();
         this.checkIfCharacterIsIdle();
+        this.pushAudioFilesToArray();
+                
     }
     
 
@@ -226,5 +228,9 @@ class Character extends MovableObject {
            clearInterval(interval.intervalNumber);
         })
      }
+
+    pushAudioFilesToArray() {
+        allAudioElements.push(this.footstep_sound, this.jump_sound, this.hurt_sound, this.die_sound)
+    }
      
 }

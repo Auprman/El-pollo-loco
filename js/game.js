@@ -5,12 +5,28 @@ const arrowLeft = document.getElementById('arrowLeft');
 const arrowRight = document.getElementById('arrowRight');
 const dKey = document.getElementById('dKey');
 const spaceKey = document.getElementById('spaceKey');
+const speaker = document.getElementById('speaker');
+const infoToast = document.getElementById('info');
+
+const allAudioElements = []
+
+let muted = false;
 
 let keyboard = new Keyboard();
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard)
+    world = new World(canvas, keyboard);
+    changeInfoToastBorder();
+}
+
+function changeInfoToastBorder(){
+    canvas.addEventListener('mouseover', ()=> {
+          infoToast.style.border = '2px solid  #fda785'
+    })
+    canvas.addEventListener('mouseout', ()=> {
+        infoToast.style.border = '2px solid white'
+  })
 }
 
 window.addEventListener('keydown', (event) => {
@@ -62,7 +78,26 @@ function changeColorOnKeyUp(event) {
     event.keyCode == 32 ? spaceKey.classList.remove('key-pressed'): null;
 }
 
+
 function muteSound() {
-    console.log('Muted');
+    muted = !muted;
+    if(muted){
+        allAudioElements.forEach((audioFile) => {
+            audioFile.muted = true;
+        })
+    }else{
+        allAudioElements.forEach((audioFile) => {
+            audioFile.muted = false;
+        })
+        }
+    changeVolumeImageSource(muted);
+}
     
+    
+function changeVolumeImageSource(muted) {
+    muted == true ? speaker.src = 'img/icons/mute.png' : speaker.src = 'img/icons/volume-64.png';
+}
+
+function removeInfoToast() {
+    TODO: // Hier den InfoToast entfernen sobald das Spiel gestartet wurde
 }

@@ -35,7 +35,7 @@ class ThrowableObject extends MovableObject{
     ];
 
     constructor(x, y, throwableBottle) {
-        super().loadImage('img/6_salsa_bottle/salsa_bottle.png'); // TODO: continue here with displaying the different bottles 
+        super().loadImage('img/6_salsa_bottle/salsa_bottle.png'); 
         this.loadImages(this.BOTTLE_IMAGES_SPLASH);
         this.loadImages(this.BOTTLE_IMAGES_ROTATE);
         this.loadImages(this.BOTTLE_RIGHT_DIRECTION);         
@@ -46,7 +46,8 @@ class ThrowableObject extends MovableObject{
         this.y = y - 10;
         this.width = 60;
         this.height = 70;
-        this.throwBottle();        
+        this.throwBottle();
+        this.pushAudioFilesToArray();        
     }
 
     
@@ -132,5 +133,9 @@ class ThrowableObject extends MovableObject{
         })
      }
      
+
+     pushAudioFilesToArray() {
+        allAudioElements.push(this.bottle_break, this.bottle_collect);
+    }
 
 }

@@ -7,6 +7,7 @@ class World {
     statusBarEndboss = new StatusBar(510, -100);
     level = level1;
     startScreen = this.level.startScreen[0].startScreenLoaded;
+    allAudioFiles = [];
     canvas;
     ctx;
     keyboard;
@@ -77,7 +78,8 @@ setStatusBarEndboss() {
 
     checkThrowObjects() {
         if (this.keyboard.D && this.bottleAmount > 0) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, true );            
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, true );
+            this.muteThrownBottleSound(bottle);            
             this.throwableObject.push(bottle);
             this.bottleAmount--;       
             this.setBottleStatusBar();
@@ -85,6 +87,13 @@ setStatusBarEndboss() {
         }
     }
  
+
+    muteThrownBottleSound(bottle) {
+        if(muted){
+            bottle.bottle_break.muted = true;
+        }
+    }
+
 
     checkCollisions() {
             this.level.enemies.forEach((enemy)=> {
