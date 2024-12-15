@@ -22,11 +22,10 @@ function init() {
 
 function changeInfoToastBorder(){
     canvas.addEventListener('mouseover', ()=> {
-          infoToast.style.border = '2px solid  #fda785'
+          infoToast.classList.add('hovered-canvas');
     })
     canvas.addEventListener('mouseout', ()=> {
-        infoToast.style.border = '2px solid white'
-  })
+        infoToast.classList.remove('hovered-canvas');  })
 }
 
 window.addEventListener('keydown', (event) => {
@@ -59,6 +58,7 @@ function startGame() {
             enemie.animate();
         });;
     gameStarted = true;
+    removeInfoToast();
     }
 }  
 
@@ -99,5 +99,5 @@ function changeVolumeImageSource(muted) {
 }
 
 function removeInfoToast() {
-    TODO: // Hier den InfoToast entfernen sobald das Spiel gestartet wurde
+    infoToast.style.visibility = 'hidden';
 }

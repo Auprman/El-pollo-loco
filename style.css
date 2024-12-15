@@ -51,6 +51,7 @@ canvas:hover{
     height: 120px;
     width: 800px;
     box-shadow: 0px 8px 7px rgba(0, 0, 0, 0.139);
+    text-shadow: 4px 4px rgba(0, 0, 0, 0.515);
 
     img{
         filter: invert(96%) sepia(96%) saturate(0%) hue-rotate(48deg) brightness(106%) contrast(104%);
@@ -108,12 +109,47 @@ footer{
     justify-content: center;
     align-items: center;
     position: relative;
-    top: 3%;
-    right: 54%;
+    top: 0;
     border: 2px solid white;
-    border-radius: 500px 500px 0px 500px;
-    width: 150px;
-    height: 150px;
+    border-radius: 15px 15px 0px 0px;
+    width: 300px;
     font-family: "Kenia", sans-serif;
+    font-size: 24px;
     color: white;
+    text-shadow: 4px 4px rgba(0, 0, 0, 0.566);
+}
+
+.hovered-canvas{
+    animation: changeBorder 250ms  ease-in-out;
+    animation-fill-mode: forwards;
+
+}
+
+.arrow-down{
+        height: 40px;
+        width: 40px;
+        filter: invert(100%) sepia(4%) saturate(7443%) hue-rotate(185deg) brightness(108%) contrast(112%);
+        animation: animateArrow 2000ms infinite;
+        padding: 0 16px; 
+}
+
+@keyframes changeBorder {
+    0%{
+        border: 2px solid white;
+    }
+    100%{
+        border: 2px solid rgb(255, 224, 23);
+    }
+}
+
+@keyframes animateArrow {
+    0%{
+        scale: 1;
+    }
+    50%{
+        scale: 1.2;
+    }
+    100%{
+        scale: 1.0;
+    }
 }
