@@ -189,12 +189,8 @@ class Character extends MovableObject {
             if(this.y > 1000){
                    this.y = 1000;
                    clearInterval(deathAnimaion);                
-            }
-             
-            
+            }            
             }, 1000 / 60);
-             
-            // TODO: Hier weiter mit der Sterbeanimation... Animation wird nicht komplett gezeigt....
            }
     }
 
@@ -229,6 +225,7 @@ class Character extends MovableObject {
         })
      }
 
+     
     pushAudioFilesToArray() {
         allAudioElements.push(this.footstep_sound, this.jump_sound, this.hurt_sound, this.die_sound)
     }

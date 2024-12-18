@@ -12,14 +12,21 @@ class DrawableObject {
     constructor() {
     }
     drawFrame(ctx) {
-        if (this instanceof Character 
-            || this instanceof Chicken || this instanceof Endboss ||  this instanceof ThrowableObject) {
+        if (movableInstance()) {
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'green';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
+    }
+
+    movableInstance() {
+        return     this instanceof Character 
+                || this instanceof Chicken 
+                || this instanceof Endboss 
+                ||  this instanceof ThrowableObject 
+                || this instanceof ChickenSmall
     }
 
     loadImages(arr) {

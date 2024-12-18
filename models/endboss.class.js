@@ -75,6 +75,7 @@ class Endboss extends MovableObject {
             }else if(!this.isHurt() && this.isDead){
                this.playAnimation(this.IMAGES_DIE); 
                this.y += 30;
+               
                //Hier könnte man bei y= 800 das Ende einleiten...          
             }             
        }, 150)
@@ -116,8 +117,7 @@ class Endboss extends MovableObject {
               } else {
                   clearInterval(intervalEndbossWalk);
                   resolve(); 
-              }
-          }, 100);
+              }}, 100);
           setTimeout(() => {
               clearInterval(intervalEndbossWalk);
               resolve();
@@ -134,8 +134,7 @@ class Endboss extends MovableObject {
            } else {
                clearInterval(intervalEndbossAlert);
                resolve(); 
-           }
-       }, 150);
+           }}, 150);
        setTimeout(() => {
            clearInterval(intervalEndbossAlert);
            resolve();
@@ -152,8 +151,7 @@ endbossAttack(duration) {
            } else {
                clearInterval(intervalEndbossAttack);
                resolve(); 
-           }
-       }, 150);
+           }}, 150);
        setTimeout(() => {
            clearInterval(intervalEndbossAttack);
            resolve();

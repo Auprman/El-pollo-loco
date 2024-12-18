@@ -60,7 +60,12 @@ function startGame() {
     gameStarted = true;
     removeInfoToast();
     }
-}  
+}
+
+
+function gameWon() {
+    
+}
 
 
 function changeColorOnKeyDown(event) {

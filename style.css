@@ -98,6 +98,7 @@ footer{
     width: 40px;
     height: 40px;
     margin-left: 96px;
+    cursor: pointer;
 }
 
 #speaker:hover{
