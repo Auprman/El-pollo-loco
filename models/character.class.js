@@ -181,12 +181,13 @@ class Character extends MovableObject {
         if(this.isDead() && !this.deadAnimationPlayed){
             this.die_sound.play();
             this.speedY = 15;
-            this.deadAnimationPlayed = true; 
+            this.deadAnimationPlayed = true;            
             this.playAnimation(this.IMAGES_DEAD);
             let deathAnimaion = setInterval(() => {
             this.y += 7;
             this.loadImage(this.IMAGES_DEAD[5])
             if(this.y > 1000){
+                    world.level.screen[0].gameLost();
                    this.y = 1000;
                    clearInterval(deathAnimaion);                
             }            

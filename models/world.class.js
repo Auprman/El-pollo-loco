@@ -5,7 +5,8 @@ class World {
   statusBarBottles = new StatusBar(0, 90, "bottles");
   statusBarEndboss = new StatusBar(510, -100);
   level = level1;
-  startScreen = this.level.startScreen[0].startScreenLoaded;
+  startScreen = this.level.screen[0].startScreenLoaded;
+//gameOver = this.level.startScreen[1].startScreenLoaded;
   allAudioFiles = [];
   canvas;
   ctx;
@@ -205,7 +206,7 @@ class World {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.ctx.translate(this.camera_x, 0);
     if (this.startScreen) {
-      this.addObjectToMap(this.level.startScreen);
+      this.addObjectToMap(this.level.screen);
     } else {
       this.setupLevelObjects()
     }
@@ -230,6 +231,7 @@ class World {
     this.addObjectToMap(this.level.coins);
     this.addObjectToMap(this.throwableObject);
     this.addToMap(this.character);
+    world.level.enemies[6].isDead ? this.addToMap(this.level.screen[0]): null;
   }
 
   drawStatusBars() {

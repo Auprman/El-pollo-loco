@@ -27,8 +27,9 @@ h1{
     flex-direction: column;
     width: 800px;
     height: 640px;
+    border: 2px solid rgba(0, 0, 0, 0.27);
     background-image: url(img/icons/brown_cracked_wood_texture_background.jpg);
-    background-color: rgba(0, 0, 0, 0.138);
+    background-color: rgba(0, 0, 0, 0.2);
     background-position: center;
     background-position: top;
     background-repeat: no-repeat;

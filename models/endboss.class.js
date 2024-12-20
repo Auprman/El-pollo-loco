@@ -8,6 +8,7 @@ class Endboss extends MovableObject {
     characterWasInSight = false;
     endbossAnimationPlayed = false;
     endbossInRangeOfCharacter = false;
+    fadeInStarted = false;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -74,14 +75,21 @@ class Endboss extends MovableObject {
                this.playAnimation(this.IMAGES_HURT);
             }else if(!this.isHurt() && this.isDead){
                this.playAnimation(this.IMAGES_DIE); 
-               this.y += 30;
-               
+               this.y += 40;
+               this.gameWon();
                //Hier könnte man bei y= 800 das Ende einleiten...          
             }             
        }, 150)
     }
     
-    
+    gameWon() {
+        if(this.y >= 800){
+            world.level.screen[0].img.src = world.level.screen[0].youWinScreen;
+            world.level.screen[0].fadeIn();
+            world.character.stopAllIntervals();
+        }
+    }
+
     dead() {
          if(this.hits >= 3){
          this.isDead = true;

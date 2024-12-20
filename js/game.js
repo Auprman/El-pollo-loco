@@ -49,7 +49,6 @@ window.addEventListener('keyup', (event) => {
     changeColorOnKeyUp(event);
 })
 
-
 function startGame() {
     if(!gameStarted){
         world.startScreen = false;
@@ -63,10 +62,6 @@ function startGame() {
 }
 
 
-function gameWon() {
-    
-}
-
 
 function changeColorOnKeyDown(event) {
     event.keyCode == 37 ? arrowLeft.classList.add('key-pressed'): null;
@@ -75,14 +70,12 @@ function changeColorOnKeyDown(event) {
     event.keyCode == 32 ? spaceKey.classList.add('key-pressed'): null;
 }
 
-
 function changeColorOnKeyUp(event) {
     event.keyCode == 37 ? arrowLeft.classList.remove('key-pressed'): null;
     event.keyCode == 39 ? arrowRight.classList.remove('key-pressed'): null;
     event.keyCode == 68 ? dKey.classList.remove('key-pressed'): null;
     event.keyCode == 32 ? spaceKey.classList.remove('key-pressed'): null;
 }
-
 
 function muteSound() {
     muted = !muted;
