@@ -11,6 +11,8 @@ class Character extends MovableObject {
     idleTime = 0;
     jumped = false;
     allIntervals = [];
+    fadeInStarted = false;
+    gameLostScreen = false;
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -79,6 +81,7 @@ class Character extends MovableObject {
     jump_sound = new Audio('audio/jump1.mp3');
     hurt_sound = new Audio('audio/hurt2.mp3');   
     die_sound = new Audio('audio/die2.mp3');
+    gameOver_sound = new Audio('audio/gameover1.mp3');
     
 
 
@@ -87,8 +90,7 @@ class Character extends MovableObject {
         this.loadCharacterImages();
         this.applyGravity();
         this.checkIfCharacterIsIdle();
-        this.pushAudioFilesToArray();
-                
+        this.pushAudioFilesToArray();                
     }
     
 
@@ -177,21 +179,20 @@ class Character extends MovableObject {
     }
 
 
-    deathAnimationCharacter() {
+    deathAnimationCharacter() {  
         if(this.isDead() && !this.deadAnimationPlayed){
             this.die_sound.play();
             this.speedY = 15;
             this.deadAnimationPlayed = true;            
             this.playAnimation(this.IMAGES_DEAD);
             let deathAnimaion = setInterval(() => {
-            this.y += 7;
-            this.loadImage(this.IMAGES_DEAD[5])
-            if(this.y > 1000){
-                    world.level.screen[0].gameLost();
-                   this.y = 1000;
-                   clearInterval(deathAnimaion);                
-            }            
-            }, 1000 / 60);
+                this.y += 7;
+                this.loadImage(this.IMAGES_DEAD[5])
+                if(this.y > 1000){                    
+                    this.y = 1000;
+                    clearInterval(deathAnimaion);                
+                }            
+                }, 1000 / 60);
            }
     }
 
@@ -229,6 +230,20 @@ class Character extends MovableObject {
      
     pushAudioFilesToArray() {
         allAudioElements.push(this.footstep_sound, this.jump_sound, this.hurt_sound, this.die_sound)
+    }
+
+
+    gameLost() {        
+        if(this.isDead() && world.character.y >= 800 && !this.gameLostScreen){             
+            world.level.screen[1].x = this.x ;
+            world.level.screen[1].y = 20 ;
+            console.log(world.level.screen[1].fadeInStarted);
+            world.level.screen[1].img.src = world.level.screen[1].gameOverScreen;
+            world.level.screen[1].fadeIn();
+            world.character.stopAllIntervals();
+            this.gameLostScreen = true;                  
+        }
+        
     }
      
 }

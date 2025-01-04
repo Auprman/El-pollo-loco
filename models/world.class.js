@@ -6,7 +6,7 @@ class World {
   statusBarEndboss = new StatusBar(510, -100);
   level = level1;
   startScreen = this.level.screen[0].startScreenLoaded;
-//gameOver = this.level.startScreen[1].startScreenLoaded;
+  gameOver = false;
   allAudioFiles = [];
   canvas;
   ctx;
@@ -206,9 +206,10 @@ class World {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.ctx.translate(this.camera_x, 0);
     if (this.startScreen) {
-      this.addObjectToMap(this.level.screen);
+      this.addToMap(this.level.screen[0]);      
     } else {
-      this.setupLevelObjects()
+      this.setupLevelObjects();
+      this.drawGameOverScreen();
     }
     let self = this;
     requestAnimationFrame(function () {
@@ -239,6 +240,22 @@ class World {
     this.addToMap(this.statusBarBottles);
     this.addToMap(this.statusBarCoins);
     this.addToMap(this.statusBarEndboss);
+  }
+
+  drawGameOverScreen() {
+    if(world.character.isDead() && world.character.y > 800){
+      this.addToMap(this.level.screen[1]);;
+      this.gameOverSound()
+    }
+  }
+
+  gameOverSound(){
+    if (!this.gameOver) {
+      this.gameOver = true;
+      myRange.value = 10;
+      background_sound.volume = 0.04;
+      world.character.gameOver_sound.play();     
+    }
   }
 
   addObjectToMap(objects) {

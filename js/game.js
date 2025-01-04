@@ -7,6 +7,8 @@ const dKey = document.getElementById('dKey');
 const spaceKey = document.getElementById('spaceKey');
 const speaker = document.getElementById('speaker');
 const infoToast = document.getElementById('info');
+const background_sound = new Audio ('audio/musica2.mp3');
+const slider = document.getElementById('myRange');
 
 const allAudioElements = []
 
@@ -18,6 +20,7 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     changeInfoToastBorder();
+    setVolume();
 }
 
 function changeInfoToastBorder(){
@@ -58,10 +61,31 @@ function startGame() {
         });;
     gameStarted = true;
     removeInfoToast();
+    allAudioElements.push(background_sound);   
+    background_sound.play();
+    background_sound.volume = 0.1;
     }
 }
 
+function setVolume(){
+    slider.addEventListener('input', () => {
+        background_sound.volume = slider.value / 100;
+    }
+)}
 
+function toggleMusic() {
+    const checkbox = document.getElementById('musicCheckbox');
+    const checkboxLabel = document.getElementById('guitarPicture'); 
+    if (checkbox.checked) {
+      background_sound.play(); // Musik abspielen
+      checkboxLabel.src = 'img/icons/guitar.png'; 
+      
+    } else {
+      background_sound.pause(); // Musik pausieren
+      background_sound.currentTime = 0; // Optional: Zurückspulen
+      checkboxLabel.src = 'img/icons/guitar-muted.png';    
+    }
+}
 
 function changeColorOnKeyDown(event) {
     event.keyCode == 37 ? arrowLeft.classList.add('key-pressed'): null;
@@ -99,3 +123,28 @@ function changeVolumeImageSource(muted) {
 function removeInfoToast() {
     infoToast.style.visibility = 'hidden';
 }
+
+function isSmartphone() {
+    const maxSmartphoneWidth = 768; // Typische maximale Breite für Smartphones
+    return window.innerWidth <= maxSmartphoneWidth;
+  }
+  
+  function isPortraitMode() {
+    return window.innerHeight > window.innerWidth;
+  }
+  
+  function checkDeviceAndOrientation() {
+    if (isSmartphone()) {
+      if (isPortraitMode()) {
+        console.log("Das Gerät ist ein Smartphone und wird hochkant gehalten.");
+      } else {
+        console.log("Das Gerät ist ein Smartphone und wird quer gehalten.");
+      }
+    } else {
+      console.log("Das Gerät ist kein Smartphone.");
+    }
+  }
+  
+  checkDeviceAndOrientation();
+  
+   window.addEventListener('resize', checkDeviceAndOrientation);

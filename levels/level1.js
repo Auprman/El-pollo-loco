@@ -62,7 +62,7 @@ const level1 = new Level(
 
         [
             new Screen(0, 0, 'start'),
-            // new Screen(0, 0, 'game over'),
+            new Screen(0, 0, 'game over')
             // new Screen(0, 0, 'win')
         ]
 

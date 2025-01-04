@@ -7,11 +7,13 @@ class Screen extends DrawableObject {
     startScreen = 'img/9_intro_outro_screens/start/startscreen_1.png' ;
     gameOverScreen = 'img/9_intro_outro_screens/game_over/game over!.png';
     youWinScreen = 'img/9_intro_outro_screens/win/win_2.png';
-
+    fadeInStarted = false;
 
     constructor(x, y, screen) {
-        super().loadImage(screen);
+        super().loadImage('img/9_intro_outro_screens/start/startscreen_1.png');
         this.loadScreen(screen)  
+        this.x = x;
+        this.y = y;
     }
     
     loadScreen(screen) {
@@ -20,16 +22,17 @@ class Screen extends DrawableObject {
         screen == 'win' ? this.loadImage(this.youWinScreen): null ;
     }
 
-    fadeIn() {
-        let screen = world.level.screen[0];
+    fadeIn(screenNumber) {       
+        let screen = world.level.screen[screenNumber]
         if (!this.fadeInStarted) {
+            console.log('fade in started');            
             this.fadeInStarted = true;
             screen.width = 0;
             screen.height = 0;
             const screenWidth = 480; 
             const screenHeight = 400; 
             const startX = world.character.x + 240 ; 
-            const startY = world.character.y;      
+            const startY = 240    
             let fadeInInterval = this.expandImage(screen, screenWidth, screenHeight, startX, startY) ;
             if (screen.width >= screenWidth && screen.height >= screenHeight) {
                 clearInterval(fadeInInterval);
@@ -50,13 +53,6 @@ class Screen extends DrawableObject {
         }, 10);
     }
 
-    gameLost() {
-        if(world.character.y > 800){
-            console.log('game over');
-            world.level.screen[0].img.src = world.level.screen[0].youWinScreen;
-            world.level.screen[0].fadeIn();
-            world.character.stopAllIntervals();
-        }
-    }
+   
 
 }

@@ -9,6 +9,7 @@ class Endboss extends MovableObject {
     endbossAnimationPlayed = false;
     endbossInRangeOfCharacter = false;
     fadeInStarted = false;
+    // gameWon_sound = new Audio('audio/game-won.mp3');
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -65,7 +66,7 @@ class Endboss extends MovableObject {
      
 
      animate() {      
-         setInterval(() => {
+         setInterval(() => {           
             this.characterInSight();
             if(this.characterWasInSight && !this.endbossAnimationPlayed){
                this.endbossAnimation();
@@ -76,15 +77,25 @@ class Endboss extends MovableObject {
             }else if(!this.isHurt() && this.isDead){
                this.playAnimation(this.IMAGES_DIE); 
                this.y += 40;
-               this.gameWon();
-               //Hier könnte man bei y= 800 das Ende einleiten...          
+               this.gameWon();         
             }             
        }, 150)
     }
     
     gameWon() {
-        if(this.y >= 800){
+        if(this.y >= 800 ){
+            console.log(world.level.screen[0].fadeInStarted);
             world.level.screen[0].img.src = world.level.screen[0].youWinScreen;
+            world.level.screen[0].fadeIn(0);
+            world.character.stopAllIntervals();
+        }
+    }
+
+    gameLost() {
+        console.log(world.character.y);        
+        if(world.character.y >= 800){
+            console.log(world.level.screen[0].fadeInStarted);
+            world.level.screen[0].img.src = world.level.screen[0].gameOverScreen;
             world.level.screen[0].fadeIn();
             world.character.stopAllIntervals();
         }
