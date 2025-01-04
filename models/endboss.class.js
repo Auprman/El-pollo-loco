@@ -9,7 +9,8 @@ class Endboss extends MovableObject {
     endbossAnimationPlayed = false;
     endbossInRangeOfCharacter = false;
     fadeInStarted = false;
-    // gameWon_sound = new Audio('audio/game-won.mp3');
+    gameWon_sound = new Audio('audio/game-won.mp3');
+    gameWonSoundPlayed = false;
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -88,6 +89,16 @@ class Endboss extends MovableObject {
             world.level.screen[0].img.src = world.level.screen[0].youWinScreen;
             world.level.screen[0].fadeIn(0);
             world.character.stopAllIntervals();
+            this.playWinSound()
+        }
+    }
+
+    playWinSound() {  
+        if(!this.gameWonSoundPlayed) {
+            this.gameWon_sound.play();
+            slider.value = 0.02;
+            background_sound.volume = 0.02;
+            this.gameWonSoundPlayed = true;
         }
     }
 
