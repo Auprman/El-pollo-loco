@@ -208,6 +208,17 @@ canvas{
     footer{
         display: none;
     }
+    .control-button-container {
+        display: none;
+    }
+    #frame{
+        height: auto;
+        background-image: none;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background-color: transparent;
+    }
 
 }
 
@@ -249,6 +260,12 @@ canvas{
         position: absolute;
         border-radius: 25px;
     }
+    .musicCb{
+        position: absolute;
+        top: 0px;
+        
+    }
+
 }
 
 
