@@ -125,7 +125,7 @@ function removeInfoToast() {
 }
 
 function isSmartphone() {
-    const maxSmartphoneWidth = 768; // Typische maximale Breite für Smartphones
+    const maxSmartphoneWidth = 768; 
     return window.innerWidth <= maxSmartphoneWidth;
   }
   
