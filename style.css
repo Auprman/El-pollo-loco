@@ -8,11 +8,18 @@ body{
     align-items: center;
     background-image: url('img/10_background/desert.jpg');
     background-position: center;
-      
 }
 
 h1{
     color: #DEE9EB;
+}
+h2{
+    font-family: "Kenia", sans-serif;
+    font-size: 40px;
+    font-weight: 400;
+    font-style: normal;
+    text-shadow: 4px 5px 2px #FC8A5D;
+    font-variant: small-caps; 
 }
 
 .kenia-regular {
@@ -21,6 +28,7 @@ h1{
     font-weight: 400;
     font-style: normal;
     text-shadow: 4px 5px 2px #FC8A5D;
+    font-variant: small-caps;
 }
   
 #frame{
@@ -42,6 +50,7 @@ h1{
 
 canvas{
     background-color: black;
+    z-index: 1000;
 }
 
 canvas:hover{
@@ -133,6 +142,7 @@ footer{
 
 .infoToast{
     display: flex;
+    z-index: 10000;
     justify-content: center;
     align-items: center;
     position: relative;
@@ -192,6 +202,56 @@ canvas{
     display: block;
 }
 
+
+#touchLeft{
+    filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('img/icons/move-left.png');
+}
+
+#touchRight{
+    filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('img/icons/move-right.png');
+}
+
+#touchJump{
+    filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('img/icons/jump.png');
+}
+
+#touchThrow{
+    filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    border: none;
+    background-size: 80px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('img/icons/bottle.png');
+}
+
+#touchFullscreen{
+    filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('img/icons/fullscreen.png');
+}
+#reloadGame{
+    filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('img/icons/reload.png');
+}
+
+
 @media only screen and (max-width: 720px) {
     canvas{
         width: 100% ;
@@ -238,6 +298,7 @@ canvas{
     .control-button-container {
         height: 100px;
     }
+    
 }
 
 @media only screen and (max-height: 616px) {
@@ -245,31 +306,139 @@ canvas{
     .control-button-container {
         display: none;
     }
+
     #frame{
-        height: auto;
+        z-index: 100;
         background-image: none;
         align-items: center;
         justify-content: center;
         border: none;
         background-color: transparent;
     }
+
     footer{
         margin: 0px;
     }
+
     .infoToast{
         position: absolute;
         border-radius: 25px;
     }
+
     .musicCb{
         position: absolute;
-        top: 0px;
-        
+        top: 0px;        
+    }
+
+    .nav-bar-top{
+        z-index: 1000;
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        /* max-width: 720px; */
+        justify-content: space-around;        
+        bottom: 0%;
+        opacity: 0.9;        
+    }
+
+    #touchMute{
+        border: none;
+        filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    border: none;
+        background-color: transparent;
+        background-size: contain;
+        background-image: url('img/icons/volume-64.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        height: 8vh;
+        right: 45vw;
+        bottom:90vh;
+    }
+
+    #touchLeft{ 
+        position: absolute;
+        left: 2vw;
+        bottom: 45vh;
+    }   
+
+    #touchRight{
+        position: absolute;
+        right: 2vw;
+        bottom: 45vh;
+    }
+
+    #touchJump{
+        position: absolute;
+        right: 2vw;
+        bottom: 10vh;
+    }
+    #touchThrow{
+        position: absolute;
+        left: 2vw;
+        bottom: 10vh;
+    }
+    #touchFullscreen{
+        position: absolute;
+        height: 8vh;
+        right: 55vw;
+        background-size: contain;
+        bottom:90vh;
+    }
+    #reloadGame{
+        display: none;
+        position: absolute;
+        height: 4vw;
+        width: 4vw;
+        background-position: center;
+        background-size: contain;
+        right: 38vw;
+        bottom:90vh;
     }
 
 }
 
+.touch-button{
+    height: 80px;
+    width: 80px;
+}
 
-@media only screen and (max-height: 480px) {
+.nav-bar-top{
+    display: none;
+}
+
+.display-none{
+    display: none !important;
+}
+
+.display-flex{
+    display: flex !important;
+}
+
+.rotate-screen{ 
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    z-index: 10000;
+    position: absolute;
+    background-image: url(img/10_background/desert.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: conver;
+    height: 100vh;
+    width: 100vw; 
+    text-align: center;    
+    img{
+        filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%); 
+        position: absolute;
+        top: 35%;
+        left: 45%;
+        width: 10%;
+    }  
+}
+
+/* 480px */
+@media only screen and (max-height: 510px) { 
     canvas{
         height: 100vh ;
     }

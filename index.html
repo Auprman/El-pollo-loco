@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="style.css">
     <script src="models/drawable-object.class.js" defer></script>
     <script src="models/screens.class.js" defer></script>
@@ -53,10 +53,21 @@
                 <div class="single-key"><img onclick="muteSound()" id="speaker" src="img/icons/volume-64.png" alt="speaker"></div>
             </div>        
         </div>
+        <div id="navBarTop" class="nav-bar-top">
+            <button class="touch-button" id="touchLeft"></button>
+            <button class="touch-button" id="touchRight"></button>
+            <button class="touch-button" id="touchJump"></button>
+            <button class="touch-button" id="touchThrow"></button>
+            <button onclick="muteSound()" class="touch-button" id="touchMute"></button>
+            <button onclick="fullscreen()" class="touch-button" id="touchFullscreen"></button>
+            <button onclick="reloadGame()" id="reloadGame"></button>
+        </div>
+        <div id="rotateScreen" class="rotate-screen">
+            <h2>Please rotate your Phone horizontally</h2>
+            <img src="img/icons/rotate.gif" alt="rotate screen">
+        </div>
     </div>
-    <div class="nav-bar-top">
-        
-    </div>
+    
 
 
 

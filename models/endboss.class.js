@@ -85,7 +85,6 @@ class Endboss extends MovableObject {
     
     gameWon() {
         if(this.y >= 800 ){
-            console.log(world.level.screen[0].fadeInStarted);
             world.level.screen[0].img.src = world.level.screen[0].youWinScreen;
             world.level.screen[0].fadeIn(0);
             world.character.stopAllIntervals();

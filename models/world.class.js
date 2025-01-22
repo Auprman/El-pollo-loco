@@ -19,6 +19,7 @@ class World {
   lastBottleThrown = new Date().getTime();
   maxCoins = this.level.coins.length;
   maxBottles = this.level.bottles.length;
+  reloadButtonVisible = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -62,7 +63,16 @@ class World {
       this.checkBottleCollection();
       this.setStatusBarEndboss();
       this.checkThrowObjects();
+      this.displayReloadButton();
     }, 50);
+  }
+
+  displayReloadButton() {
+    if(this.gameOver || world.fadeInStarted && !this.reloadButtonVisible){
+      this.reloadButtonVisible = true;
+      console.log(this.gameOver , world.character.fadeInStarted, !this.reloadButtonVisible);
+      reloadButton.style.display = 'flex';
+    }
   }
 
   setWorld() {
