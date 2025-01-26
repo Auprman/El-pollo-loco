@@ -237,7 +237,6 @@ class Character extends MovableObject {
         if(this.isDead() && world.character.y >= 800 && !this.gameLostScreen){             
             world.level.screen[1].x = this.x ;
             world.level.screen[1].y = 20 ;
-            console.log(world.level.screen[1].fadeInStarted);
             world.level.screen[1].img.src = world.level.screen[1].gameOverScreen;
             world.level.screen[1].fadeIn();
             world.character.stopAllIntervals();

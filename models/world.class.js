@@ -68,10 +68,17 @@ class World {
   }
 
   displayReloadButton() {
-    if(this.gameOver || world.fadeInStarted && !this.reloadButtonVisible){
+    if(this.gameOver || world.level.enemies[6].isDead && !this.reloadButtonVisible){
       this.reloadButtonVisible = true;
-      console.log(this.gameOver , world.character.fadeInStarted, !this.reloadButtonVisible);
-      reloadButton.style.display = 'flex';
+      if(world.level.enemies[6].isDead){
+        setTimeout(() => {
+          reloadButton.style.display = 'flex';
+          reloadButtonBig.style.display = 'flex';
+        }, 2500);
+      }else{
+          reloadButton.style.display = 'flex';
+          reloadButtonBig.style.display = 'flex';
+      }     
     }
   }
 
@@ -230,9 +237,9 @@ class World {
   setupLevelObjects() {
     this.addObjectToMap(this.level.backgroundObjects);
     this.addObjectToMap(this.level.clouds);
-    this.ctx.translate(-this.camera_x, 0); //Camera back
+    this.ctx.translate(-this.camera_x, 0);
     this.drawStatusBars();
-    this.ctx.translate(this.camera_x, 0); //Camera forwards
+    this.ctx.translate(this.camera_x, 0); 
     this.drawMovableObjects();
     this.ctx.translate(-this.camera_x, 0);
   }
@@ -279,7 +286,6 @@ class World {
       this.mirrorImage(mo);
     }
     mo.draw(this.ctx);
-    // mo.drawFrame(this.ctx); // Draw Frame around movable Characters
 
     if (mo.otherDirection) {
       this.restoreImage(mo);

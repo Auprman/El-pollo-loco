@@ -13,7 +13,7 @@ const slider = document.getElementById('myRange');
 const touchMute = document.getElementById("touchMute");
 const navBarTop = document.getElementById('navBarTop');
 const reloadButton = document.getElementById('reloadGame');
-
+const reloadButtonBig = document.getElementById('reloadGameBig');
 const touchLeft = document.getElementById('touchLeft');
 const touchRight = document.getElementById('touchRight');
 const touchJump = document.getElementById('touchJump');
@@ -150,12 +150,12 @@ function toggleMusic() {
     const checkbox = document.getElementById('musicCheckbox');
     const checkboxLabel = document.getElementById('guitarPicture'); 
     if (checkbox.checked) {
-      background_sound.play(); // Musik abspielen
+      background_sound.play();
       checkboxLabel.src = 'img/icons/guitar.png'; 
       
     } else {
-      background_sound.pause(); // Musik pausieren
-      background_sound.currentTime = 0; // Optional: Zurückspulen
+      background_sound.pause();
+      background_sound.currentTime = 0; 
       checkboxLabel.src = 'img/icons/guitar-muted.png';    
     }
 }
@@ -194,34 +194,29 @@ function changeVolumeImageSource(muted) {
     muted == true ? speakerTouchscreen.style.backgroundImage = 'url(\'img/icons/mute.png\')' : speakerTouchscreen.style.backgroundImage = 'url(\'img/icons/volume-64.png\')';
 }
 
+
 function removeInfoToast() {
     infoToast.style.visibility = 'hidden';
 }
+
 
 function isSmartphone() {
     const maxSmartphoneWidth = 768; 
     return window.innerWidth <= maxSmartphoneWidth;
   }
   
-  function isPortraitMode() {
+function isPortraitMode() {
     return window.innerHeight > window.innerWidth;
-  }
-  
-  function checkDeviceAndOrientation() {
-    if (isSmartphone()) {
-      if (isPortraitMode()) {
-        console.log("Das Gerät ist ein Smartphone und wird hochkant gehalten.");
-      } else {
-        console.log("Das Gerät ist ein Smartphone und wird quer gehalten.");
-      }
-    } else {
-      console.log("Das Gerät ist kein Smartphone.");
-    }
-  }
-  
+}
+
+
+function reloadGame(){
+    location.reload();
+}
+
 
   function fullscreen() {
-    let frame = document.getElementById('frame');
+    let frame = document.getElementById('canvas');
     openFullscreen(frame);
   }
   
@@ -244,7 +239,3 @@ function closeFullscreen() {
     document.msExitFullscreen();
   }
 }
-
-  checkDeviceAndOrientation();
-  
-   window.addEventListener('resize', checkDeviceAndOrientation);

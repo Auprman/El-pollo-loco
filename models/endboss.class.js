@@ -101,10 +101,8 @@ class Endboss extends MovableObject {
         }
     }
 
-    gameLost() {
-        console.log(world.character.y);        
+    gameLost() {      
         if(world.character.y >= 800){
-            console.log(world.level.screen[0].fadeInStarted);
             world.level.screen[0].img.src = world.level.screen[0].gameOverScreen;
             world.level.screen[0].fadeIn();
             world.character.stopAllIntervals();

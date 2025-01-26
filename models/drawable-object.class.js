@@ -43,8 +43,7 @@ class DrawableObject {
         } catch (error){
             console.log('Error loading image', error);
             console.log('Could not load image', this.img, this);
-        }
-        
+        }        
     }
 
     loadImage(path) {

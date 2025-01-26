@@ -13,6 +13,7 @@ body{
 h1{
     color: #DEE9EB;
 }
+
 h2{
     font-family: "Kenia", sans-serif;
     font-size: 40px;
@@ -32,6 +33,7 @@ h2{
 }
   
 #frame{
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -243,14 +245,52 @@ canvas{
     background-position: center;
     background-image: url('img/icons/fullscreen.png');
 }
+
 #reloadGame{
     filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    border: none;
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url('img/icons/reload.png');
+    background-image: url('img/icons/reload.png'); 
 }
 
+#reloadGameBig{
+    filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: none;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 0%;
+    right: 45%;
+}
+
+#fullscreenBig{
+    filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 0%;
+    right: 5%;
+}
+
+#fullscreenBig:hover{
+    filter: invert(83%) sepia(53%) saturate(2438%) hue-rotate(347deg) brightness(111%) contrast(107%);    
+    cursor: pointer;
+}
+
+#reloadGameBig:hover{
+    filter: invert(83%) sepia(53%) saturate(2438%) hue-rotate(347deg) brightness(111%) contrast(107%);    
+    cursor: pointer;
+}
 
 @media only screen and (max-width: 720px) {
     canvas{
@@ -298,6 +338,12 @@ canvas{
     .control-button-container {
         height: 100px;
     }
+    #fullscreenBig{
+        display: none;
+    }
+    #reloadGameBig{
+        display: none !important;
+    }
     
 }
 
@@ -306,6 +352,8 @@ canvas{
     .control-button-container {
         display: none;
     }
+
+
 
     #frame{
         z-index: 100;
@@ -335,7 +383,6 @@ canvas{
         position: absolute;
         height: 1px;
         width: 100%;
-        /* max-width: 720px; */
         justify-content: space-around;        
         bottom: 0%;
         opacity: 0.9;        
@@ -437,7 +484,6 @@ canvas{
     }  
 }
 
-/* 480px */
 @media only screen and (max-height: 510px) { 
     canvas{
         height: 100vh ;

@@ -24,8 +24,7 @@ class Screen extends DrawableObject {
 
     fadeIn(screenNumber) {       
         let screen = world.level.screen[screenNumber]
-        if (!this.fadeInStarted) {
-            console.log('fade in started');            
+        if (!this.fadeInStarted) {           
             this.fadeInStarted = true;
             screen.width = 0;
             screen.height = 0;

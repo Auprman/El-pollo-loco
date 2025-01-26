@@ -58,7 +58,6 @@ class MovableObject extends DrawableObject {
         this.speedY = 10;
     }
 
-    // Bessere Formel zur Kollisionsberechnung unter dem Video 10 Collision detection
     isColliding (mo, offsetXmo, offsetYmo) {
         let offsetX = 0;
         let offsetY = 0;
@@ -80,7 +79,7 @@ class MovableObject extends DrawableObject {
 
     isHurt() {
         let timePassed = new Date().getTime() - this.lastHit ;
-        timePassed = timePassed / 1000 //In seconds
+        timePassed = timePassed / 1000 ;
         return timePassed < 0.5 ;
     }
 
