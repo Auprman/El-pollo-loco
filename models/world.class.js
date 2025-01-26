@@ -181,7 +181,7 @@ class World {
 
   checkCoinCollision() {
     let coinOffsetX = 50;
-    let coinOffsetY = 50;
+    let coinOffsetY = 150;
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin, coinOffsetX, coinOffsetY)) {
         this.level.coins.splice(index, 1);

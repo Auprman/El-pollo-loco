@@ -339,10 +339,16 @@ canvas{
         height: 100px;
     }
     #fullscreenBig{
-        display: none;
     }
+
     #reloadGameBig{
-        display: none !important;
+        height: 32px;
+        width: 32px;
+    }
+
+    #fullscreenBig{
+        height: 32px;
+        width: 32px;
     }
     
 }
@@ -350,9 +356,15 @@ canvas{
 @media only screen and (max-height: 616px) {
 
     .control-button-container {
+        display:none;
+    }
+    #fullscreenBig{
         display: none;
     }
 
+    #reloadGameBig{
+        display: none !important;
+    }
 
 
     #frame{

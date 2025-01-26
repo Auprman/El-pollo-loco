@@ -132,7 +132,7 @@ function startGame() {
 
 function showTouchControlsOnMobile() {
   let navBarTop = document.getElementById('navBarTop');
-  if(document.body.clientHeight < 510){
+  if(document.body.clientHeight < 614){
     navBarTop.classList.add('display-flex');
   }else{
     navBarTop.classList.remove('display-flex');
@@ -217,8 +217,23 @@ function reloadGame(){
 
   function fullscreen() {
     let frame = document.getElementById('canvas');
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+  }else{
     openFullscreen(frame);
   }
+  }
+
+  function fullscreenMobile() {
+    let frame = document.getElementById('frame');
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+  }else{
+    openFullscreen(frame);
+  }
+    
+  }
+
   
 function openFullscreen(elem) {
   if (elem.requestFullscreen) {
@@ -239,3 +254,9 @@ function closeFullscreen() {
     document.msExitFullscreen();
   }
 }
+
+window.addEventListener('load', function() {
+  setTimeout(function() {
+      window.scrollTo(0, 1);
+  }, 100);
+});
