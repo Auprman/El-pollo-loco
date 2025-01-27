@@ -93,7 +93,7 @@ class Endboss extends MovableObject {
             world.level.screen[0].img.src = world.level.screen[0].youWinScreen;
             world.level.screen[0].fadeIn(0);
             world.character.stopAllIntervals();
-            this.playWinSound()
+            this.playWinSound();
         }
     }
 
@@ -102,7 +102,7 @@ class Endboss extends MovableObject {
  */
     playWinSound() {  
         if(!this.gameWonSoundPlayed) {
-            this.gameWon_sound.play();
+            !muted ? this.gameWon_sound.play() : null;
             slider.value = 0.02;
             background_sound.volume = 0.02;
             this.gameWonSoundPlayed = true;
@@ -217,3 +217,6 @@ endbossAttack(duration) {
    });
 }
 }
+
+
+

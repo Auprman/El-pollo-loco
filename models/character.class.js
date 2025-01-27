@@ -253,7 +253,7 @@ class Character extends MovableObject {
  * This function pushes all audio files to an array
  */     
     pushAudioFilesToArray() {
-        allAudioElements.push(this.footstep_sound, this.jump_sound, this.hurt_sound, this.die_sound)
+        allAudioElements.push(this.footstep_sound, this.jump_sound, this.hurt_sound, this.die_sound, this.gameOver_sound);
     }
 
 /**
