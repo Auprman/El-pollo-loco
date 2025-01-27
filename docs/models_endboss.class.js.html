@@ -1,4 +1,32 @@
-class Endboss extends MovableObject {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/endboss.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/endboss.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Endboss extends MovableObject {
 
     height = 300;
     width = 150;
@@ -71,13 +99,13 @@ class Endboss extends MovableObject {
      animate() {      
          setInterval(() => {           
             this.characterInSight();
-            if(this.characterWasInSight && !this.endbossAnimationPlayed){
+            if(this.characterWasInSight &amp;&amp; !this.endbossAnimationPlayed){
                this.endbossAnimation();
                this.endbossAnimationPlayed = true;
             }
             if (this.isHurt()) {               
                this.playAnimation(this.IMAGES_HURT);
-            }else if(!this.isHurt() && this.isDead){
+            }else if(!this.isHurt() &amp;&amp; this.isDead){
                this.playAnimation(this.IMAGES_DIE); 
                this.y += 40;
                this.gameWon();         
@@ -133,7 +161,7 @@ class Endboss extends MovableObject {
  *  This function checks if the character is in sight
  */
    characterInSight() {      
-      if(world && world.character.x > 1570){
+      if(world &amp;&amp; world.character.x > 1570){
          this.characterWasInSight = true;        
       }
    }
@@ -142,7 +170,7 @@ class Endboss extends MovableObject {
  * This function animates the endboss
  */
    async endbossAnimation() {
-      for (let cycles = 0; cycles < 100; cycles++) {
+      for (let cycles = 0; cycles &lt; 100; cycles++) {
          await this.endbossWalk(2000);
          await this.endbossAlert(2000);
          await this.endbossAttack(1000);
@@ -159,7 +187,7 @@ class Endboss extends MovableObject {
       return new Promise((resolve) => {
          this.speed = Math.random() * 20
           let intervalEndbossWalk = setInterval(() => {
-              if (!this.isHurt() && !this.isDead) {
+              if (!this.isHurt() &amp;&amp; !this.isDead) {
                   this.moveLeft();
                   this.playAnimation(this.IMAGES_WALKING);
               } else {
@@ -182,7 +210,7 @@ class Endboss extends MovableObject {
   endbossAlert(duration) {
    return new Promise((resolve) => {
        let intervalEndbossAlert = setInterval(() => {
-           if (!this.isHurt() && !this.isDead) {
+           if (!this.isHurt() &amp;&amp; !this.isDead) {
                this.playAnimation(this.IMAGES_ALERT);
            } else {
                clearInterval(intervalEndbossAlert);
@@ -204,7 +232,7 @@ class Endboss extends MovableObject {
 endbossAttack(duration) {
    return new Promise((resolve) => {
        let intervalEndbossAttack = setInterval(() => {
-           if (!this.isHurt() && !this.isDead) {
+           if (!this.isHurt() &amp;&amp; !this.isDead) {
                this.playAnimation(this.IMAGES_ATTACK);
            } else {
                clearInterval(intervalEndbossAttack);
@@ -217,3 +245,26 @@ endbossAttack(duration) {
    });
 }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#reloadGame">reloadGame</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jan 27 2025 21:00:09 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

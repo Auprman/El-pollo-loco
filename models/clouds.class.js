@@ -10,7 +10,9 @@ class Cloud extends MovableObject {
         super().loadImage('img/5_background/layers/4_clouds/1.png');
         this.animate()
      }
-    
+    /**
+     * This function animates the cloud
+     */
      animate(){
       setInterval(() => {
          this.moveLeft();

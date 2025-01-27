@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: models/movable-object.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: models/movable-object.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class MovableObject extends DrawableObject {
+
+    speed = 0.2;
+    otherDirection = false;
+    speedY = 0;
+    acceleration = 0.5;
+    energy = 100;
+    lastHit = 0;
+
+/**
+ * This function moves the object to the right
+ */    
+    moveRight() {
+        this.x += this.speed;
+    }
+
+/**
+ * This function moves the object to the left
+ */
+    moveLeft() {
+           this.x -= this.speed;  
+    }
+
+/**
+ * This function mirrors the image
+ * 
+ * @param {Element} ctx - the context
+ */
+    mirrorImage(ctx) {
+            ctx.save();
+            ctx.translate(this.width, 0)
+            ctx.scale(-1, 1);
+            this.x = this.x * -1;
+    }
+
+/**
+ *  This function restores the image
+ * 
+ * @param {*} ctx - the context
+ */
+    restoreImage(ctx) {
+        ctx.restore();
+        this.x = this.x * - 1;
+    }
+
+/**
+ *  This function plays the animation
+ * 
+ * @param {*} images - the images
+ */
+    playAnimation(images) {
+        let i = this.currenImage % images.length;
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currenImage ++;
+    }
+
+/**
+ * This function applies gravity to the object
+ */
+    applyGravity() {
+        setInterval(() => {
+            if(this.isAboveGround() || this.speedY > 0)
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
+        }, 1000 / 60);
+    }
+
+/**
+ * 
+ * @returns {boolean} - returns true if the object is above the ground
+ */
+    isAboveGround() {      
+            return this.y &lt; 230;
+    }
+    
+/**
+ * This function makes the object jump
+ */    
+jump(){
+    this.speedY = 10;
+}
+
+/**
+ * This function checks if the object is dead
+ * 
+ * @param {*} mo - the object 
+ * @param {*} offsetXmo - the offset X axis
+ * @param {*} offsetYmo - the offset y axis
+ * @returns 
+ */
+isColliding (mo, offsetXmo, offsetYmo) {
+    let offsetX = 0;
+    let offsetY = 0;
+    if (offsetXmo &amp;&amp; offsetYmo) {
+        offsetX = offsetXmo;
+        offsetY = offsetYmo;
+    }
+    return  this.x + this.width > mo.x + offsetX &amp;&amp;
+            this.y + this. height > mo.y + offsetY &amp;&amp;
+            this.x &lt; mo.x + mo.width - offsetX &amp;&amp;
+            this.y &lt; mo.y + mo.height - offsetY
+}
+
+/**
+ *  *  This function checks if the object is dead
+ * 
+ *  @returns {boolean} - returns true if the object is dead
+ */
+isDead() {
+    return this.energy == 0;
+}
+
+/**
+ *  *  This function checks if the object is hurt
+ * 
+ * @returns {boolean} - returns true if the object is hurt
+ */
+isHurt() {
+    let timePassed = new Date().getTime() - this.lastHit ;
+    timePassed = timePassed / 1000 ;
+    return timePassed &lt; 0.5 ;
+}
+
+/**
+ * This function checks if the object is hurt
+ */
+hit() {
+    this.energy -= 5
+    if (this.energy &lt; 0) {
+        this.energy = 0;
+    } else {
+        this.lastHit = new Date().getTime();
+    }
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#reloadGame">reloadGame</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jan 27 2025 21:00:09 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

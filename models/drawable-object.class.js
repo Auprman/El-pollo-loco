@@ -11,6 +11,11 @@ class DrawableObject {
 
     constructor() {
     }
+    /**
+     * This function draws a frame around the object
+     * 
+     * @param {element} ctx - canvas context
+     */
     drawFrame(ctx) {
         if (movableInstance()) {
             ctx.beginPath();
@@ -21,6 +26,11 @@ class DrawableObject {
         }
     }
 
+/**
+ * This function checks if the object is an instance of Character, Chicken, Endboss, ThrowableObject or ChickenSmall
+ * 
+ * @returns {boolean} - returns true if the object is an instance of Character, Chicken, Endboss, ThrowableObject or ChickenSmall
+ */
     movableInstance() {
         return     this instanceof Character 
                 || this instanceof Chicken 
@@ -29,6 +39,11 @@ class DrawableObject {
                 || this instanceof ChickenSmall
     }
 
+/**
+ *  This function loads the images
+ * 
+ * @param {Array} arr 
+ */
     loadImages(arr) {
         arr.forEach(path => {
             let img = new Image();
@@ -37,6 +52,11 @@ class DrawableObject {
         });
     }
 
+/**
+ *  This function draws the image
+ * 
+ * @param {element} ctx 
+ */
     draw(ctx) {
         try{
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height); 
@@ -46,18 +66,31 @@ class DrawableObject {
         }        
     }
 
+/**
+ *  This function loads the image
+ * 
+ * @param {*} path - the path of the image
+ */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
-
+/**
+ *  This function saves the interval
+ * 
+ * @param {*} animationName - the name of the animation
+ * @param {*} interval - the interval
+ * @returns 
+ */
     saveInterval(animationName, interval) {
         return  {
                 animationName : animationName,
                 intervalNumber : interval 
                 }
     }
-
+/**
+ * This function stops the intervals
+ */
     stopAllIntervals() {
         this.allIntervals.forEach((interval) => {
            clearInterval(interval.intervalNumber);

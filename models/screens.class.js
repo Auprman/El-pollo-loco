@@ -15,13 +15,22 @@ class Screen extends DrawableObject {
         this.x = x;
         this.y = y;
     }
-    
+    /**
+     * This function loads the screen that should be displayed
+     * 
+     * @param {*} screen - the screen that should be loaded
+     */
     loadScreen(screen) {
         screen == 'start' ? this.loadImage(this.startScreen) : null;
         screen == 'game over' ? this.loadImage(this.gameOverScreen): null;
         screen == 'win' ? this.loadImage(this.youWinScreen): null ;
     }
 
+    /**
+     *  This function fades in the screen that should be displayed
+     * 
+     * @param {*} screenNumber - the screen that should be displayed
+     */
     fadeIn(screenNumber) {       
         let screen = world.level.screen[screenNumber]
         if (!this.fadeInStarted) {           
@@ -39,6 +48,15 @@ class Screen extends DrawableObject {
         }
     }
 
+    /**
+     * This function expands the screen that should be displayed
+     * 
+     * @param {*} screen - the screen that should be displayed
+     * @param {*} screenWidth - the width of the screen
+     * @param {*} screenHeight - the height of the screen
+     * @param {*} startX - the x-coordinate of the screen
+     * @param {*} startY - the y-coordinate of the screen
+     */
     expandImage(screen, screenWidth, screenHeight, startX, startY) {
         setInterval(() => {
             if (screen.width < screenWidth) {
@@ -51,7 +69,4 @@ class Screen extends DrawableObject {
             }
         }, 10);
     }
-
-   
-
 }

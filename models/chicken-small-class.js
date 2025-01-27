@@ -27,20 +27,26 @@ class ChickenSmall extends MovableObject{
      this.loadImages(this.IMAGES_WALKING);
      this.loadImages(this.IMAGES_DEAD); 
   }
-  
+/**
+ * This function animates the chicken
+ */  
   animate() {
     this.applyGravity();
     this.chickenMoveLeftAnimation();
     this.chickenWalkingAnimation();
  }
  
- 
+/**
+ * This function kills the chicken
+ */ 
  dead() {
     this.isDead = true;
     this.loadImage(this.IMAGES_DEAD[0])
  }
  
- 
+ /**
+  * This function moves the chicken to the left
+  */
  chickenMoveLeftAnimation() {
     let chickenMoveLeft = setInterval(() => {
        if (!this.isDead) {
@@ -50,7 +56,9 @@ class ChickenSmall extends MovableObject{
     this.allIntervals.push(this.saveInterval('chickenMoveLeft', chickenMoveLeft))
  }
  
- 
+ /**
+  * This function animates the chicken walking
+  */
  chickenWalkingAnimation() {
     let chickenWalkingAnimation = setInterval(() => {
        if (!this.isDead) {
@@ -61,17 +69,28 @@ class ChickenSmall extends MovableObject{
     this.allIntervals.push(this.saveInterval('chickenWalkingAnimation', chickenWalkingAnimation))
  }
  
- 
+ /**
+  *   This function stops the intervals
+  */
  stopAllIntervals() {
     this.allIntervals.forEach((interval) => {
        clearInterval(interval.intervalNumber);
     })
  }
- 
+
+ /**
+  *  This function checks if the chicken is above the ground
+  * 
+  * @returns boolean - true if the chicken is above the ground
+  */
+
  isAboveGround() {      
     return this.y < 380;
 }
 
+/**
+ * This function makes the chicken jump
+ */
  smallChickenJump() {
     let jump = new Date().getTime();
     if(this.chickenCanJump(jump)){        
@@ -80,6 +99,11 @@ class ChickenSmall extends MovableObject{
     }
  }
  
+ /**
+  * 
+  * @param {*} jump  - the time of the jump
+  * @returns 
+  */
  chickenCanJump(jump){
     return jump - this.lastJump > Math.random() * 40000 && !this.isAboveGround()
  }
