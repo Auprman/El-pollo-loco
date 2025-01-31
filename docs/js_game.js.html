@@ -46,6 +46,9 @@ const touchLeft = document.getElementById('touchLeft');
 const touchRight = document.getElementById('touchRight');
 const touchJump = document.getElementById('touchJump');
 const touchThrow = document.getElementById('touchThrow');
+const checkbox = document.getElementById('musicCheckbox');
+const checkboxLabel = document.getElementById('guitarPicture'); 
+
 
 
 const allAudioElements = []
@@ -61,6 +64,7 @@ function init() {
     world = new World(canvas, keyboard);
     changeInfoToastBorder();
     setVolume();
+    toggleMusic();
     checkIfMobileIsHorizontal();
 }
 
@@ -166,8 +170,7 @@ function startGame() {
     gameStarted = true;
     removeInfoToast();
     showTouchControlsOnMobile();
-    allAudioElements.push(background_sound);   
-    background_sound.play();
+    allAudioElements.push(background_sound);    
     background_sound.volume = 0.1;
     }
 }
@@ -197,8 +200,7 @@ function setVolume(){
  * This function toggles the music
  */
 function toggleMusic() {
-    const checkbox = document.getElementById('musicCheckbox');
-    const checkboxLabel = document.getElementById('guitarPicture'); 
+    
     if (checkbox.checked) {
       background_sound.play();
       checkboxLabel.src = 'img/icons/guitar.png';       
@@ -350,6 +352,52 @@ window.addEventListener('load', function() {
       window.scrollTo(0, 1);
   }, 100);
 });
+
+/**
+ *  This function restarts the game
+ */
+
+function restartGame(){
+  stopChickenIntervals();
+  world.character.stopAllIntervals();
+  world = null;
+  init();    
+  world.level = null;
+  gameStarted = false;
+  level1 = createNewLevel();
+  prepareWorld();
+  startGame();
+}
+
+/**
+ * This function creates a new level
+ */
+function prepareWorld(){
+  world.level = level1;
+  world.character = undefined;
+  world.character = new Character(); 
+  world.character.deadAnimationPlayed = false;
+  world.character.x = 100;
+  world.character.y = 230;
+  world.camera_x = 0;
+  world.character.world = world;
+  world.startScreen = false; 
+}
+
+
+/**
+ * This function stops the chicken intervals
+ */
+function stopChickenIntervals() {
+  world.level.enemies.forEach((e) =>{
+    if(e.allIntervals){
+        e.allIntervals.forEach(interval =>{
+        clearInterval(interval.intervalNumber)
+        console.log(interval.intervalNumber + ' cleared')
+        })
+      }
+    });
+}
 </code></pre>
         </article>
     </section>
@@ -360,13 +408,13 @@ window.addEventListener('load', function() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#reloadGame">reloadGame</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#prepareWorld">prepareWorld</a></li><li><a href="global.html#reloadGame">reloadGame</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopChickenIntervals">stopChickenIntervals</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jan 27 2025 21:00:09 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Jan 31 2025 22:01:57 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

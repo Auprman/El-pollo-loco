@@ -6,6 +6,7 @@ class DrawableObject {
     img;
     imageCache = {};
     currenImage = 0;
+    errorShown = false;
 
     
 
@@ -60,9 +61,12 @@ class DrawableObject {
     draw(ctx) {
         try{
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height); 
-        } catch (error){
-            console.log('Error loading image', error);
-            console.log('Could not load image', this.img, this);
+        } catch (error){            
+            if(!this.errorShown){
+                console.log('Error loading image', error);
+                console.log('Could not load image', this.img, this);
+            }
+            errorShown = true;
         }        
     }
 

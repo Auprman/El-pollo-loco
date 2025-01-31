@@ -136,14 +136,12 @@ function startGame() {
     if(!gameStarted){
         world.startScreen = false;
         world.character.animate();
-        world.level.enemies.forEach(enemie => {
-            enemie.animate();
-        });;
-    gameStarted = true;
-    removeInfoToast();
-    showTouchControlsOnMobile();
-    allAudioElements.push(background_sound);    
-    background_sound.volume = 0.1;
+        world.level.enemies.forEach(enemie => { enemie.animate()});
+        gameStarted = true;
+        removeInfoToast();
+        showTouchControlsOnMobile();
+        allAudioElements.push(background_sound);    
+        background_sound.volume = 0.1;
     }
 }
 
@@ -171,8 +169,7 @@ function setVolume(){
 /**
  * This function toggles the music
  */
-function toggleMusic() {
-    
+function toggleMusic() {    
     if (checkbox.checked) {
       background_sound.play();
       checkboxLabel.src = 'img/icons/guitar.png';       
@@ -206,21 +203,21 @@ function changeColorOnKeyUp(event) {
     event.keyCode == 32 ? spaceKey.classList.remove('key-pressed'): null;
 }
 
+function checkForMuted() {
+  if(muted){
+        allAudioElements.forEach((audioFile) => { audioFile.muted = true});
+    }else{
+        allAudioElements.forEach((audioFile) => { audioFile.muted = false });
+        }
+    changeVolumeImageSource(muted);
+}
+
 /**
  * This function mutes the sound
  */
 function muteSound() {
-    muted = !muted;
-    if(muted){
-        allAudioElements.forEach((audioFile) => {
-            audioFile.muted = true;
-        })
-    }else{
-        allAudioElements.forEach((audioFile) => {
-            audioFile.muted = false;
-        })
-        }
-    changeVolumeImageSource(muted);
+    muted = !muted; 
+    checkForMuted();  
 }
 
 /**
@@ -339,6 +336,7 @@ function restartGame(){
   level1 = createNewLevel();
   prepareWorld();
   startGame();
+  checkForMuted();
 }
 
 /**
@@ -356,7 +354,6 @@ function prepareWorld(){
   world.startScreen = false; 
 }
 
-
 /**
  * This function stops the chicken intervals
  */
@@ -365,7 +362,6 @@ function stopChickenIntervals() {
     if(e.allIntervals){
         e.allIntervals.forEach(interval =>{
         clearInterval(interval.intervalNumber)
-        console.log(interval.intervalNumber + ' cleared')
         })
       }
     });
