@@ -18,6 +18,9 @@ const touchLeft = document.getElementById('touchLeft');
 const touchRight = document.getElementById('touchRight');
 const touchJump = document.getElementById('touchJump');
 const touchThrow = document.getElementById('touchThrow');
+const checkbox = document.getElementById('musicCheckbox');
+const checkboxLabel = document.getElementById('guitarPicture'); 
+
 
 
 const allAudioElements = []
@@ -33,6 +36,7 @@ function init() {
     world = new World(canvas, keyboard);
     changeInfoToastBorder();
     setVolume();
+    toggleMusic();
     checkIfMobileIsHorizontal();
 }
 
@@ -138,8 +142,7 @@ function startGame() {
     gameStarted = true;
     removeInfoToast();
     showTouchControlsOnMobile();
-    allAudioElements.push(background_sound);   
-    background_sound.play();
+    allAudioElements.push(background_sound);    
     background_sound.volume = 0.1;
     }
 }
@@ -169,8 +172,7 @@ function setVolume(){
  * This function toggles the music
  */
 function toggleMusic() {
-    const checkbox = document.getElementById('musicCheckbox');
-    const checkboxLabel = document.getElementById('guitarPicture'); 
+    
     if (checkbox.checked) {
       background_sound.play();
       checkboxLabel.src = 'img/icons/guitar.png';       
@@ -322,3 +324,49 @@ window.addEventListener('load', function() {
       window.scrollTo(0, 1);
   }, 100);
 });
+
+/**
+ *  This function restarts the game
+ */
+
+function restartGame(){
+  stopChickenIntervals();
+  world.character.stopAllIntervals();
+  world = null;
+  init();    
+  world.level = null;
+  gameStarted = false;
+  level1 = createNewLevel();
+  prepareWorld();
+  startGame();
+}
+
+/**
+ * This function creates a new level
+ */
+function prepareWorld(){
+  world.level = level1;
+  world.character = undefined;
+  world.character = new Character(); 
+  world.character.deadAnimationPlayed = false;
+  world.character.x = 100;
+  world.character.y = 230;
+  world.camera_x = 0;
+  world.character.world = world;
+  world.startScreen = false; 
+}
+
+
+/**
+ * This function stops the chicken intervals
+ */
+function stopChickenIntervals() {
+  world.level.enemies.forEach((e) =>{
+    if(e.allIntervals){
+        e.allIntervals.forEach(interval =>{
+        clearInterval(interval.intervalNumber)
+        console.log(interval.intervalNumber + ' cleared')
+        })
+      }
+    });
+}

@@ -89,8 +89,9 @@ class Endboss extends MovableObject {
      * This function moves the endboss to the left
      */    
     gameWon() {
-        if(this.y >= 800 ){
+        if(this.y >= 800 && !this.gameWonSoundPlayed){
             world.level.screen[0].img.src = world.level.screen[0].youWinScreen;
+            world.level.screen[0].x = world.character.x
             world.level.screen[0].fadeIn(0);
             world.character.stopAllIntervals();
             this.playWinSound();

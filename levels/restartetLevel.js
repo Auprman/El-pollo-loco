@@ -1,4 +1,5 @@
-let level1 = new Level(
+function createNewLevel() {
+    return new Level(
         [
         new Chicken(),
         new Chicken(),
@@ -66,3 +67,4 @@ let level1 = new Level(
 
     
     );
+}

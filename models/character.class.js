@@ -120,7 +120,7 @@ class Character extends MovableObject {
             this.deathAnimationCharacter();
             this.hurtAnimationCharacter();
             this.jumpingAnimationCharacter();
-            this.walkingAnimationCharacter()               
+            this.walkingAnimationCharacter();               
         },1000 / 15);
         this.allIntervals.push(this.saveInterval('characterAnimation15FPS', characterAnimations15FPS));
     }
@@ -233,7 +233,7 @@ class Character extends MovableObject {
 /**
  * This function plays the character animation when the character is walking
  */
-    walkingAnimationCharacter() {
+    walkingAnimationCharacter() {        
         if(this.world.keyboard.RIGHT && !this.isAboveGround() && !this.deadAnimationPlayed || 
         this.world.keyboard.LEFT && !this.isAboveGround() && !this.deadAnimationPlayed){
             this.playAnimation(this.IMAGES_WALKING);

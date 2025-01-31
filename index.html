@@ -21,6 +21,7 @@
     <script src="models/endboss.class.js" defer></script>
     <script src="models/coins.class.js" defer></script>
     <script src="levels/level1.js" defer></script>
+    <script src="levels/restartetLevel.js" defer></script>
     <title>El Pollo Loco</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +36,7 @@
             <span>Click to Start!</span>
             <img src="img/icons/arrow-down.png" alt="arrow-down" class="arrow-down">
         </div>
-        <div class="single-key"><img onclick="reloadGame()" id="reloadGameBig" src="img/icons/reload.png" alt="speaker"></div>
+        <div class="single-key"><img onclick="restartGame()" id="reloadGameBig" src="img/icons/reload.png" alt="speaker"></div>
         <div class="single-key"><img onclick="fullscreen()" id="fullscreenBig" src="img/icons/fullscreen.png" alt="fullscreen button"></div>
         <canvas onclick="startGame()" id="canvas" width="720" height="480"></canvas>
         <div class="menu">
@@ -48,7 +49,7 @@
                     <input type="range" min="0" max="100" value="20" class="slider" id="myRange">
                   </div>
                   <div class="musicCb" >
-                    <input type="checkbox" id="musicCheckbox" onclick="toggleMusic()" checked>
+                    <input type="checkbox" id="musicCheckbox" onclick="toggleMusic()" unchecked>
                     <label id="guitarLabel" for="musicCheckbox"><img id="guitarPicture" src="img/icons/guitar.png" /></label>
                   </div>
                 <div class="single-key"><img onclick="muteSound()" id="speaker" src="img/icons/volume-64.png" alt="speaker"></div>                
@@ -61,7 +62,7 @@
             <button class="touch-button" id="touchThrow"></button>
             <button onclick="muteSound()" class="touch-button" id="touchMute"></button>
             <button onclick="fullscreenMobile()" class="touch-button" id="touchFullscreen"></button>
-            <button onclick="reloadGame()" id="reloadGame"></button>
+            <button onclick="restartGame()" id="reloadGame"></button>
         </div>
         <div id="rotateScreen" class="rotate-screen">
             <h2>Please rotate your Phone horizontally</h2>

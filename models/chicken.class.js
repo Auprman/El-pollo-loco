@@ -25,6 +25,7 @@ class Chicken extends MovableObject{
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD); 
  }
+ 
 /**
  * This function animates the chicken
  */
