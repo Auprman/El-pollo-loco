@@ -154,9 +154,9 @@ class World {
    */
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && !enemy.isDead) {
-        this.character.hit();
+      if (this.character.isColliding(enemy) && !enemy.isDead ) {
         this.jumpOnTop(enemy);
+        this.character.hit();
         this.character.isDead();
         this.statusBarHealth.setPercentage(
           this.character.energy,
@@ -248,7 +248,7 @@ class World {
  */
   checkCoinCollision() {
     let coinOffsetX = 50;
-    let coinOffsetY = 150;
+    let coinOffsetY = 120;
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin, coinOffsetX, coinOffsetY)) {
         this.level.coins.splice(index, 1);

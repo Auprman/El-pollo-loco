@@ -1,7 +1,7 @@
 class Coin extends MovableObject{
 
     x = 200;
-    y = 330;
+    y = 380;
     width = 150;
     height = 150;
     direction = -1;
@@ -58,7 +58,7 @@ randomCoinPositionX() {
  * This function randomizes the y position of the coin
  */
 randomCoinPositionY() {
-    this.y = 120 + 150 * Math.random() 
+    this.y = 150 + 150 * Math.random() 
 }
 
 /**

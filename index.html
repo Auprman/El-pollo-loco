@@ -22,6 +22,7 @@
     <script src="models/coins.class.js" defer></script>
     <script src="levels/level1.js" defer></script>
     <script src="levels/restartedLevel.js" defer></script>
+    <script src="js/responsive.js" defer></script>
     <title>El Pollo Loco</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,6 +64,10 @@
             <button onclick="muteSound()" class="touch-button" id="touchMute"></button>
             <button onclick="fullscreenMobile()" class="touch-button" id="touchFullscreen"></button>
             <button onclick="restartGame()" id="reloadGame"></button>
+            <div class="musicCb" >
+                <input type="checkbox" id="musicCheckboxTouch" onclick="toggleMusic()" unchecked>
+                <label id="guitarLabel" for="musicCheckboxTouch"><img id="guitarPictureTouch" src="img/icons/guitar.png" /></label>
+            </div>
         </div>
         <div id="rotateScreen" class="rotate-screen">
             <h2>Please rotate your Phone horizontally</h2>

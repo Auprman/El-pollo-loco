@@ -10,24 +10,18 @@ const speakerTouchscreen = document.getElementById('touchMute');
 const infoToast = document.getElementById('info');
 const background_sound = new Audio ('audio/musica2.mp3');
 const slider = document.getElementById('myRange');
-const touchMute = document.getElementById("touchMute");
 const navBarTop = document.getElementById('navBarTop');
 const reloadButton = document.getElementById('reloadGame');
 const reloadButtonBig = document.getElementById('reloadGameBig');
-const touchLeft = document.getElementById('touchLeft');
-const touchRight = document.getElementById('touchRight');
-const touchJump = document.getElementById('touchJump');
-const touchThrow = document.getElementById('touchThrow');
 const checkbox = document.getElementById('musicCheckbox');
 const checkboxLabel = document.getElementById('guitarPicture'); 
-
-
-
+const checkboxTouch = document.getElementById('musicCheckboxTouch');
+const checkboxLabelTouch = document.getElementById('guitarPictureTouch'); 
 const allAudioElements = []
-
 let muted = false;
-
 let keyboard = new Keyboard();
+
+
 /**
  * This function Initializes the game
  */
@@ -38,33 +32,6 @@ function init() {
     setVolume();
     toggleMusic();
     checkIfMobileIsHorizontal();
-}
-
-/**
- * This function checks if the mobile is in horizontal mode
- */
-function checkIfMobileIsHorizontal() {
-  let rotateScreenToast = document.getElementById('rotateScreen');
-  checkWindowOrientation(rotateScreenToast);
-  window.addEventListener('resize', () => {
-    checkWindowOrientation(rotateScreenToast) 
-});
-}
-
-/**
- * this function checks the window orientation
- * 
- * @param {object} rotateScreenToast - the toast that tells the user to rotate the screen
- */
-function checkWindowOrientation(rotateScreenToast) {
-  if(window.innerHeight > window.innerWidth){
-    rotateScreenToast.classList.add('display-flex');
-    infoToast.classList.add('display-none');  
-  }else{
-    rotateScreenToast.classList.remove('display-flex');
-    navBarTop.classList.add('display-none');
-    infoToast.classList.remove('display-none');    
-  }
 }
 
 /**
@@ -99,36 +66,6 @@ window.addEventListener('keyup', (event) => {
 });
 
 
-touchLeft.addEventListener('touchstart', (event) => {
-   keyboard.LEFT = true;
-});
-touchLeft.addEventListener('touchend', (event) => {
-    keyboard.LEFT = false;
- });
-
-touchRight.addEventListener('touchstart', (event) => {
-    keyboard.RIGHT = true;
-});
-touchRight.addEventListener('touchend', (event) => {
-    keyboard.RIGHT = false;
-});
-touchJump.addEventListener('touchstart', (event) => {
-    keyboard.SPACE = true;
-});
-touchJump.addEventListener('touchend', (event) => {
-    keyboard.SPACE = false;
-});
-touchThrow.addEventListener('touchstart', (event) => {
-    keyboard.D = true;
-});
-touchThrow.addEventListener('touchend', (event) => {
-    keyboard.D = false;
-});
-
-touchMute.addEventListener("touchstart", muteSound);
-touchMute.addEventListener("touchend", muteSound);
-
-
 /**
  * This function starts the game
  */
@@ -146,18 +83,6 @@ function startGame() {
 }
 
 /**
- * This function shows the touch controls on mobile
- */
-function showTouchControlsOnMobile() {
-  let navBarTop = document.getElementById('navBarTop');
-  if(document.body.clientHeight < 614){
-    navBarTop.classList.add('display-flex');
-  }else{
-    navBarTop.classList.remove('display-flex');
-  }
-}
-
-/**
  * This function sets the volume of the background sound
  */ 
 function setVolume(){
@@ -170,13 +95,15 @@ function setVolume(){
  * This function toggles the music
  */
 function toggleMusic() {    
-    if (checkbox.checked) {
+    if (checkbox.checked || checkboxTouch.checked) {
       background_sound.play();
-      checkboxLabel.src = 'img/icons/guitar.png';       
+      checkboxLabel.src = 'img/icons/guitar.png';
+      checkboxLabelTouch.src = 'img/icons/guitar.png';        
     } else {
       background_sound.pause();
       background_sound.currentTime = 0; 
-      checkboxLabel.src = 'img/icons/guitar-muted.png';    
+      checkboxLabel.src = 'img/icons/guitar-muted.png';
+      checkboxLabelTouch.src = 'img/icons/guitar-muted.png';     
     }
 }
 
@@ -203,6 +130,9 @@ function changeColorOnKeyUp(event) {
     event.keyCode == 32 ? spaceKey.classList.remove('key-pressed'): null;
 }
 
+/**
+ * This function checks if the sound is muted and mutes all audio elements
+ */
 function checkForMuted() {
   if(muted){
         allAudioElements.forEach((audioFile) => { audioFile.muted = true});
@@ -238,25 +168,6 @@ function removeInfoToast() {
 }
 
 /**
- * This function checks if the device is a smartphone
- * 
- * @returns {boolean} - true if the device is a smartphone, false otherwise
- */
-function isSmartphone() {
-    const maxSmartphoneWidth = 768; 
-    return window.innerWidth <= maxSmartphoneWidth;
-  }
-
-/**
- *  This function checks if the device is in portrait mode
- *  
- * @returns {boolean} - true if the device is in portrait mode, false otherwise
- */
-function isPortraitMode() {
-    return window.innerHeight > window.innerWidth;
-}
-
-/**
  * This function reloads the game
  */
 function reloadGame(){
@@ -273,19 +184,6 @@ function fullscreen() {
 }else{
   openFullscreen(frame);
 }
-}
-
-/**
- * This function toggles the fullscreen mode on mobile
- */
-function fullscreenMobile() {
-  let frame = document.getElementById('frame');
-  if (document.fullscreenElement) {
-    document.exitFullscreen();
-}else{
-  openFullscreen(frame);
-}
-  
 }
 
 /**
@@ -325,18 +223,25 @@ window.addEventListener('load', function() {
 /**
  *  This function restarts the game
  */
-
 function restartGame(){
   stopChickenIntervals();
   world.character.stopAllIntervals();
-  world = null;
+  world = null;  
   init();    
-  world.level = null;
   gameStarted = false;
   level1 = createNewLevel();
   prepareWorld();
   startGame();
   checkForMuted();
+  hideReloadButton();
+}
+
+/**
+ * This function hides the reload button
+ */
+function hideReloadButton() {
+  reloadButton.style.display = 'none';
+  reloadButtonBig.style.display = 'none';
 }
 
 /**
@@ -351,7 +256,8 @@ function prepareWorld(){
   world.character.y = 230;
   world.camera_x = 0;
   world.character.world = world;
-  world.startScreen = false; 
+  world.startScreen = false;
+  world.reloadButtonVisible = false; 
 }
 
 /**

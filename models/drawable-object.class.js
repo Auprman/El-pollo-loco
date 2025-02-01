@@ -66,7 +66,7 @@ class DrawableObject {
                 console.log('Error loading image', error);
                 console.log('Could not load image', this.img, this);
             }
-            errorShown = true;
+            this.errorShown = true;
         }        
     }
 
