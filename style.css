@@ -320,6 +320,15 @@ canvas{
     opacity: 0.9;        
 }
 
+@media only screen and (max-height: 800px) {
+    footer{
+        display: none;
+    }
+    h1{
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 720px) {
     canvas{
         width: 100% ;
@@ -348,15 +357,6 @@ canvas{
         background-color: transparent;
     }
 
-}
-
-@media only screen and (max-height: 800px) {
-    footer{
-        display: none;
-    }
-    h1{
-        display: none;
-    }
 }
 
 @media only screen and (max-height: 644px) {
@@ -416,9 +416,17 @@ canvas{
 
     .musicCb{
         position: absolute;
-        top: 0px;        
+        top: 0px;                
     }
-   
+
+@media only screen and (max-height: 510px) { 
+    canvas{
+        height: 100vh ;
+    }
+    #frame{
+        height:100vh;
+    }
+}   
 
     #touchMute{
         border: none;
@@ -515,15 +523,6 @@ canvas{
         left: 45%;
         width: 10%;
     }  
-}
-
-@media only screen and (max-height: 510px) { 
-    canvas{
-        height: 100vh ;
-    }
-    #frame{
-        height:100vh;
-    }
 }
 
 @keyframes changeBorder {

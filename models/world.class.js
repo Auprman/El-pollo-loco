@@ -75,7 +75,7 @@ class World {
       this.setStatusBarEndboss();
       this.checkThrowObjects();
       this.displayReloadButton();
-    }, 50);
+    }, 25);
   }
 
   /**
@@ -154,9 +154,9 @@ class World {
    */
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && !enemy.isDead ) {
+      if (this.character.isColliding(enemy,-5,-5) && !enemy.isDead ) {
         this.jumpOnTop(enemy);
-        this.character.hit();
+        this.character.hit(enemy);
         this.character.isDead();
         this.statusBarHealth.setPercentage(
           this.character.energy,

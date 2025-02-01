@@ -8,6 +8,7 @@ class Character extends MovableObject {
     deadAnimationPlayed = false;
     lastX = this.x;
     lastY = this.y;
+    energy = 100;
     idleTime = 0;
     jumped = false;
     allIntervals = [];
@@ -132,12 +133,8 @@ class Character extends MovableObject {
         let checkIfCharacterIsIdle = setInterval(() => {  
             if (this.x === this.lastX && this.y === this.lastY) {
                 this.idleTime += 200; 
-                if (this.idleTime >= 6000 && this.idleTime <= 10000) {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
-                if(this.idleTime >= 10000){
-                    this.playAnimation(this.IMAGES_LONGIDLE);
-                }
+                if (this.idleTime >= 6000 && this.idleTime <= 10000) {this.playAnimation(this.IMAGES_IDLE)}
+                if(this.idleTime >= 10000){this.playAnimation(this.IMAGES_LONGIDLE)}
             } else {
                 this.idleTime = 0; 
             }
@@ -267,8 +264,25 @@ class Character extends MovableObject {
             world.level.screen[1].fadeIn();
             world.character.stopAllIntervals();
             this.gameLostScreen = true;                  
-        }
-        
+        }        
+    } 
+    
+    /**
+ * This function checks if the object is hurt
+ */
+hit(enemy) {
+    if (!this.isAboveGround() ) { this.energy -= 1}
+    if(enemy instanceof Endboss) { this.energy -= 3}
+    if (this.energy < 0) {
+        this.energy = 0;
+    } else {
+        this.lastHit = new Date().getTime();
     }
-     
+    }
 }
+
+
+
+
+
+

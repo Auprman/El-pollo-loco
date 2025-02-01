@@ -13,8 +13,7 @@ function isTouchDevice() {
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   }
 
-
-  /**
+/**
  *  This function checks if the device is in portrait mode
  *  
  * @returns {boolean} - true if the device is in portrait mode, false otherwise

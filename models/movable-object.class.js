@@ -119,18 +119,21 @@ isDead() {
 isHurt() {
     let timePassed = new Date().getTime() - this.lastHit ;
     timePassed = timePassed / 1000 ;
-    return timePassed < 0.5 ;
+    return timePassed < 0.4 ;
 }
 
 /**
  * This function checks if the object is hurt
  */
 hit() {
-    this.energy -= 5
+    this.energy -= 5;   
     if (this.energy < 0) {
         this.energy = 0;
     } else {
         this.lastHit = new Date().getTime();
+    }    
     }
-    }
+
 }
+
+
