@@ -36,6 +36,7 @@
     deadAnimationPlayed = false;
     lastX = this.x;
     lastY = this.y;
+    energy = 100;
     idleTime = 0;
     jumped = false;
     allIntervals = [];
@@ -160,12 +161,8 @@
         let checkIfCharacterIsIdle = setInterval(() => {  
             if (this.x === this.lastX &amp;&amp; this.y === this.lastY) {
                 this.idleTime += 200; 
-                if (this.idleTime >= 6000 &amp;&amp; this.idleTime &lt;= 10000) {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
-                if(this.idleTime >= 10000){
-                    this.playAnimation(this.IMAGES_LONGIDLE);
-                }
+                if (this.idleTime >= 6000 &amp;&amp; this.idleTime &lt;= 10000) {this.playAnimation(this.IMAGES_IDLE)}
+                if(this.idleTime >= 10000){this.playAnimation(this.IMAGES_LONGIDLE)}
             } else {
                 this.idleTime = 0; 
             }
@@ -295,11 +292,29 @@
             world.level.screen[1].fadeIn();
             world.character.stopAllIntervals();
             this.gameLostScreen = true;                  
-        }
-        
+        }        
+    } 
+    
+    /**
+ * This function checks if the object is hurt
+ */
+hit(enemy) {
+    if (!this.isAboveGround() ) { this.energy -= 1}
+    if(enemy instanceof Endboss) { this.energy -= 3}
+    if (this.energy &lt; 0) {
+        this.energy = 0;
+    } else {
+        this.lastHit = new Date().getTime();
     }
-     
-}</code></pre>
+    }
+}
+
+
+
+
+
+
+</code></pre>
         </article>
     </section>
 
@@ -309,13 +324,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#prepareWorld">prepareWorld</a></li><li><a href="global.html#reloadGame">reloadGame</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopChickenIntervals">stopChickenIntervals</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkForMuted">checkForMuted</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#hideReloadButton">hideReloadButton</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#prepareWorld">prepareWorld</a></li><li><a href="global.html#reloadGame">reloadGame</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopChickenIntervals">stopChickenIntervals</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Jan 31 2025 22:01:57 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 10:21:05 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>

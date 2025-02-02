@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: js/responsive.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: js/responsive.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const touchLeft = document.getElementById('touchLeft');
+const touchRight = document.getElementById('touchRight');
+const touchJump = document.getElementById('touchJump');
+const touchThrow = document.getElementById('touchThrow');
+const touchMute = document.getElementById("touchMute");
+
+/**
+ *  This function checks if the device is a device with a touch screen
+ * 
+ * @returns {boolean} - true if the device is a touch device, false otherwise
+ */
+function isTouchDevice() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }
+
+/**
+ *  This function checks if the device is in portrait mode
+ *  
+ * @returns {boolean} - true if the device is in portrait mode, false otherwise
+ */
+function isPortraitMode() {
+    return window.innerHeight > window.innerWidth;
+}
+
+/**
+ * This function checks if the device is a smartphone
+ * 
+ * @returns {boolean} - true if the device is a smartphone, false otherwise
+ */
+function isSmartphone() {
+    const maxSmartphoneWidth = 768; 
+    return window.innerWidth &lt;= maxSmartphoneWidth;
+  }
+
+/**
+ * This function shows the touch controls on mobile
+ */
+function showTouchControlsOnMobile() {
+    let navBarTop = document.getElementById('navBarTop');
+    if(isTouchDevice()){
+      navBarTop.classList.remove('display-none');
+      navBarTop.classList.add('display-flex');
+    }else{
+      navBarTop.classList.remove('display-flex');
+    }
+  }
+
+ /**
+ * This function checks if the mobile is in horizontal mode
+ */
+function checkIfMobileIsHorizontal() {
+    let rotateScreenToast = document.getElementById('rotateScreen');
+    checkWindowOrientation(rotateScreenToast);
+    window.addEventListener('resize', () => {
+      checkWindowOrientation(rotateScreenToast) 
+  });
+  }
+  
+/**
+* this function checks the window orientation
+* 
+* @param {object} rotateScreenToast - the toast that tells the user to rotate the screen
+*/
+function checkWindowOrientation(rotateScreenToast) {
+  if(window.innerHeight > window.innerWidth){
+    rotateScreenToast.classList.add('display-flex');
+    infoToast.classList.add('display-none');  
+  }else{
+    rotateScreenToast.classList.remove('display-flex');
+    navBarTop.classList.add('display-none');
+    infoToast.classList.remove('display-none');    
+  }
+}
+
+/**
+ * This function toggles the fullscreen mode on mobile
+ */
+function fullscreenMobile() {
+    let frame = document.getElementById('frame');
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+  }else{
+    openFullscreen(frame);
+  }
+    
+  }
+
+touchLeft.addEventListener('touchstart', (event) => {keyboard.LEFT = true});
+
+touchLeft.addEventListener('touchend', (event) => {keyboard.LEFT = false});
+
+touchRight.addEventListener('touchstart', (event) => { keyboard.RIGHT = true});
+
+touchRight.addEventListener('touchend', (event) => {keyboard.RIGHT = false});
+
+touchJump.addEventListener('touchstart', (event) => {keyboard.SPACE = true});
+
+touchJump.addEventListener('touchend', (event) => {keyboard.SPACE = false});
+
+touchThrow.addEventListener('touchstart', (event) => {keyboard.D = true});
+
+touchThrow.addEventListener('touchend', (event) => {keyboard.D = false});
+
+touchMute.addEventListener("touchstart", muteSound);
+
+touchMute.addEventListener("touchend", muteSound);
+ 
+ </code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkForMuted">checkForMuted</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#hideReloadButton">hideReloadButton</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#prepareWorld">prepareWorld</a></li><li><a href="global.html#reloadGame">reloadGame</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopChickenIntervals">stopChickenIntervals</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Feb 02 2025 10:21:05 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
