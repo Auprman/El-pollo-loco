@@ -23,6 +23,15 @@ h2{
     font-variant: small-caps; 
 }
 
+h3{
+    font-family: "Kenia", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    font-style: normal;
+    text-shadow: 4px 5px 2px #FC8A5D;
+    font-variant: small-caps; 
+}
+
 .kenia-regular {
     font-family: "Kenia", sans-serif;
     font-size: 64px;
@@ -48,10 +57,6 @@ h2{
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 15px;
-}
-
-.frame-touchscreen{
-        
 }
 
 canvas{
@@ -109,14 +114,37 @@ footer{
     flex-direction: column;
     color: white;
     margin: 16px;
-    a{
+    a{  
+        font-family: "Kenia", sans-serif;
+        font-size: 24px;
         text-decoration: none;
-        color: #FC8A5D;        
+        color: #FC8A5D;
+        ;        
     }
     a:hover{
         color: #fda785;
     }
 }
+
+.impressum-rotate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    min-width: 100px;
+    min-height: 40px;
+    bottom: 0px;
+    text-decoration: none;
+    color: #FC8A5D;   
+    font-family: "Kenia", sans-serif;
+    font-size: 24px; 
+    transition: 150ms ease-in-out;          
+    }
+
+a:hover{
+    color: #fda785;
+}
+
 
 #speaker{   
     width: 40px;
@@ -154,11 +182,6 @@ footer{
     height: 40px;
 }
 
-#guitarPictureTouch{
-    filter: invert(100%) sepia(0%) saturate(7463%) hue-rotate(26deg) brightness(111%) contrast(108%);  
-    width: 48px;
-    height: 48px;
-}
 
 .infoToast{
     display: flex;
@@ -320,6 +343,16 @@ canvas{
     opacity: 0.9;        
 }
 
+.nav-bar-top-touch{
+    z-index: 1000;
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    justify-content: space-around;        
+    bottom: 0%;
+    opacity: 0.9; 
+}
+
 @media only screen and (max-height: 800px) {
     footer{
         display: none;
@@ -366,9 +399,6 @@ canvas{
     .control-button-container {
         height: 100px;
     }
-    #fullscreenBig{
-
-    }
 
     #reloadGameBig{
         height: 32px;
@@ -382,8 +412,57 @@ canvas{
     
 }
 
-@media only screen and (max-height: 618px) {
+@media only screen and (max-height: 510px) { 
+    canvas{
+        height: 100vh ;
+    }
+    #frame{
+        height:100vh;
+    }
+} 
 
+.touch-button{
+    height: 80px;
+    width: 80px;
+}
+
+.nav-bar-top{
+    display: none;
+}
+
+.display-none{
+    display: none !important;
+}
+
+.display-flex{
+    display: flex !important;
+}
+
+.rotate-screen{ 
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    z-index: 10000;
+    position: absolute;
+    background-image: url(img/10_background/desert.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: conver;
+    height: 100vh;
+    width: 100vw; 
+    text-align: center;    
+    img{
+        filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%); 
+        position: absolute;
+        top: 35%;
+        left: 45%;
+        width: 10%;
+    }  
+}
+
+@media (hover: none) and (pointer: coarse) {
     .control-button-container {
         display:none;
     }
@@ -412,118 +491,73 @@ canvas{
     .infoToast{
         position: absolute;
         border-radius: 25px;
-    }
-
-    .musicCb{
-        position: absolute;
-        top: 0px;                
-    }
-
-@media only screen and (max-height: 510px) { 
-    canvas{
-        height: 100vh ;
-    }
-    #frame{
-        height:100vh;
-    }
-}   
+    }    
 
     #touchMute{
         border: none;
-        filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    border: none;
+        position: fixed;
+        filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%);    
+        border: none;
         background-color: transparent;
         background-size: contain;
         background-image: url('img/icons/volume-64.png');
         background-repeat: no-repeat;
         background-position: center;
-        position: absolute;
-        height: 8vh;
-        right: 45vw;
-        bottom:90vh;
+        right: 45%;
+        height: 55px;
+        bottom:85%;
     }
 
     #reloadGame{
         display: none;
-        position: absolute;
-        height: 4vw;
-        width: 4vw;
+        position: fixed;
+        height: 50px;
+        width: 50px;
         background-position: center;
         background-size: contain;
-        right: 38vw;
-        bottom:90vh;
+        right: 5%;
+        bottom:85%;
+    }
+    #musicToggle{
+        filter: invert(100%) sepia(0%) saturate(7463%) hue-rotate(26deg) brightness(111%) contrast(108%);  
+        width: 55px;
+        height: 55px;
+        position: fixed;
+        bottom: 85%;
+        right: 35%;
     }
 
     #touchFullscreen{
-        position: absolute;
-        height: 8vh;
-        right: 55vw;
+        position: fixed;
+        height: 50px;
+        right: 90%;
         background-size: contain;
-        bottom:90vh;
+        bottom:85%;
     }
 
     #touchLeft{ 
-        position: absolute;
+        position: fixed;
         left: 2vw;
-        bottom: 45vh;
+        bottom: 45%;
     }   
 
     #touchRight{
-        position: absolute;
+        position: fixed;
         right: 2vw;
-        bottom: 45vh;
+        bottom: 45%;
     }
 
     #touchJump{
-        position: absolute;
+        position: fixed;
         right: 2vw;
-        bottom: 10vh;
+        bottom: 20%;
     }
     #touchThrow{
-        position: absolute;
+        position: fixed;
         left: 2vw;
-        bottom: 10vh;
+        bottom: 20%;
     }
-}
-
-.touch-button{
-    height: 80px;
-    width: 80px;
-}
-
-.nav-bar-top{
-    display: none;
-}
-
-.display-none{
-    display: none !important;
-}
-
-.display-flex{
-    display: flex !important;
-}
-
-.rotate-screen{ 
-    display: none;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-    z-index: 10000;
-    position: absolute;
-    background-image: url(img/10_background/desert.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: conver;
-    height: 100vh;
-    width: 100vw; 
-    text-align: center;    
-    img{
-        filter: invert(94%) sepia(94%) saturate(24%) hue-rotate(53deg) brightness(106%) contrast(106%); 
-        position: absolute;
-        top: 35%;
-        left: 45%;
-        width: 10%;
-    }  
-}
+  }
 
 @keyframes changeBorder {
     0%{

@@ -32,6 +32,7 @@ function init() {
     setVolume();
     toggleMusic();
     checkIfMobileIsHorizontal();
+    positioningButtonsOnMobile();
 }
 
 /**
@@ -165,6 +166,9 @@ function changeVolumeImageSource(muted) {
  */
 function removeInfoToast() {
     infoToast.style.visibility = 'hidden';
+    if(isTouchDevice()){
+      infoToast.style.display = 'none';
+    }
 }
 
 /**

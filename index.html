@@ -41,7 +41,7 @@
         <div class="single-key"><img onclick="fullscreen()" id="fullscreenBig" src="img/icons/fullscreen.png" alt="fullscreen button"></div>
         <canvas onclick="startGame()" id="canvas" width="720" height="480"></canvas>
         <div class="menu">
-            <div class="control-button-container">
+            <div id="controlButton" class="control-button-container">
                 <div class="single-key" id="arrowLeft"><img src="img/icons/arrow-left.png" alt="arrow left"><span>Move left</span></div>
                 <div class="single-key" id="arrowRight"><img src="img/icons/arrow-right.png" alt="arrow right"><span>Move right</span></div>
                 <div class="single-key" id="dKey"><img src="img/icons/d-key.png" alt="d key"><span>Throw bottle</span></div>
@@ -64,14 +64,18 @@
             <button onclick="muteSound()" class="touch-button" id="touchMute"></button>
             <button onclick="fullscreenMobile()" class="touch-button" id="touchFullscreen"></button>
             <button onclick="restartGame()" id="reloadGame"></button>
-            <div class="musicCb" >
+            <div id="musicToggle" class="musicCb" >
                 <input type="checkbox" id="musicCheckboxTouch" onclick="toggleMusic()" unchecked>
-                <label id="guitarLabel" for="musicCheckboxTouch"><img id="guitarPictureTouch" src="img/icons/guitar.png" /></label>
+                <label  for="musicCheckboxTouch"><img id="guitarPictureTouch" src="img/icons/guitar.png" /></label>
             </div>
         </div>
         <div id="rotateScreen" class="rotate-screen">
-            <h2>Please rotate your Phone horizontally</h2>
+            <h2>El pollo loco</h2>
+            <br>            
+            <h3>Please rotate your Phone horizontally</h3>
+            <a class="impressum-rotate" href="impressum.html">Impressum</a>
             <img src="img/icons/rotate.gif" alt="rotate screen">
+
         </div>
     </div>
     

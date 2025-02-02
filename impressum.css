@@ -19,12 +19,14 @@ h1,h2,h3{
 }
 
 a{
-    color: rgb(255, 188, 17);
+    color: #FC8A5D;
+    ;
     text-decoration: none;
 }
 
 a:hover{
-    color: rgb(255, 217, 122);
+    color: #f39d7b;
+    ;
     text-decoration: underline;
 }
 

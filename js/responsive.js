@@ -3,13 +3,16 @@ const touchRight = document.getElementById('touchRight');
 const touchJump = document.getElementById('touchJump');
 const touchThrow = document.getElementById('touchThrow');
 const touchMute = document.getElementById("touchMute");
+const controlButtonContainer = document.getElementById('controlButton');
+const fullScreenBig = document.getElementById('fullscreenBig');
+
 
 /**
  *  This function checks if the device is a device with a touch screen
  * 
  * @returns {boolean} - true if the device is a touch device, false otherwise
  */
-function isTouchDevice() {
+function isTouchDevice() {  
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   }
 
@@ -30,6 +33,17 @@ function isPortraitMode() {
 function isSmartphone() {
     const maxSmartphoneWidth = 768; 
     return window.innerWidth <= maxSmartphoneWidth;
+  }
+
+/**
+ *  This function positions the buttons on mobile
+ */
+   function positioningButtonsOnMobile() {
+    if(isTouchDevice()){
+      fullScreenBig.classList.add('display-none');
+      controlButtonContainer.classList.add('display-none');
+      reloadButtonBig.classList.add('display-none');
+    }
   }
 
 /**
