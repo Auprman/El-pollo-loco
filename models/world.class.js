@@ -157,7 +157,7 @@ class World {
       if (this.character.isColliding(enemy,-5,-5) && !enemy.isDead ) {
         this.jumpOnTop(enemy);
         this.character.hit(enemy);
-        this.character.isDead();
+        this.character.isDead();   
         this.statusBarHealth.setPercentage(
           this.character.energy,
           this.statusBarHealth.IMAGES_STATUS_BAR_HEALTH
@@ -203,7 +203,7 @@ class World {
    * @param {*} enemy - the enemy
    */
   jumpOnTop(enemy) {
-    if (this.canJumpOn(enemy)) { 
+    if (this.canJumpOn(enemy) && this.character.speedY < 0) { 
         this.character.speedY = 5;
         enemy.dead();
     }
