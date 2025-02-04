@@ -1,3 +1,9 @@
+
+/**
+ * This function creates a new level object after restarting the game
+ * 
+ * @returns Objekt - This object is the new generated level
+ */
 function createNewLevel() {
     return new Level(
         [

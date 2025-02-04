@@ -17,8 +17,11 @@ const checkbox = document.getElementById('musicCheckbox');
 const checkboxLabel = document.getElementById('guitarPicture'); 
 const checkboxTouch = document.getElementById('musicCheckboxTouch');
 const checkboxLabelTouch = document.getElementById('guitarPictureTouch'); 
+let localStorageMusicMuted = localStorage.getItem('musicMuted');
+let localStorageMuted = localStorage.getItem('Muted');
 const allAudioElements = []
 let muted = false;
+let musicMuted = false;
 let keyboard = new Keyboard();
 
 
@@ -30,9 +33,43 @@ function init() {
     world = new World(canvas, keyboard);
     changeInfoToastBorder();
     setVolume();
-    toggleMusic();
     checkIfMobileIsHorizontal();
     positioningButtonsOnMobile();
+    console.log(localStorageMusicMuted); 
+    setSavedMutedSoundFiles();
+    checkForMuted();
+    changeImagesOnMutedMusic()
+}
+
+/**
+ * This function starts the game
+ */
+function startGame() {
+  if(!gameStarted){
+      world.startScreen = false;
+      world.character.animate();
+      world.level.enemies.forEach(enemie => { enemie.animate()});
+      gameStarted = true;
+      removeInfoToast();
+      showTouchControlsOnMobile();
+      allAudioElements.push(background_sound);    
+      background_sound.volume = 0.1;      
+      playMusic();
+  }
+}
+
+/**
+ *  This function restarts the game
+ */
+function restartGame(){
+    stopChickenIntervals();
+    world.character.stopAllIntervals();
+    world = null;  
+    init();    
+    gameStarted = false;
+    level1 = createNewLevel();
+    prepareWorld();
+    startGame();    
 }
 
 /**
@@ -66,23 +103,6 @@ window.addEventListener('keyup', (event) => {
     changeColorOnKeyUp(event);
 });
 
-
-/**
- * This function starts the game
- */
-function startGame() {
-    if(!gameStarted){
-        world.startScreen = false;
-        world.character.animate();
-        world.level.enemies.forEach(enemie => { enemie.animate()});
-        gameStarted = true;
-        removeInfoToast();
-        showTouchControlsOnMobile();
-        allAudioElements.push(background_sound);    
-        background_sound.volume = 0.1;
-    }
-}
-
 /**
  * This function sets the volume of the background sound
  */ 
@@ -95,17 +115,96 @@ function setVolume(){
 /**
  * This function toggles the music
  */
-function toggleMusic() {    
-    if (checkbox.checked || checkboxTouch.checked) {
-      background_sound.play();
-      checkboxLabel.src = 'img/icons/guitar.png';
-      checkboxLabelTouch.src = 'img/icons/guitar.png';        
-    } else {
-      background_sound.pause();
-      background_sound.currentTime = 0; 
-      checkboxLabel.src = 'img/icons/guitar-muted.png';
-      checkboxLabelTouch.src = 'img/icons/guitar-muted.png';     
-    }
+function toggleMusic() {
+  musicMuted = !musicMuted;  
+  if (!musicMuted) {     
+    checkbox.checked = false;
+    checkboxTouch.checked = false;
+  }else{    
+    checkbox.checked = true;
+    checkboxTouch.checked = true;
+  }
+  musicMutedToLocalSotrage(); 
+  playMusic();
+}
+
+/**
+ * Sets the correct Image on init for the music toggle button
+ */
+function changeImagesOnMutedMusic() {
+  if (!musicMuted) {
+    checkboxLabel.src = 'img/icons/guitar.png';
+    checkboxLabelTouch.src = 'img/icons/guitar.png';        
+  } else {
+    checkboxLabel.src = 'img/icons/guitar-muted.png';
+    checkboxLabelTouch.src = 'img/icons/guitar-muted.png';     
+  }
+}
+
+/**
+ *  This function saves if the music is muted to the local Storage
+ */
+function musicMutedToLocalSotrage(){
+  localStorage.setItem('musicMuted', musicMuted);
+}
+
+/**
+ *  This function plays the backgroundmusic and updates the images if the checkbox is checked
+ */
+function playMusic() {
+  if (!musicMuted ) {
+    !muted ? background_sound.play() : null;
+    checkboxLabel.src = 'img/icons/guitar.png';
+    checkboxLabelTouch.src = 'img/icons/guitar.png';        
+  } else {
+    background_sound.pause();
+    background_sound.currentTime = 0; 
+    checkboxLabel.src = 'img/icons/guitar-muted.png';
+    checkboxLabelTouch.src = 'img/icons/guitar-muted.png';     
+  }
+}
+
+/**
+ * This function checks if the sound is muted and mutes all audio elements
+ */
+function checkForMuted() {  
+  if(muted){
+        allAudioElements.forEach((audioFile) => { audioFile.muted = true});
+    }else{
+        allAudioElements.forEach((audioFile) => { audioFile.muted = false });
+        }
+    changeVolumeImageSource(muted);
+      
+}
+
+/**
+ * This function changes the volume image source
+ * 
+ * @param {boolean} muted - the boolean that tells if the sound is muted or not
+ */    
+function changeVolumeImageSource(muted) {
+  muted == true ? speaker.src = 'img/icons/mute.png' : speaker.src = 'img/icons/volume-64.png';
+  muted == true ? speakerTouchscreen.style.backgroundImage = 'url(\'img/icons/mute.png\')' : speakerTouchscreen.style.backgroundImage = 'url(\'img/icons/volume-64.png\')';
+}
+
+
+/**
+ * This function mutes the sound
+ */
+function muteSound() { 
+  muted = !muted;
+  checkForMuted();
+  localStorage.setItem('Muted' , muted);
+  playMusic();    
+}
+
+/**
+ * This function checks the saved mute information from the local storage and saves it to the muted boolean
+ */
+function setSavedMutedSoundFiles() {
+ localStorageMuted == 'true' ? muted = true : muted = false;
+ localStorageMusicMuted == 'true' ? musicMuted = true : musicMuted = false ; 
+ musicMuted == false ? checkbox.checked = false : checkbox.checked = true; 
 }
 
 /**
@@ -132,36 +231,6 @@ function changeColorOnKeyUp(event) {
 }
 
 /**
- * This function checks if the sound is muted and mutes all audio elements
- */
-function checkForMuted() {
-  if(muted){
-        allAudioElements.forEach((audioFile) => { audioFile.muted = true});
-    }else{
-        allAudioElements.forEach((audioFile) => { audioFile.muted = false });
-        }
-    changeVolumeImageSource(muted);
-}
-
-/**
- * This function mutes the sound
- */
-function muteSound() {
-    muted = !muted; 
-    checkForMuted();  
-}
-
-/**
- * This function changes the volume image source
- * 
- * @param {boolean} muted - the boolean that tells if the sound is muted or not
- */    
-function changeVolumeImageSource(muted) {
-    muted == true ? speaker.src = 'img/icons/mute.png' : speaker.src = 'img/icons/volume-64.png';
-    muted == true ? speakerTouchscreen.style.backgroundImage = 'url(\'img/icons/mute.png\')' : speakerTouchscreen.style.backgroundImage = 'url(\'img/icons/volume-64.png\')';
-}
-
-/**
  * This function shows the info toast
  */
 function removeInfoToast() {
@@ -169,13 +238,6 @@ function removeInfoToast() {
     if(isTouchDevice()){
       infoToast.style.display = 'none';
     }
-}
-
-/**
- * This function reloads the game
- */
-function reloadGame(){
-    location.reload();
 }
 
 /**
@@ -223,30 +285,6 @@ window.addEventListener('load', function() {
       window.scrollTo(0, 1);
   }, 100);
 });
-
-/**
- *  This function restarts the game
- */
-function restartGame(){
-  stopChickenIntervals();
-  world.character.stopAllIntervals();
-  world = null;  
-  init();    
-  gameStarted = false;
-  level1 = createNewLevel();
-  prepareWorld();
-  startGame();
-  checkForMuted();
-  hideReloadButton();
-}
-
-/**
- * This function hides the reload button
- */
-function hideReloadButton() {
-  reloadButton.style.display = 'none';
-  reloadButtonBig.style.display = 'none';
-}
 
 /**
  * This function creates a new level
