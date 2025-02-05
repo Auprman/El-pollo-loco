@@ -20,8 +20,8 @@ const checkboxLabelTouch = document.getElementById('guitarPictureTouch');
 let localStorageMusicMuted = localStorage.getItem('musicMuted');
 let localStorageMuted = localStorage.getItem('Muted');
 const allAudioElements = []
-let muted = false;
-let musicMuted = false;
+let muted 
+let musicMuted
 let keyboard = new Keyboard();
 
 
@@ -29,16 +29,16 @@ let keyboard = new Keyboard();
  * This function Initializes the game
  */
 function init() {
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-    changeInfoToastBorder();
-    setVolume();
-    checkIfMobileIsHorizontal();
-    positioningButtonsOnMobile();
-    console.log(localStorageMusicMuted); 
-    setSavedMutedSoundFiles();
-    checkForMuted();
-    changeImagesOnMutedMusic()
+  canvas = document.getElementById('canvas');
+  world = new World(canvas, keyboard);
+  changeInfoToastBorder();
+  setVolume();
+  checkIfMobileIsHorizontal();
+  positioningButtonsOnMobile();
+  saveMutedToLocalStorage();
+  setSavedMutedSoundFiles();
+  checkForMuted();
+  changeImagesOnMutedMusic();
 }
 
 /**
@@ -53,25 +53,38 @@ function startGame() {
       removeInfoToast();
       showTouchControlsOnMobile();
       allAudioElements.push(background_sound);    
-      background_sound.volume = 0.1;      
+      background_sound.volume = 0.1;
+      setSavedMutedSoundFiles();
+      checkForMuted();
+      changeImagesOnMutedMusic();      
       playMusic();
   }
 }
 
 /**
- *  This function restarts the game
+ *  This function restarts the game 
  */
 function restartGame(){
-    stopChickenIntervals();
-    world.character.stopAllIntervals();
-    world = null;  
-    init();    
-    gameStarted = false;
-    level1 = createNewLevel();
-    prepareWorld();
-    startGame();    
+  setSavedMutedSoundFiles();  
+  stopChickenIntervals();
+  world.character.stopAllIntervals();
+  world = null;  
+  init();    
+  gameStarted = false;
+  level1 = createNewLevel();
+  prepareWorld();
+  startGame();
 }
 
+function saveMutedToLocalStorage() {  
+  if(muted == undefined || musicMuted == undefined){
+    muted = false;
+    musicMuted = true;
+  }else{
+    localStorage.setItem('Muted' , muted);
+    localStorage.setItem('musicMuted' , musicMuted);
+}
+}
 /**
  * This function changes the border of the info toast
  */
@@ -124,7 +137,7 @@ function toggleMusic() {
     checkbox.checked = true;
     checkboxTouch.checked = true;
   }
-  musicMutedToLocalSotrage(); 
+  musicMutedToLocalSotrage();
   playMusic();
 }
 
@@ -193,8 +206,8 @@ function changeVolumeImageSource(muted) {
  */
 function muteSound() { 
   muted = !muted;
-  checkForMuted();
   localStorage.setItem('Muted' , muted);
+  checkForMuted();
   playMusic();    
 }
 
@@ -202,9 +215,10 @@ function muteSound() {
  * This function checks the saved mute information from the local storage and saves it to the muted boolean
  */
 function setSavedMutedSoundFiles() {
- localStorageMuted == 'true' ? muted = true : muted = false;
- localStorageMusicMuted == 'true' ? musicMuted = true : musicMuted = false ; 
- musicMuted == false ? checkbox.checked = false : checkbox.checked = true; 
+  muted = localStorage.getItem('Muted') === 'true';
+  musicMuted = localStorage.getItem('musicMuted') === 'true';
+  checkbox.checked = musicMuted;
+  checkboxTouch.checked = musicMuted;
 }
 
 /**
