@@ -102,47 +102,36 @@ function fullscreenMobile() {
 touchLeft.addEventListener('touchstart', (event) => {
   keyboard.LEFT = true;
   event.preventDefault();
-});
+}, { passive: false });
 
 touchLeft.addEventListener('touchend', (event) => {
-  keyboard.LEFT = false
-  event.preventDefault();
-});
+  keyboard.LEFT = false;});
 
 touchRight.addEventListener('touchstart', (event) => {
    keyboard.RIGHT = true;
     event.preventDefault();
-  }  );
+  }, { passive: false });
 
 touchRight.addEventListener('touchend', (event) => {
   keyboard.RIGHT = false;
-  event.preventDefault();
 
 });
 
 touchJump.addEventListener('touchstart', (event) => {
   keyboard.SPACE = true;
   event.preventDefault();
-});
+}, { passive: false });
 
-touchJump.addEventListener('touchend', (event) => {
-  keyboard.SPACE = false;
-  event.preventDefault();
-
-});
+touchJump.addEventListener('touchend', (event) => {keyboard.SPACE = false});
 
 touchThrow.addEventListener('touchstart', (event) => {
   keyboard.D = true;
   event.preventDefault();
-});
+}, { passive: false });
 
-touchThrow.addEventListener('touchend', (event) => {
-  keyboard.D = false;
+touchThrow.addEventListener('touchend', (event) => {keyboard.D = false });
+
+touchMute.addEventListener("touchstart", (event) => {
   event.preventDefault();
-});
-
-touchMute.addEventListener("touchstart", muteSound);
-
-touchMute.addEventListener("touchend", muteSound);
- 
- 
+  muteSound();
+}, { passive: false });

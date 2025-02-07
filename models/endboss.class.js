@@ -56,7 +56,7 @@ class Endboss extends MovableObject {
 
      constructor() {
         super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
-        this.speed = 0.15 + Math.random () * 0.5;
+        this.speed = 200 + Math.random () * 0.5;
         this.x = 3 * 719;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
@@ -75,9 +75,10 @@ class Endboss extends MovableObject {
                this.endbossAnimation();
                this.endbossAnimationPlayed = true;
             }
-            if (this.isHurt()) {               
-               this.playAnimation(this.IMAGES_HURT);
-            }else if(!this.isHurt() && this.isDead){
+            if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT)
+            }
+            else if(!this.isHurt() && this.isDead){
                this.playAnimation(this.IMAGES_DIE); 
                this.y += 40;
                this.gameWon();         
@@ -144,7 +145,7 @@ class Endboss extends MovableObject {
  */
    async endbossAnimation() {
       for (let cycles = 0; cycles < 100; cycles++) {
-         await this.endbossWalk(2000);
+         await this.endbossWalk(1500);
          await this.endbossAlert(500);
          await this.endbossAttack(500);
       }
@@ -207,10 +208,11 @@ endbossAttack(duration) {
        let intervalEndbossAttack = setInterval(() => {
            if (!this.isHurt() && !this.isDead) {
                this.playAnimation(this.IMAGES_ATTACK);
+               this.x + 200;
            } else {
                clearInterval(intervalEndbossAttack);
                resolve(); 
-           }}, 150);
+           }}, 100);
        setTimeout(() => {
            clearInterval(intervalEndbossAttack);
            resolve();
@@ -227,7 +229,7 @@ endbossAttack(duration) {
 isHurt() {
     let timePassed = new Date().getTime() - this.lastHit ;
     timePassed = timePassed / 500 ;
-    return timePassed < 0.2 ;
+    return timePassed < 0.4 ;
 }
 }
 

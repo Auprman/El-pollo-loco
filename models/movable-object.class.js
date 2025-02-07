@@ -72,10 +72,10 @@ class MovableObject extends DrawableObject {
  * 
  * @returns {boolean} - returns true if the object is above the ground
  */
-    isAboveGround() {      
-            return this.y < 230;
-    }
-    
+isAboveGround() {      
+        return this.y < 230;
+}
+
 /**
  * This function makes the object jump
  */    
@@ -120,7 +120,7 @@ isDead() {
  */
 isHurt() {
     let timePassed = new Date().getTime() - this.lastHit ;
-    timePassed = timePassed / 1000 ;
+    timePassed = timePassed / 500 ;
     return timePassed < 0.4 ;
 }
 

@@ -58,6 +58,7 @@ function startGame() {
       checkForMuted();
       changeImagesOnMutedMusic();      
       playMusic();
+      world.level.screen[0].x = 4000;
   }
 }
 

@@ -58,8 +58,7 @@ class World{
     }
     this.statusBarEndboss.setPercentage(
       this.getPercentageOfEndboss(),
-      this.statusBarEndboss.IMAGES_STATUS_BAR_ENDBOSS
-    );
+      this.statusBarEndboss.IMAGES_STATUS_BAR_ENDBOSS);
   }
 
   /**
@@ -132,8 +131,7 @@ class World{
     return (
       this.keyboard.D &&
       this.bottleAmount > 0 &&
-      bottleThrowTime - this.lastBottleThrown > 500
-    );
+      bottleThrowTime - this.lastBottleThrown > 1000);
   }
 
   /**
@@ -142,9 +140,7 @@ class World{
    * @param {*} bottle - the bottle
    */
   muteThrownBottleSound(bottle) {
-    if (muted) {
-      bottle.bottle_break.muted = true;
-    }
+    if (muted) { bottle.bottle_break.muted = true }
   }
 
   /**
@@ -303,9 +299,7 @@ class World{
       this.drawGameOverScreen();
     }
     let self = this;
-    requestAnimationFrame(function () {
-      self.draw();
-    });
+    requestAnimationFrame(function () { self.draw() });
   }
 
 /**
@@ -394,7 +388,6 @@ class World{
 
 /**
  * This function restores the image
- * 
  * @param {*} mo - the object
  */
   restoreImage(mo) {
