@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: js/bottleSetup.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: js/bottleSetup.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Klasse zur Verwaltung der Flaschen im Spiel. TODO: Code soll in der World.class.js gekürzt werden... Chat GPT Chatverlauf nachschauen!
+ */
+class BottleSetup {
+    /**
+     * Erstellt eine Instanz von BottleSetup.
+     * @param {Object} world - Die Spielwelt.
+     */
+    constructor(world) {
+      this.world = world;
+    }
+  
+    /**
+     * Fügt alle Flaschen der Liste der werfbaren Objekte hinzu.
+     */
+    addBottlesToThrowableObjects() {
+      this.world.level.bottles.forEach((bottle) => {
+        this.world.throwableObject.push(bottle);
+      });
+    }
+  
+    /**
+     * Überprüft, ob eine Flasche mit einem Gegner kollidiert.
+     */
+    checkBottleCollision() {
+      this.world.throwableObject.forEach((bottle) => {
+        this.world.level.enemies.forEach((enemy) => {
+          if (this.bottleCanHit(bottle, enemy)) {
+            bottle.bottleUnbroken = false;
+            bottle.splashBottle();
+            bottle.speedY = 3;
+            enemy.dead();
+            bottle.bottle_break.play();
+            enemy.hit();
+            enemy.isHurt();
+            this.world.hitsOnEndboss++;
+          }
+        });
+      });
+    }
+  
+    /**
+     * Prüft, ob eine Flasche einen Gegner treffen kann.
+     * @param {Object} bottle - Die Flasche.
+     * @param {Object} enemy - Der Gegner.
+     * @returns {boolean} True, wenn die Flasche den Gegner treffen kann.
+     */
+    bottleCanHit(bottle, enemy) {
+      return bottle.isColliding(enemy) &amp;&amp; !enemy.isDead &amp;&amp; bottle.bottleUnbroken;
+    }
+  
+    /**
+     * Überprüft, ob eine Flasche eingesammelt werden kann.
+     */
+    checkBottleCollection() {
+      this.world.throwableObject.forEach((bottle) => {
+        if (this.canCollectBottle(bottle)) {
+          this.world.bottleAmount++;
+          bottle.y = 3500;
+          this.world.setBottleStatusBar();
+          bottle.bottle_collect.play();
+        }
+      });
+    }
+  
+    /**
+     * Prüft, ob eine Flasche eingesammelt werden kann.
+     * @param {Object} bottle - Die Flasche.
+     * @returns {boolean} True, wenn die Flasche eingesammelt werden kann.
+     */
+    canCollectBottle(bottle) {
+      return (
+        !bottle.bottleUnbroken &amp;&amp;
+        bottle.isColliding(this.world.character) &amp;&amp;
+        !bottle.bottleLandedAfterThrow
+      );
+    }
+  
+    /**
+     * Überprüft, ob der Spieler eine Flasche werfen kann.
+     */
+    checkThrowObjects() {
+      let bottleThrowTime = new Date().getTime();
+      if (this.canThrowBottle(bottleThrowTime)) {
+        let bottle = new ThrowableObject(
+          this.world.character.x + 100,
+          this.world.character.y + 100,
+          true
+        );
+        this.muteThrownBottleSound(bottle);
+        this.world.throwableObject.push(bottle);
+        this.world.bottleAmount--;
+        this.world.setBottleStatusBar();
+        bottle.bottleLandedAfterThrow = true;
+        this.world.lastBottleThrown = new Date().getTime();
+      }
+    }
+  
+    /**
+     * Prüft, ob eine Flasche geworfen werden kann.
+     * @param {number} bottleThrowTime - Der aktuelle Zeitstempel.
+     * @returns {boolean} True, wenn eine Flasche geworfen werden kann.
+     */
+    canThrowBottle(bottleThrowTime) {
+      return (
+        this.world.keyboard.D &amp;&amp;
+        this.world.bottleAmount > 0 &amp;&amp;
+        bottleThrowTime - this.world.lastBottleThrown > 500
+      );
+    }
+  
+    /**
+     * Stellt sicher, dass die Soundeffekte der geworfenen Flasche stummgeschaltet sind, wenn das Spiel stummgeschaltet ist.
+     * @param {Object} bottle - Die geworfene Flasche.
+     */
+    muteThrownBottleSound(bottle) {
+      if (muted) {
+        bottle.bottle_break.muted = true;
+      }
+    }
+  }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BottleSetup.html">BottleSetup</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeImagesOnMutedMusic">changeImagesOnMutedMusic</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkForMuted">checkForMuted</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#createNewLevel">createNewLevel</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#musicMutedToLocalSotrage">musicMutedToLocalSotrage</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#playMusic">playMusic</a></li><li><a href="global.html#positioningButtonsOnMobile">positioningButtonsOnMobile</a></li><li><a href="global.html#prepareWorld">prepareWorld</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#saveMutedToLocalStorage">saveMutedToLocalStorage</a></li><li><a href="global.html#setSavedMutedSoundFiles">setSavedMutedSoundFiles</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopChickenIntervals">stopChickenIntervals</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Feb 07 2025 16:51:12 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

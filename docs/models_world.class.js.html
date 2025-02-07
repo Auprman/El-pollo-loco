@@ -26,7 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>class World {
+            <pre class="prettyprint source linenums"><code>class World{
   character = new Character();
   statusBarHealth = new StatusBar(0, 10, "health");
   statusBarCoins = new StatusBar(0, 50, "coins");
@@ -48,7 +48,6 @@
   maxCoins = this.level.coins.length;
   maxBottles = this.level.bottles.length;
   reloadButtonVisible = false;
-
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -155,8 +154,7 @@
   /**
    *  This function checks if the character can throw a bottle
    * 
-   * @param {number} bottleThrowTime - the time of the bottle throw
-   * @returns 
+   * @param {number} bottleThrowTime - the time of the bottle throw 
    */
   canThrowBottle(bottleThrowTime) {
     return (
@@ -186,12 +184,8 @@
         this.jumpOnTop(enemy);
         this.character.hit(enemy);
         this.character.isDead();   
-        this.statusBarHealth.setPercentage(
-          this.character.energy,
-          this.statusBarHealth.IMAGES_STATUS_BAR_HEALTH
-        );
-      }
-    });
+        this.statusBarHealth.setPercentage(this.character.energy,this.statusBarHealth.IMAGES_STATUS_BAR_HEALTH);
+      }});
   }
 
   /**
@@ -215,8 +209,7 @@
   }
 
   /**
-   *  This function checks if the bottle can hit the enemy
-   * 
+   *  This function checks if the bottle can hit the enemy 
    * @param {*} bottle - the bottle
    * @param {*} enemy - the enemy
    * @returns 
@@ -226,8 +219,7 @@
   }
 
   /**
-   * This function executes if the character jumps on top of the enemy
-   * 
+   * This function executes if the character jumps on top of the enemy 
    * @param {*} enemy - the enemy
    */
   jumpOnTop(enemy) {
@@ -240,8 +232,7 @@
 /**
  *  This function checks if the character can jump on the enemy
  * 
- * @param {*} enemy - the enemy 
- * @returns 
+ * @param {*} enemy - the enemy  
  */
   canJumpOn(enemy) {
     return this.character.y &lt;= 200 &amp;&amp; this.character.isHurt() &amp;&amp; !(enemy instanceof Endboss)
@@ -265,7 +256,6 @@
  *  This function checks if the bottle can be collected
  * 
  * @param {*} bottle - the bottle
- * @returns 
  */
   canCollectBottle(bottle){
     return !bottle.bottleUnbroken &amp;&amp; bottle.isColliding(this.character) &amp;&amp; !bottle.bottleLandedAfterThrow
@@ -309,25 +299,18 @@
 
 /**
  * This function returns the percentage of the coins
- * 
  * @returns the percentage of the coins
  */
-  getPercentageOfCoins() {
-    return (this.coinAmount / this.maxCoins) * 100;
-  }
+  getPercentageOfCoins() {return (this.coinAmount / this.maxCoins) * 100}
 
 /**
  *  This function returns the percentage of the bottles
- * 
  * @returns the percentage of the bottles
  */
-  getPercentageOfBottles() {
-    return (this.bottleAmount / 5) * 100;
-  }
+  getPercentageOfBottles() { return (this.bottleAmount / 5) * 100}
 
 /**
- *  This function returns the percentage of the endboss
- * 
+ *  This function returns the percentage of the endboss  
  * @returns the percentage of the endboss
  */
   getPercentageOfEndboss() {
@@ -392,7 +375,7 @@
    */
   drawGameOverScreen() {
     if(world.character.isDead() &amp;&amp; world.character.y > 800){
-      this.addToMap(this.level.screen[1]);;
+      this.addToMap(this.level.screen[1]);
       this.gameOverSound()
     }
   }
@@ -409,35 +392,25 @@
   }
 
 /**
- *  This function adds objects to the map
- * 
+ *  This function adds objects to the map  
  * @param {*} objects - the objects that should be added to the map
  */
   addObjectToMap(objects) {
-    objects.forEach((ob) => {
-      this.addToMap(ob);
-    });
+    objects.forEach((ob) => {this.addToMap(ob)});
   }
 
 /**
  * This function adds an object to the map
- *  
  * @param {*} mo - the object that should be added to the map
  */
   addToMap(mo) {
-    if (mo.otherDirection) {
-      this.mirrorImage(mo);
-    }
+    if (mo.otherDirection) {this.mirrorImage(mo)}
     mo.draw(this.ctx);
-
-    if (mo.otherDirection) {
-      this.restoreImage(mo);
-    }
+    if (mo.otherDirection) {this.restoreImage(mo)}
   }
 
 /**
  * This function mirrors the image
- * 
  * @param {*} mo - the object
  */
   mirrorImage(mo) {
@@ -468,13 +441,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeImagesOnMutedMusic">changeImagesOnMutedMusic</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkForMuted">checkForMuted</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#createNewLevel">createNewLevel</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#musicMutedToLocalSotrage">musicMutedToLocalSotrage</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#playMusic">playMusic</a></li><li><a href="global.html#positioningButtonsOnMobile">positioningButtonsOnMobile</a></li><li><a href="global.html#prepareWorld">prepareWorld</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#setSavedMutedSoundFiles">setSavedMutedSoundFiles</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopChickenIntervals">stopChickenIntervals</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BottleSetup.html">BottleSetup</a></li></ul><h3>Global</h3><ul><li><a href="global.html#changeColorOnKeyDown">changeColorOnKeyDown</a></li><li><a href="global.html#changeColorOnKeyUp">changeColorOnKeyUp</a></li><li><a href="global.html#changeImagesOnMutedMusic">changeImagesOnMutedMusic</a></li><li><a href="global.html#changeInfoToastBorder">changeInfoToastBorder</a></li><li><a href="global.html#changeVolumeImageSource">changeVolumeImageSource</a></li><li><a href="global.html#checkForMuted">checkForMuted</a></li><li><a href="global.html#checkIfMobileIsHorizontal">checkIfMobileIsHorizontal</a></li><li><a href="global.html#checkWindowOrientation">checkWindowOrientation</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#createNewLevel">createNewLevel</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#fullscreenMobile">fullscreenMobile</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#isPortraitMode">isPortraitMode</a></li><li><a href="global.html#isSmartphone">isSmartphone</a></li><li><a href="global.html#isTouchDevice">isTouchDevice</a></li><li><a href="global.html#musicMutedToLocalSotrage">musicMutedToLocalSotrage</a></li><li><a href="global.html#muteSound">muteSound</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#playMusic">playMusic</a></li><li><a href="global.html#positioningButtonsOnMobile">positioningButtonsOnMobile</a></li><li><a href="global.html#prepareWorld">prepareWorld</a></li><li><a href="global.html#removeInfoToast">removeInfoToast</a></li><li><a href="global.html#restartGame">restartGame</a></li><li><a href="global.html#saveMutedToLocalStorage">saveMutedToLocalStorage</a></li><li><a href="global.html#setSavedMutedSoundFiles">setSavedMutedSoundFiles</a></li><li><a href="global.html#setVolume">setVolume</a></li><li><a href="global.html#showTouchControlsOnMobile">showTouchControlsOnMobile</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#stopChickenIntervals">stopChickenIntervals</a></li><li><a href="global.html#toggleMusic">toggleMusic</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Feb 04 2025 20:56:20 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Feb 07 2025 16:51:12 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>
