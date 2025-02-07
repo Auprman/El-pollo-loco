@@ -99,21 +99,47 @@ function fullscreenMobile() {
     
   }
 
-touchLeft.addEventListener('touchstart', (event) => {keyboard.LEFT = true});
+touchLeft.addEventListener('touchstart', (event) => {
+  keyboard.LEFT = true;
+  event.preventDefault();
+});
 
-touchLeft.addEventListener('touchend', (event) => {keyboard.LEFT = false});
+touchLeft.addEventListener('touchend', (event) => {
+  keyboard.LEFT = false
+  event.preventDefault();
+});
 
-touchRight.addEventListener('touchstart', (event) => { keyboard.RIGHT = true});
+touchRight.addEventListener('touchstart', (event) => {
+   keyboard.RIGHT = true;
+    event.preventDefault();
+  }  );
 
-touchRight.addEventListener('touchend', (event) => {keyboard.RIGHT = false});
+touchRight.addEventListener('touchend', (event) => {
+  keyboard.RIGHT = false;
+  event.preventDefault();
 
-touchJump.addEventListener('touchstart', (event) => {keyboard.SPACE = true});
+});
 
-touchJump.addEventListener('touchend', (event) => {keyboard.SPACE = false});
+touchJump.addEventListener('touchstart', (event) => {
+  keyboard.SPACE = true;
+  event.preventDefault();
+});
 
-touchThrow.addEventListener('touchstart', (event) => {keyboard.D = true});
+touchJump.addEventListener('touchend', (event) => {
+  keyboard.SPACE = false;
+  event.preventDefault();
 
-touchThrow.addEventListener('touchend', (event) => {keyboard.D = false});
+});
+
+touchThrow.addEventListener('touchstart', (event) => {
+  keyboard.D = true;
+  event.preventDefault();
+});
+
+touchThrow.addEventListener('touchend', (event) => {
+  keyboard.D = false;
+  event.preventDefault();
+});
 
 touchMute.addEventListener("touchstart", muteSound);
 

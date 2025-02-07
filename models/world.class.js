@@ -1,4 +1,4 @@
-class World {
+class World{
   character = new Character();
   statusBarHealth = new StatusBar(0, 10, "health");
   statusBarCoins = new StatusBar(0, 50, "coins");
@@ -20,7 +20,6 @@ class World {
   maxCoins = this.level.coins.length;
   maxBottles = this.level.bottles.length;
   reloadButtonVisible = false;
-
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -127,8 +126,7 @@ class World {
   /**
    *  This function checks if the character can throw a bottle
    * 
-   * @param {number} bottleThrowTime - the time of the bottle throw
-   * @returns 
+   * @param {number} bottleThrowTime - the time of the bottle throw 
    */
   canThrowBottle(bottleThrowTime) {
     return (
@@ -158,12 +156,8 @@ class World {
         this.jumpOnTop(enemy);
         this.character.hit(enemy);
         this.character.isDead();   
-        this.statusBarHealth.setPercentage(
-          this.character.energy,
-          this.statusBarHealth.IMAGES_STATUS_BAR_HEALTH
-        );
-      }
-    });
+        this.statusBarHealth.setPercentage(this.character.energy,this.statusBarHealth.IMAGES_STATUS_BAR_HEALTH);
+      }});
   }
 
   /**
@@ -187,8 +181,7 @@ class World {
   }
 
   /**
-   *  This function checks if the bottle can hit the enemy
-   * 
+   *  This function checks if the bottle can hit the enemy 
    * @param {*} bottle - the bottle
    * @param {*} enemy - the enemy
    * @returns 
@@ -198,8 +191,7 @@ class World {
   }
 
   /**
-   * This function executes if the character jumps on top of the enemy
-   * 
+   * This function executes if the character jumps on top of the enemy 
    * @param {*} enemy - the enemy
    */
   jumpOnTop(enemy) {
@@ -212,8 +204,7 @@ class World {
 /**
  *  This function checks if the character can jump on the enemy
  * 
- * @param {*} enemy - the enemy 
- * @returns 
+ * @param {*} enemy - the enemy  
  */
   canJumpOn(enemy) {
     return this.character.y <= 200 && this.character.isHurt() && !(enemy instanceof Endboss)
@@ -237,7 +228,6 @@ class World {
  *  This function checks if the bottle can be collected
  * 
  * @param {*} bottle - the bottle
- * @returns 
  */
   canCollectBottle(bottle){
     return !bottle.bottleUnbroken && bottle.isColliding(this.character) && !bottle.bottleLandedAfterThrow
@@ -281,25 +271,18 @@ class World {
 
 /**
  * This function returns the percentage of the coins
- * 
  * @returns the percentage of the coins
  */
-  getPercentageOfCoins() {
-    return (this.coinAmount / this.maxCoins) * 100;
-  }
+  getPercentageOfCoins() {return (this.coinAmount / this.maxCoins) * 100}
 
 /**
  *  This function returns the percentage of the bottles
- * 
  * @returns the percentage of the bottles
  */
-  getPercentageOfBottles() {
-    return (this.bottleAmount / 5) * 100;
-  }
+  getPercentageOfBottles() { return (this.bottleAmount / 5) * 100}
 
 /**
- *  This function returns the percentage of the endboss
- * 
+ *  This function returns the percentage of the endboss  
  * @returns the percentage of the endboss
  */
   getPercentageOfEndboss() {
@@ -364,7 +347,7 @@ class World {
    */
   drawGameOverScreen() {
     if(world.character.isDead() && world.character.y > 800){
-      this.addToMap(this.level.screen[1]);;
+      this.addToMap(this.level.screen[1]);
       this.gameOverSound()
     }
   }
@@ -381,35 +364,25 @@ class World {
   }
 
 /**
- *  This function adds objects to the map
- * 
+ *  This function adds objects to the map  
  * @param {*} objects - the objects that should be added to the map
  */
   addObjectToMap(objects) {
-    objects.forEach((ob) => {
-      this.addToMap(ob);
-    });
+    objects.forEach((ob) => {this.addToMap(ob)});
   }
 
 /**
  * This function adds an object to the map
- *  
  * @param {*} mo - the object that should be added to the map
  */
   addToMap(mo) {
-    if (mo.otherDirection) {
-      this.mirrorImage(mo);
-    }
+    if (mo.otherDirection) {this.mirrorImage(mo)}
     mo.draw(this.ctx);
-
-    if (mo.otherDirection) {
-      this.restoreImage(mo);
-    }
+    if (mo.otherDirection) {this.restoreImage(mo)}
   }
 
 /**
  * This function mirrors the image
- * 
  * @param {*} mo - the object
  */
   mirrorImage(mo) {

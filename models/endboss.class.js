@@ -145,8 +145,8 @@ class Endboss extends MovableObject {
    async endbossAnimation() {
       for (let cycles = 0; cycles < 100; cycles++) {
          await this.endbossWalk(2000);
-         await this.endbossAlert(2000);
-         await this.endbossAttack(1000);
+         await this.endbossAlert(500);
+         await this.endbossAttack(500);
       }
    }
    
@@ -158,7 +158,7 @@ class Endboss extends MovableObject {
  */
    endbossWalk(duration) {
       return new Promise((resolve) => {
-         this.speed = Math.random() * 20
+         this.speed = Math.random() * 40
           let intervalEndbossWalk = setInterval(() => {
               if (!this.isHurt() && !this.isDead) {
                   this.moveLeft();
@@ -217,7 +217,17 @@ endbossAttack(duration) {
        }, duration);
    });
 }
+
+
+/**
+ *  *  This function checks if the object is hurt
+ * 
+ * @returns {boolean} - returns true if the object is hurt
+ */
+isHurt() {
+    let timePassed = new Date().getTime() - this.lastHit ;
+    timePassed = timePassed / 500 ;
+    return timePassed < 0.2 ;
 }
-
-
+}
 

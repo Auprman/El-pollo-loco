@@ -76,6 +76,9 @@ function restartGame(){
   startGame();
 }
 
+/**
+ * This function saves the actual state of muted and musicMuted to the local storage
+ */
 function saveMutedToLocalStorage() {  
   if(muted == undefined || musicMuted == undefined){
     muted = false;
